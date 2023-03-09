@@ -10,6 +10,7 @@ pub mod sort;
 fn main() -> Result<(), eframe::Error> {
     let options = eframe::NativeOptions {
         initial_window_size: Some(egui::vec2(1280.0, 720.0)),
+        vsync: false,
         ..Default::default()
     };
     eframe::run_native(
@@ -30,7 +31,7 @@ impl MyApp {
             my_sorter: Box::new(BubbleSort::<i64>::default()),
             step: 0,
         };
-        let mut vec: Vec<i64> = (0..50).collect();
+        let mut vec: Vec<i64> = (0..100).collect();
         vec.shuffle(&mut thread_rng());
         let init_vec = vec.iter().map(|x| *x).collect();
         x.my_sorter.init(init_vec);
@@ -70,6 +71,7 @@ impl eframe::App for MyApp {
                 .allow_drag(false)
                 .allow_scroll(false);
             plot.show(ui, |plot_ui| plot_ui.bar_chart(chart));
+
             ui.ctx().request_repaint(); // Makes the screen repaint
         });
     }

@@ -48,7 +48,7 @@ where
 
 impl<T> Sorter for BubbleSort<T>
 where
-    T: Clone + Copy + Ord,
+    T: Clone + Ord,
 {
     type ElementType = T;
 
