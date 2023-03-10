@@ -1,8 +1,22 @@
 use egui::{plot::Bar, Color32};
+use rand::{seq::SliceRandom, thread_rng};
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub enum SortType {
     BubbleSort,
+    BogoSort,
+}
+
+impl SortType {
+    pub(crate) fn sorter_from<T>(&self) -> Box<dyn Sorter<ElementType = T>>
+    where
+        T: Default + Ord + Clone + 'static,
+    {
+        match self {
+            SortType::BubbleSort => Box::new(BubbleSort::<T>::default()),
+            SortType::BogoSort => Box::new(BogoSort::<T>::default()),
+        }
+    }
 }
 
 pub(crate) trait Sorter {
@@ -19,6 +33,11 @@ pub struct BubbleSort<T> {
     current_vector: Vec<T>,
     index: usize,
     ceiling: usize,
+}
+
+#[derive(Default)]
+pub struct BogoSort<T> {
+    current_vector: Vec<T>,
 }
 
 impl<T> Sorter for BubbleSort<T>
@@ -68,5 +87,31 @@ where
             return_vec.push(bar);
         }
         return_vec
+    }
+}
+
+impl<T> Sorter for BogoSort<T>
+where
+    T: Ord + Clone,
+{
+    type ElementType = T;
+
+    fn next(&mut self) {
+        if self.current_vector.windows(2).all(|w| w[0] <= w[1]) {
+            return;
+        }
+        self.current_vector.shuffle(&mut thread_rng());
+    }
+
+    fn get_vec(&self) -> &Vec<T> {
+        &self.current_vector
+    }
+
+    fn init(&mut self, v: Vec<T>) {
+        self.current_vector = v;
+    }
+
+    fn color(&mut self, v: &Vec<Bar>) -> Vec<Bar> {
+        v.clone()
     }
 }
