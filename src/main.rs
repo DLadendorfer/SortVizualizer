@@ -3,7 +3,6 @@ use egui::{plot::Bar, widgets::*};
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use sort::*;
-use std::vec;
 
 pub mod sort;
 
@@ -21,7 +20,7 @@ fn main() -> Result<(), eframe::Error> {
 }
 
 struct MyApp {
-    my_sorter: Box<dyn sort::Sorter<ElementType = i64, Item = Vec<i64>>>,
+    my_sorter: Box<dyn sort::Sorter<ElementType = i64>>,
     step: u64,
 }
 
@@ -33,8 +32,7 @@ impl MyApp {
         };
         let mut vec: Vec<i64> = (0..100).collect();
         vec.shuffle(&mut thread_rng());
-        let init_vec = vec.iter().map(|x| *x).collect();
-        x.my_sorter.init(init_vec);
+        x.my_sorter.init(vec);
         return x;
     }
 }
@@ -43,15 +41,14 @@ impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         self.step += 1;
 
-        let option = self.my_sorter.next();
-        let mut v = match option {
-            Some(x) => x
-                .iter()
-                .enumerate()
-                .map(|(x, y)| Bar::new(x as f64 + 0.25, *y as f64))
-                .collect(),
-            None => vec![],
-        };
+        self.my_sorter.next();
+        let mut v = self
+            .my_sorter
+            .get_vec()
+            .iter()
+            .enumerate()
+            .map(|(x, y)| Bar::new(x as f64 + 0.25, *y as f64))
+            .collect();
 
         v = self.my_sorter.color(&v).clone();
 

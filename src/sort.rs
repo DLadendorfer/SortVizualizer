@@ -5,10 +5,12 @@ pub enum SortType {
     BubbleSort,
 }
 
-pub(crate) trait Sorter: Iterator {
+pub(crate) trait Sorter {
     type ElementType: Clone + Ord;
 
     fn init(&mut self, v: Vec<Self::ElementType>);
+    fn next(&mut self);
+    fn get_vec(&self) -> Vec<Self::ElementType>;
     fn color(&mut self, v: &Vec<Bar>) -> Vec<Bar>;
 }
 
@@ -19,15 +21,15 @@ pub struct BubbleSort<T> {
     ceiling: usize,
 }
 
-impl<T> Iterator for BubbleSort<T>
+impl<T> Sorter for BubbleSort<T>
 where
     T: Clone + Ord,
 {
-    type Item = Vec<T>;
+    type ElementType = T;
 
-    fn next(&mut self) -> Option<Vec<T>> {
+    fn next(&mut self) {
         if self.ceiling == 0 {
-            return Some(self.current_vector.clone());
+            return;
         }
         let mut vec = self.current_vector.clone();
         let index = self.index;
@@ -42,19 +44,15 @@ where
             self.index = 0;
         }
         self.current_vector = vec;
-        Some(self.current_vector.clone())
     }
-}
 
-impl<T> Sorter for BubbleSort<T>
-where
-    T: Clone + Ord,
-{
-    type ElementType = T;
+    fn get_vec(&self) -> Vec<T> {
+        self.current_vector.clone()
+    }
 
     fn init(&mut self, v: Vec<T>) {
         self.ceiling = v.len() - 1;
-        self.current_vector = v.clone();
+        self.current_vector = v;
     }
 
     fn color(&mut self, v: &Vec<Bar>) -> Vec<Bar> {
