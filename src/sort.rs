@@ -10,7 +10,7 @@ pub(crate) trait Sorter {
 
     fn init(&mut self, v: Vec<Self::ElementType>);
     fn next(&mut self);
-    fn get_vec(&self) -> Vec<Self::ElementType>;
+    fn get_vec(&self) -> &Vec<Self::ElementType>;
     fn color(&mut self, v: &Vec<Bar>) -> Vec<Bar>;
 }
 
@@ -46,8 +46,8 @@ where
         self.current_vector = vec;
     }
 
-    fn get_vec(&self) -> Vec<T> {
-        self.current_vector.clone()
+    fn get_vec(&self) -> &Vec<T> {
+        &self.current_vector
     }
 
     fn init(&mut self, v: Vec<T>) {

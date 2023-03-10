@@ -30,7 +30,7 @@ impl MyApp {
             my_sorter: Box::new(BubbleSort::<i64>::default()),
             step: 0,
         };
-        let mut vec: Vec<i64> = (0..100).collect();
+        let mut vec: Vec<i64> = (0..500).collect();
         vec.shuffle(&mut thread_rng());
         x.my_sorter.init(vec);
         return x;
