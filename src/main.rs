@@ -1,5 +1,5 @@
 use eframe::egui;
-use egui::{plot::Bar, widgets::*};
+use egui::plot;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use sort::*;
@@ -10,6 +10,7 @@ struct MyApp {
     sort_type: SortType,
     my_sorter: Box<dyn sort::Sorter<ElementType = i64>>,
     step: u64,
+    paused: bool,
 }
 
 impl MyApp {
@@ -18,6 +19,7 @@ impl MyApp {
             sort_type: SortType::BubbleSort,
             my_sorter: SortType::sorter_from(&SortType::BubbleSort),
             step: 0,
+            paused: false,
         };
         let mut vec: Vec<i64> = (0..100).collect();
         vec.shuffle(&mut thread_rng());
@@ -28,29 +30,22 @@ impl MyApp {
 
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        self.step += 1;
-
-        self.my_sorter.next();
-        let mut v = self
-            .my_sorter
-            .get_vec()
-            .iter()
-            .enumerate()
-            .map(|(x, y)| Bar::new(x as f64 + 0.25, *y as f64))
-            .collect();
-
-        v = self.my_sorter.color(&v).clone();
-
-        let chart = plot::BarChart::new(v);
-
+        ctx.request_repaint();
         let mut sorter = self.sort_type;
 
         egui::CentralPanel::default().show(ctx, |ui| {
-            egui::ComboBox::from_label("Sort type:")
+            egui::ComboBox::from_label("Sort type")
                 .selected_text(format!("{:?}", sorter))
                 .show_ui(ui, |ui_drop| {
                     ui_drop.selectable_value(&mut sorter, SortType::BubbleSort, "BubbleSort");
                     ui_drop.selectable_value(&mut sorter, SortType::BogoSort, "BogoSort");
+                    ui_drop.selectable_value(&mut sorter, SortType::InsertionSort, "Insertion Sort")
+                });
+            egui::ComboBox::from_label("Pause")
+                .selected_text(format!("{:?}", self.paused))
+                .show_ui(ui, |ui_drop| {
+                    ui_drop.selectable_value(&mut self.paused, false, "Play");
+                    ui_drop.selectable_value(&mut self.paused, true, "Pause");
                 });
 
             if sorter != self.sort_type {
@@ -61,15 +56,31 @@ impl eframe::App for MyApp {
                 self.my_sorter.init(vec)
             }
 
+            if !self.paused {
+                self.my_sorter.next();
+                self.step += 1;
+            }
+
             let plot = plot::Plot::new("BarChart")
                 .allow_zoom(false)
                 .allow_drag(false)
                 .allow_scroll(false);
-            plot.show(ui, |plot_ui| plot_ui.bar_chart(chart));
 
-            ui.ctx().request_repaint(); // Makes the screen repaint
+            plot.show(ui, |plot_ui| self.my_sorter.visualize(plot_ui, convert));
+        });
+
+        ctx.input(|i| {
+            if self.paused && i.key_pressed(egui::Key::N) {
+                self.my_sorter.next();
+            } else if i.key_pressed(egui::Key::Space) {
+                self.paused = !self.paused;
+            }
         });
     }
+}
+
+fn convert(x: i64) -> f64 {
+    x as f64
 }
 
 fn main() -> Result<(), eframe::Error> {
