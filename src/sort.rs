@@ -173,7 +173,6 @@ where
         }
         let val = self.current_vector[self.index].clone();
         let i = self.binary_search(0, self.index, &val);
-        println!("Inserting at location: {}", i);
         self.current_vector.insert(i, val);
         self.current_vector.remove(self.index);
         self.index += 1;
