@@ -4,6 +4,8 @@ use rand::seq::SliceRandom;
 use rand::thread_rng;
 use sort::*;
 
+pub mod bubble_sort;
+pub mod insertion_sort;
 pub mod sort;
 
 struct MyApp {
