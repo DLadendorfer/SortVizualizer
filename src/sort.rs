@@ -168,13 +168,13 @@ where
     type ElementType = T;
 
     fn next(&mut self) {
-        if self.index >= self.current_vector.len() - 1 {
+        if self.index >= self.current_vector.len() {
             return;
         }
         let val = self.current_vector[self.index].clone();
         let i = self.binary_search(0, self.index, &val);
         self.current_vector.insert(i, val);
-        self.current_vector.remove(self.index);
+        self.current_vector.remove(self.index + 1);
         self.index += 1;
     }
 
