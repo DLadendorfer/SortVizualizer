@@ -15,8 +15,7 @@ repositories {
 
 dependencies {
 	implementation 'com.bulenkov:darcula:2018.2'
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 }
 
 tasks.named('test') {
