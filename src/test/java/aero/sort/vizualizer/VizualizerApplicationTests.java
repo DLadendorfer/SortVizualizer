@@ -7,7 +7,7 @@ class VizualizerApplicationTests {
 
 	@Test
 	void assertTrue() {
-		Assertions.assertTrue(true);
+		Assertions.assertTrue(false);
 	}
 
 }
