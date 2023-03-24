@@ -7,7 +7,10 @@ use sort::*;
 pub mod bogo_sort;
 pub mod bubble_sort;
 pub mod insertion_sort;
+pub mod merge_sort;
 pub mod sort;
+
+const VEC_SIZE: i64 = 128;
 
 struct MyApp {
     sort_type: SortType,
@@ -24,7 +27,7 @@ impl MyApp {
             step: 0,
             paused: false,
         };
-        let mut vec: Vec<i64> = (0..100).collect();
+        let mut vec: Vec<i64> = (0..VEC_SIZE).collect();
         vec.shuffle(&mut thread_rng());
         x.my_sorter.init(vec);
         return x;
@@ -42,7 +45,12 @@ impl eframe::App for MyApp {
                 .show_ui(ui, |ui_drop| {
                     ui_drop.selectable_value(&mut sorter, SortType::BubbleSort, "BubbleSort");
                     ui_drop.selectable_value(&mut sorter, SortType::BogoSort, "BogoSort");
-                    ui_drop.selectable_value(&mut sorter, SortType::InsertionSort, "Insertion Sort")
+                    ui_drop.selectable_value(
+                        &mut sorter,
+                        SortType::InsertionSort,
+                        "Insertion Sort",
+                    );
+                    ui_drop.selectable_value(&mut sorter, SortType::MergeSort, "MergeSort");
                 });
             egui::ComboBox::from_label("Pause")
                 .selected_text(format!("{:?}", self.paused))
@@ -54,7 +62,7 @@ impl eframe::App for MyApp {
             if sorter != self.sort_type {
                 self.sort_type = sorter;
                 self.my_sorter = self.sort_type.sorter_from();
-                let mut vec: Vec<i64> = (0..100).collect();
+                let mut vec: Vec<i64> = (0..VEC_SIZE).collect();
                 vec.shuffle(&mut thread_rng());
                 self.my_sorter.init(vec)
             }

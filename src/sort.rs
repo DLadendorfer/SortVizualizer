@@ -6,12 +6,14 @@ use egui::{
 use crate::bogo_sort::BogoSort;
 use crate::bubble_sort::BubbleSort;
 use crate::insertion_sort::InsertionSort;
+use crate::merge_sort::MergeSort;
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum SortType {
     BubbleSort,
     BogoSort,
     InsertionSort,
+    MergeSort,
 }
 
 impl SortType {
@@ -23,6 +25,7 @@ impl SortType {
             SortType::BubbleSort => Box::new(BubbleSort::<T>::default()),
             SortType::BogoSort => Box::new(BogoSort::<T>::default()),
             SortType::InsertionSort => Box::new(InsertionSort::<T>::default()),
+            SortType::MergeSort => Box::new(MergeSort::<T>::default()),
         }
     }
 }
