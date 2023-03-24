@@ -49,3 +49,14 @@ pub(crate) fn color(v: &mut Vec<Bar>, special: Vec<usize>, base: Color32, highli
         };
     }
 }
+
+pub(crate) fn color_highlight(v: &mut Vec<Bar>, special: Vec<usize>, highlight: Color32) {
+    for mut bar in v {
+        let arg = bar.argument as usize;
+        bar.fill = if special.contains(&arg) {
+            highlight
+        } else {
+            bar.fill
+        };
+    }
+}

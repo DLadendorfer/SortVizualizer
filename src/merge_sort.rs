@@ -1,4 +1,4 @@
-use crate::sort::{color, Sorter};
+use crate::sort::{color, color_highlight, Sorter};
 use egui::{
     plot::{self, Bar, PlotUi},
     Color32,
@@ -74,13 +74,25 @@ where
     }
 
     fn visualize(&mut self, ui: &mut PlotUi, convert: fn(Self::ElementType) -> f64) {
-        let v = self
+        let mut v = self
             .current_vector
             .iter()
             .enumerate()
             .map(|(x, y)| Bar::new(x as f64 + 0.25, convert(*y) as f64))
             .collect();
 
+        color(
+            &mut v,
+            (self.index..self.index + self.block_size).collect(),
+            Color32::DARK_GRAY,
+            Color32::RED,
+        );
+
+        color_highlight(
+            &mut v,
+            (self.index + self.block_size..self.index + 2 * self.block_size).collect(),
+            Color32::GREEN,
+        );
         let chart = plot::BarChart::new(v);
 
         ui.bar_chart(chart);
