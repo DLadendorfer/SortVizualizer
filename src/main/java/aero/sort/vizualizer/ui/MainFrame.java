@@ -26,16 +26,21 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         createFrame();
         add(new JLabel("Top"), BorderLayout.NORTH);
-        add(new JLabel("Center"), BorderLayout.CENTER);
+        var center = new JPanel();
+        center.setBackground(center.getBackground().darker());
+        center.add(new JLabel("Center"));
+        add(center, BorderLayout.CENTER);
         add(new JLabel("Bottom"), BorderLayout.SOUTH);
     }
 
     private void createFrame() {
+        setTitle(FrameConstants.TITLE);
         setMinimumSize(FrameConstants.MIN_DIMENSION);
         setPreferredSize(FrameConstants.PREFERRED_DIMENSION);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setVisible(true);
         pack();
+        setLocationRelativeTo(null);
     }
 }
