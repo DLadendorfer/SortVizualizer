@@ -25,12 +25,16 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         createFrame();
+        add(new JLabel("Top"), BorderLayout.NORTH);
+        add(new JLabel("Center"), BorderLayout.CENTER);
+        add(new JLabel("Bottom"), BorderLayout.SOUTH);
     }
 
     private void createFrame() {
         setMinimumSize(FrameConstants.MIN_DIMENSION);
         setPreferredSize(FrameConstants.PREFERRED_DIMENSION);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
         setVisible(true);
         pack();
     }
