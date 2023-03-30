@@ -9,9 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.plaf.InternalFrameUI;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.awt.*;
+import java.util.UUID;
 
 /**
  * Main application frame.
@@ -28,10 +30,17 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         createFrame();
-        add(new JLabel("Top"), BorderLayout.NORTH);
+        var actionPanel = new JPanel();
+        var button = new JButton("Sort");
+        button.addActionListener(e -> logger.debug("Sort pressed. " + UUID.randomUUID().toString()));
+
+        actionPanel.add(button);
+        actionPanel.add(new JLabel("Actions"));
+        add( actionPanel, BorderLayout.WEST);
         var center = new JPanel();
         center.setBackground(Theme.BLACK);
         var desktop = new JDesktopPane();
+        desktop.setBackground(Theme.BLACK);
         desktop.add(createInternalFrame());
         desktop.add(createInternalFrame());
         desktop.add(createInternalFrame());
@@ -47,15 +56,15 @@ public class MainFrame extends JFrame {
             @Override
             public void setUI(InternalFrameUI ui) {
                 super.setUI(ui); // this gets called internally when updating the ui and makes the northPane reappear
-                BasicInternalFrameUI frameUI = (BasicInternalFrameUI) getUI(); // so...
-//                if (frameUI != null) frameUI.setNorthPane(null); // lets get rid of it
-                if (frameUI != null) frameUI.getNorthPane().setBackground(Theme.GREEN);
+//                BasicInternalFrameUI frameUI = (BasicInternalFrameUI) getUI(); // so...
+//                if (frameUI != null) {
+//                    frameUI.setNorthPane(null); // lets get rid of it
+//                }
             }
         };
         intern.setBounds(10, 10, 600, 600);
         intern.setResizable(true);
         // create a Button
-        JButton b = new JButton("button");
 
         // create a label to display text
         var l = new JLabel("This is a JInternal Frame  ");
@@ -66,7 +75,6 @@ public class MainFrame extends JFrame {
 
         // add label and button to panel
         p.add(l);
-        p.add(b);
         p.setPreferredSize(new Dimension(600, 600));
 
 
