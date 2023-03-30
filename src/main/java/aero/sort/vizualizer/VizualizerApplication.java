@@ -5,10 +5,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class VizualizerApplication {
+    private static final Logger logger = LoggerFactory.getLogger(VizualizerApplication.class);
 
     public static void main(String[] args) {
-        Logger logger = LoggerFactory.getLogger(VizualizerApplication.class);
-        logger.info("Hello, World!");
+
         MainFrame frame = new MainFrame();
+        logger.info("Application started. Awaiting input.");
     }
 }

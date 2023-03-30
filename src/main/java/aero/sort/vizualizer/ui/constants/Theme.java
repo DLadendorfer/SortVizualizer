@@ -3,7 +3,10 @@ package aero.sort.vizualizer.ui.constants;
 import java.awt.*;
 
 /**
- * Contains all theme constants.
+ * Contains all theme constants. These should be the only forced colors in the application. Meaning that if a
+ * components foreground or background color should be changed, only colors of this class should be referenced.
+ *
+ * In no circumstance should any invocation of new Color() be necessary in other parts of the application.
  *
  * @author Daniel Ladendorfer
  */
@@ -18,6 +21,8 @@ public class Theme {
     public static final Color WHITE = new Color(0xDCDFE4);
     public static final Color BLACK = new Color(0x282C34);
     public static final Color GRAY = new Color(0x5A6374);
+    public static final Color BACKGROUND = new Color(0x282C34);
 
+    public static final Color FOREGROUND = new Color(0xDCDFE4);
 
 }
