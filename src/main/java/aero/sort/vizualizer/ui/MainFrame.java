@@ -1,13 +1,12 @@
 package aero.sort.vizualizer.ui;
 
+import aero.sort.vizualizer.ui.components.status.StatusBar;
 import aero.sort.vizualizer.ui.constants.FrameConstants;
 import aero.sort.vizualizer.ui.laf.UIBindings;
-import com.bulenkov.darcula.DarculaLaf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicLookAndFeel;
 import java.awt.*;
 
 /**
@@ -30,7 +29,7 @@ public class MainFrame extends JFrame {
         center.setBackground(center.getBackground().darker());
         center.add(new JLabel("Center"));
         add(center, BorderLayout.CENTER);
-        add(new JLabel("Bottom"), BorderLayout.SOUTH);
+        add(new StatusBar(), BorderLayout.SOUTH);
     }
 
     private void createFrame() {
