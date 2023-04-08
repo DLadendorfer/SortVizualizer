@@ -1,21 +1,23 @@
 package aero.sort.vizualizer.ui;
 
+import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.ui.components.action.ActionPanel;
+import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 import aero.sort.vizualizer.ui.components.status.StatusBar;
 import aero.sort.vizualizer.ui.constants.FrameConstants;
 import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.ui.laf.UIBindings;
-import org.apache.logging.log4j.core.appender.rolling.action.Action;
+import com.sun.tools.javac.Main;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.plaf.InternalFrameUI;
 import java.awt.*;
-import java.util.UUID;
+import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Main application frame.
@@ -23,66 +25,37 @@ import java.util.UUID;
  * @author Daniel Ladendorfer
  */
 public class MainFrame extends JFrame {
-
+    private static final MainFrame INSTANCE = new MainFrame();
     private static final Logger logger = LoggerFactory.getLogger(MainFrame.class);
+    private final JDesktopPane desktop;
 
-    static {
-        UIBindings.setupLookAndFeel();
-    }
 
-    public MainFrame() {
+    private MainFrame() {
         createFrame();
         var actionPanel = new ActionPanel();
         add(actionPanel, BorderLayout.WEST);
         var center = new JPanel();
         center.setBackground(Theme.BLACK);
-        var desktop = new JDesktopPane();
+        desktop = new JDesktopPane();
         desktop.setBackground(Theme.BLACK);
-        desktop.add(createInternalFrame());
-        desktop.add(createInternalFrame());
-        desktop.add(createInternalFrame());
         desktop.setVisible(true);
         add(desktop, BorderLayout.CENTER);
         add(new StatusBar(), BorderLayout.SOUTH);
         pack();
     }
 
-    @NotNull
-    private static JInternalFrame createInternalFrame() {
-        JInternalFrame intern = new JInternalFrame("Test") {
-            @Override
-            public void setUI(InternalFrameUI ui) {
-                super.setUI(ui); // this gets called internally when updating the ui and makes the northPane reappear
-//                BasicInternalFrameUI frameUI = (BasicInternalFrameUI) getUI(); // so...
-//                if (frameUI != null) {
-//                    frameUI.setNorthPane(null); // lets get rid of it
-//                }
-            }
-        };
-        intern.setBounds(10, 10, 600, 600);
-        intern.setResizable(true);
-        // create a Button
-
-        // create a label to display text
-        var l = new JLabel("This is a JInternal Frame  ");
-
-        // create a panel
-        JPanel p = new JPanel();
-        p.setBackground(Theme.BACKGROUND);
-
-        // add label and button to panel
-        p.add(l);
-        p.setPreferredSize(new Dimension(600, 600));
-
-
-        // set visibility internal frame
-        intern.setVisible(true);
-
-        // add panel to internal frame
-        intern.add(p);
-        // set the size of frame
-        return intern;
+    /**
+     * Returns the singleton instance of the main frame.
+     * @return the application main frame
+     */
+    public static MainFrame getInstance() {
+        return INSTANCE;
     }
+
+    public void createInternalFrame(SortOptions options) {
+        desktop.add(new SortingFrame(options));
+    }
+
 
     private void createFrame() {
         setTitle(FrameConstants.TITLE);

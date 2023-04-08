@@ -27,7 +27,7 @@ public class Rethrower {
     public static void wrapAndRethrow(String message, Throwable t) {
         Objects.requireNonNull(message, "Message must not be null");
         Objects.requireNonNull(t, "Cannot wrap null throwable");
-        logger.trace("Rewrapping throwable '{}' with message '{}'.", t.getClass(), t.getMessage());
+        logger.trace("Wrapping throwable '{}' with message '{}'.", t.getClass(), t.getMessage());
         logger.error(message);
         throw new RuntimeException(message, t);
     }

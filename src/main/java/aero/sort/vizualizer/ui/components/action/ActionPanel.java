@@ -1,7 +1,10 @@
 package aero.sort.vizualizer.ui.components.action;
 
-import aero.sort.vizualizer.ui.components.status.StatusBar;
-import aero.sort.vizualizer.ui.constants.Theme;
+import aero.sort.vizualizer.data.options.Algorithm;
+import aero.sort.vizualizer.data.options.SortOptions;
+import aero.sort.vizualizer.data.options.Style;
+import aero.sort.vizualizer.data.options.Visualization;
+import aero.sort.vizualizer.ui.MainFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +44,17 @@ public class ActionPanel extends JPanel {
     private JPanel createAddFramePanel() {
         var panel = new JPanel(new GridBagLayout());
         var constraints = createGridBagConstraints();
+        var algorithmComboBox = new JComboBox<>(Algorithm.values());
+        var visualizationComboBox = new JComboBox<>(Visualization.values());
+        var styleComboBox = new JComboBox<>(Style.values());
+        var addButton = new JButton("Add Sorter");
+        addButton.addActionListener(e -> MainFrame.getInstance().createInternalFrame(
+                new SortOptions((Algorithm) algorithmComboBox.getSelectedItem(),
+                        (Visualization) visualizationComboBox.getSelectedItem(),
+                        (Style) styleComboBox.getSelectedItem()
+                ))
+        );
+
         panel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
         panel.setAlignmentY(JPanel.TOP_ALIGNMENT);
         constraints.gridwidth = 2;
@@ -54,21 +68,21 @@ public class ActionPanel extends JPanel {
         constraints.gridx = 0;
         panel.add(new JLabel("Algorithm: "), constraints);
         constraints.gridx++;
-        panel.add(new JComboBox<>(Algorithms.values()), constraints);
+        panel.add(algorithmComboBox, constraints);
         constraints.gridx = 0;
         constraints.gridy++;
         panel.add(new JLabel("Visualization: "), constraints);
         constraints.gridx++;
-        panel.add(new JComboBox<>(Visualization.values()), constraints);
+        panel.add(visualizationComboBox, constraints);
         constraints.gridx = 0;
         constraints.gridy++;
         panel.add(new JLabel("Style: "), constraints);
         constraints.gridx++;
-        panel.add(new JComboBox<>(Style.values()), constraints);
+        panel.add(styleComboBox, constraints);
         constraints.gridy++;
         constraints.gridx = 0;
         constraints.gridwidth = 2;
-        panel.add(new JButton("Add Sorter"), constraints);
+        panel.add(addButton, constraints);
         constraints.gridy++;
         constraints.weighty = 420.69f; // do not delete this or else the ui will break
         panel.add(new JPanel(), constraints);
