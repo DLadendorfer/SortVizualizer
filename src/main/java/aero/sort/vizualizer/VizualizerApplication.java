@@ -1,13 +1,19 @@
 package aero.sort.vizualizer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import aero.sort.vizualizer.app.Application;
+import aero.sort.vizualizer.app.PreLaunchHook;
+import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 
+/**
+ * Entry point of the application.
+ * This class should only contain the main method and handles argument parsing.
+ *
+ * @author Daniel Ladendorfer
+ */
 public class VizualizerApplication {
 
-	public static void main(String[] args) {
-		Logger logger = LoggerFactory.getLogger(VizualizerApplication.class);
-		logger.info("Hello, World!");
-	}
-
+    public static void main(String[] args) {
+        PreLaunchHook.validateArguments(args);
+        Application.launch();
+    }
 }
