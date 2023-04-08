@@ -48,12 +48,7 @@ public class ActionPanel extends JPanel {
         var visualizationComboBox = new JComboBox<>(Visualization.values());
         var styleComboBox = new JComboBox<>(Style.values());
         var addButton = new JButton("Add Sorter");
-        addButton.addActionListener(e -> MainFrame.getInstance().createInternalFrame(
-                new SortOptions((Algorithm) algorithmComboBox.getSelectedItem(),
-                        (Visualization) visualizationComboBox.getSelectedItem(),
-                        (Style) styleComboBox.getSelectedItem()
-                ))
-        );
+        addButton.addActionListener(e -> MainFrame.getInstance().createInternalFrame(new SortOptions((Algorithm) algorithmComboBox.getSelectedItem(), (Visualization) visualizationComboBox.getSelectedItem(), (Style) styleComboBox.getSelectedItem())));
 
         panel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
         panel.setAlignmentY(JPanel.TOP_ALIGNMENT);
@@ -107,6 +102,7 @@ public class ActionPanel extends JPanel {
         var step = new JButton("Step");
         var stop = new JButton("Stop");
         sort.setSelected(true);
+        sort.addActionListener(e -> MainFrame.getInstance().getController().sort());
         panel.add(sort);
         panel.add(step);
         panel.add(stop);

@@ -1,5 +1,6 @@
 package aero.sort.vizualizer.ui;
 
+import aero.sort.vizualizer.controller.Controller;
 import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.ui.components.action.ActionPanel;
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
@@ -28,6 +29,7 @@ public class MainFrame extends JFrame {
     private static final MainFrame INSTANCE = new MainFrame();
     private static final Logger logger = LoggerFactory.getLogger(MainFrame.class);
     private final JDesktopPane desktop;
+    private final Controller controller;
 
 
     private MainFrame() {
@@ -42,10 +44,12 @@ public class MainFrame extends JFrame {
         add(desktop, BorderLayout.CENTER);
         add(new StatusBar(), BorderLayout.SOUTH);
         pack();
+        controller = new Controller(this);
     }
 
     /**
      * Returns the singleton instance of the main frame.
+     *
      * @return the application main frame
      */
     public static MainFrame getInstance() {
@@ -56,6 +60,13 @@ public class MainFrame extends JFrame {
         desktop.add(new SortingFrame(options));
     }
 
+    public Controller getController() {
+        return controller;
+    }
+
+    public JDesktopPane getDesktop() {
+        return desktop;
+    }
 
     private void createFrame() {
         setTitle(FrameConstants.TITLE);
