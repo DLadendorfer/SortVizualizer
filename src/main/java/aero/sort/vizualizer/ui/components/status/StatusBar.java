@@ -34,6 +34,7 @@ public class StatusBar extends JPanel {
     private JPanel createTimerPanel() {
         var panel = new JPanel();
         panel.add(new JLabel("00:00"));
+        panel.setBackground(getBackground().darker());
         return panel;
     }
 
@@ -45,6 +46,7 @@ public class StatusBar extends JPanel {
         var messageLabel = new JLabel();
         createAndRegisterLogAppender(logLevelLabel, messageLabel);
         var constraints = createGridBagConstraints();
+        panel.setBackground(getBackground().darker());
         panel.add(logLevelLabel, constraints);
         panel.add(messageLabel, constraints);
 
@@ -63,17 +65,19 @@ public class StatusBar extends JPanel {
         var panel = new JPanel();
 
         panel.add(new JLabel("Ready"));
+        panel.setBackground(getBackground().darker());
         return panel;
     }
 
     private void initialize() {
-        //logger.debug("Initializing StatusBar");
+        logger.debug("Initializing StatusBar");
 
         createPanel();
     }
 
     private void createPanel() {
         setLayout(new GridBagLayout());
+        setBackground(getBackground().darker());
         var constraints = createGridBagConstraints();
         constraints.weightx = 0.9;
         add(logPanel, constraints);

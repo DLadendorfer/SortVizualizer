@@ -13,7 +13,7 @@ public class Application {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
     public static void launch() {
         logger.info("Launching application...");
-        MainFrame frame = new MainFrame();
+        new MainFrame();
         logger.info("Application start successful");
     }
 }

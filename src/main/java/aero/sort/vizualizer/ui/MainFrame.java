@@ -1,9 +1,11 @@
 package aero.sort.vizualizer.ui;
 
+import aero.sort.vizualizer.ui.components.action.ActionPanel;
 import aero.sort.vizualizer.ui.components.status.StatusBar;
 import aero.sort.vizualizer.ui.constants.FrameConstants;
 import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.ui.laf.UIBindings;
+import org.apache.logging.log4j.core.appender.rolling.action.Action;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,13 +32,8 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         createFrame();
-        var actionPanel = new JPanel();
-        var button = new JButton("Sort");
-        button.addActionListener(e -> logger.debug("Sort pressed. " + UUID.randomUUID().toString()));
-
-        actionPanel.add(button);
-        actionPanel.add(new JLabel("Actions"));
-        add( actionPanel, BorderLayout.WEST);
+        var actionPanel = new ActionPanel();
+        add(actionPanel, BorderLayout.WEST);
         var center = new JPanel();
         center.setBackground(Theme.BLACK);
         var desktop = new JDesktopPane();

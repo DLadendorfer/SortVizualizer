@@ -6,6 +6,8 @@ import aero.sort.vizualizer.app.PreLaunchHook;
 /**
  * Entry point of the application.
  * This class should only contain the main method and handles argument parsing.
+ *
+ * @author Daniel Ladendorfer
  */
 public class VizualizerApplication {
 
