@@ -22,6 +22,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Internal frame that visualizes the sorting process of a sort algorithm.
@@ -77,6 +78,13 @@ public class SortingFrame extends JInternalFrame {
             case Bars -> new Bars(renderPanel, style, steps);
         };
 
-        visualizer.render();
+        IntStream.range(0, steps.size()).forEach(step -> {
+            visualizer.render();
+            try {
+                Thread.sleep(250L);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

@@ -30,11 +30,13 @@ public class Controller {
     public void sort() {
         new Thread(() -> {
             var desktop = mainFrame.getDesktop();
-            var ints = new ArrayList<>(IntStream.rangeClosed(1, 15).boxed().toList());
+            int arrayLength = 20;
+            var ints = new ArrayList<>(IntStream.rangeClosed(1, arrayLength).boxed().toList());
             Collections.shuffle(ints);
             for (var frame : desktop.getAllFrames()) {
                 if (frame instanceof SortingFrame sortingFrame) {
-                    sortingFrame.sort(ints.toArray(new Integer[15]));
+                    new Thread(() ->
+                            sortingFrame.sort(ints.toArray(new Integer[arrayLength]))).start();
                 }
 
                 // else ? maybe there will be additional frame types in the future so we do not throw an exception

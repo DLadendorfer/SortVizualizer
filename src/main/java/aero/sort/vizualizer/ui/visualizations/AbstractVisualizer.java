@@ -4,13 +4,14 @@ import aero.sort.vizualizer.algorithms.StepResult;
 import aero.sort.vizualizer.data.options.styles.IStyle;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.LinkedList;
 
 public abstract class AbstractVisualizer implements IVisualizer {
 
-    private final JPanel renderPanel;
-    private final IStyle style;
-    private final LinkedList<StepResult> steps;
+    protected final JPanel renderPanel;
+    protected final IStyle style;
+    protected final LinkedList<StepResult> steps;
 
     public AbstractVisualizer(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
 
@@ -25,5 +26,9 @@ public abstract class AbstractVisualizer implements IVisualizer {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    protected Dimension getPanelDimension() {
+        return new Dimension(renderPanel.getWidth(), renderPanel.getHeight());
     }
 }
