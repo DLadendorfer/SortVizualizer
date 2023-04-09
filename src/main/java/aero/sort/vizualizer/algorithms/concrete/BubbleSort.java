@@ -29,6 +29,7 @@ public class BubbleSort extends AbstractSortingAlgorithm {
                 }
             }
         }
+        stepResults.add(new StepResult(new Integer[0], copyArr()));
         return stepResults;
     }
 }
