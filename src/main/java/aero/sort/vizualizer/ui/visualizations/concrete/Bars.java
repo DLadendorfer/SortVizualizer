@@ -1,3 +1,7 @@
+// -------------------------------------------------------------------------------
+// Copyright (c) Ladendorfer Daniel.
+// All Rights Reserved.  See LICENSE in the project root for license information.
+// -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui.visualizations.concrete;
 
 import aero.sort.vizualizer.algorithms.StepResult;
@@ -7,8 +11,6 @@ import aero.sort.vizualizer.ui.visualizations.AbstractVisualizer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RoundRectangle2D;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;

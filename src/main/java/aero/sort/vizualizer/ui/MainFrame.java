@@ -1,3 +1,7 @@
+// -------------------------------------------------------------------------------
+// Copyright (c) Ladendorfer Daniel.
+// All Rights Reserved.  See LICENSE in the project root for license information.
+// -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui;
 
 import aero.sort.vizualizer.controller.Controller;
@@ -7,18 +11,11 @@ import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 import aero.sort.vizualizer.ui.components.status.StatusBar;
 import aero.sort.vizualizer.ui.constants.FrameConstants;
 import aero.sort.vizualizer.ui.constants.Theme;
-import aero.sort.vizualizer.ui.laf.UIBindings;
-import com.sun.tools.javac.Main;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.plaf.InternalFrameUI;
 import java.awt.*;
-import java.io.IOException;
-import java.util.Objects;
 
 /**
  * Main application frame.

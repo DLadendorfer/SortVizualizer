@@ -1,10 +1,13 @@
+// -------------------------------------------------------------------------------
+// Copyright (c) Ladendorfer Daniel.
+// All Rights Reserved.  See LICENSE in the project root for license information.
+// -------------------------------------------------------------------------------
 package aero.sort.vizualizer.algorithms.concrete;
 
 import aero.sort.vizualizer.algorithms.AbstractSortingAlgorithm;
 import aero.sort.vizualizer.algorithms.StepResult;
 import aero.sort.vizualizer.data.options.SortOptions;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class BubbleSort extends AbstractSortingAlgorithm {

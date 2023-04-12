@@ -1,3 +1,7 @@
+// -------------------------------------------------------------------------------
+// Copyright (c) Ladendorfer Daniel.
+// All Rights Reserved.  See LICENSE in the project root for license information.
+// -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui.components.desktop;
 
 import aero.sort.vizualizer.algorithms.ISortingAlgorithm;
@@ -20,8 +24,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.*;
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.IntStream;
 
 /**
