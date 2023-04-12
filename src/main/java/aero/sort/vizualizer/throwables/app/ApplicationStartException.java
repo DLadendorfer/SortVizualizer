@@ -10,5 +10,5 @@ package aero.sort.vizualizer.throwables.app;
  * @author Daniel Ladendorfer
  */
 public class ApplicationStartException extends Exception {
-    public static final int APPLICATION_START_NOT_POSSIBLE_EXIT_CODE = 0xDEAD;
+    public static final int APPLICATION_START_NOT_POSSIBLE_EXIT_CODE = 0xDEAD & 0xFF; // yeah, what would be life without some hex-fun?
 }
