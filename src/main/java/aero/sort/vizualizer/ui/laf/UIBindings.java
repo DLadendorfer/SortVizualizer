@@ -18,8 +18,7 @@ import javax.swing.plaf.basic.BasicLookAndFeel;
  * @author Daniel Ladendorfer
  */
 public class UIBindings {
-
-    private static Logger logger = LoggerFactory.getLogger(UIBindings.class);
+    private static final Logger logger = LoggerFactory.getLogger(UIBindings.class);
     private static boolean lafInitialized;
 
     private UIBindings() {

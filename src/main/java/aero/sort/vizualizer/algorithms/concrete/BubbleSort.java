@@ -6,15 +6,22 @@ package aero.sort.vizualizer.algorithms.concrete;
 
 import aero.sort.vizualizer.algorithms.AbstractSortingAlgorithm;
 import aero.sort.vizualizer.algorithms.StepResult;
-import aero.sort.vizualizer.data.options.SortOptions;
 
 import java.util.LinkedList;
 
+/**
+ * Implementation of Bubble-Sort.
+ * Bubble-Sort can be described like this:
+ *
+ * <code>
+ * In bubble sort algorithm, array is traversed from first element to last element.
+ * The current element is compared with the next element.
+ * If current element is greater than the next element, it is swapped.
+ * </code>
+ *
+ * @author Daniel Ladendorfer
+ */
 public class BubbleSort extends AbstractSortingAlgorithm {
-
-    public BubbleSort(SortOptions options) {
-        super(options);
-    }
 
     @Override
     protected LinkedList<StepResult> sortInternal() {
@@ -28,11 +35,11 @@ public class BubbleSort extends AbstractSortingAlgorithm {
                     temp = ints[j - 1];
                     ints[j - 1] = ints[j];
                     ints[j] = temp;
-                    stepResults.add(new StepResult(marked, copyArr()));
+                    stepResults.add(createStep(marked));
                 }
             }
         }
-        stepResults.add(new StepResult(new Integer[0], copyArr()));
+        stepResults.add(createEmptyStep());
         return stepResults;
     }
 }

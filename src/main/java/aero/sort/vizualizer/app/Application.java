@@ -27,7 +27,12 @@ public class Application {
 
     public static void launch() {
         logger.info("Launching application...");
-        MainFrame.getInstance().createInternalFrame(new SortOptions(Algorithm.Bubblesort, Visualization.Bars, Style.None));
+        createDefaultSortFrame();
         logger.info("Application start successful");
+    }
+
+    private static void createDefaultSortFrame() {
+        var options = new SortOptions(Algorithm.Bubblesort, Visualization.Bars, Style.None);
+        MainFrame.getInstance().createInternalFrame(options);
     }
 }

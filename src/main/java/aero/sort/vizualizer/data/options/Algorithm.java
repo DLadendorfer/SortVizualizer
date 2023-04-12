@@ -4,6 +4,11 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.data.options;
 
+/**
+ * Enumeration of all sorting algorithms.
+ *
+ * @author Daniel Ladendorfer
+ */
 public enum Algorithm {
     Bubblesort,
     Insertionsort,

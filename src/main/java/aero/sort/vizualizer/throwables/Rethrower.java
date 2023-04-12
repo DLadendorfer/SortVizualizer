@@ -35,4 +35,16 @@ public class Rethrower {
         logger.error(message);
         throw new RuntimeException(message, t);
     }
+
+
+    /**
+     * Wraps the given throwable into a new instance of {@link RuntimeException} and re-throws it.
+     *
+     * @param t       any throwable instance; must not be null
+     */
+    public static void wrapAndRethrowSilently(Throwable t) {
+        Objects.requireNonNull(t, "Cannot wrap null throwable");
+        logger.trace("Wrapping throwable '{}' with message '{}'.", t.getClass(), t.getMessage());
+        throw new RuntimeException(t);
+    }
 }

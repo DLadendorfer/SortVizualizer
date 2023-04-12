@@ -4,6 +4,7 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.utilities;
 
+import aero.sort.vizualizer.throwables.Rethrower;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,8 +19,13 @@ import java.util.concurrent.Future;
  * @author Daniel Ladendorfer
  */
 public class Async {
+    private static final int CORE_POOL_SIZE = 10;
     private static final Logger logger = LoggerFactory.getLogger(Async.class);
-    private static final ExecutorService executor = Executors.newScheduledThreadPool(10);
+    private static final ExecutorService executor = Executors.newScheduledThreadPool(CORE_POOL_SIZE);
+
+    private Async() {
+        // static utility class - no instance needed
+    }
 
     /**
      * Async invocation of the given runnable. Fire and forget principle.
@@ -58,6 +64,18 @@ public class Async {
             future.cancel(true);
         } catch (Exception e) {
             logger.trace("Caught exception when interrupting Future-Thread: {}", e.getMessage());
+        }
+    }
+
+    /**
+     * Sleeps the current thread and catches and rethrows interrupt exceptions.
+     * @param millis the millis to wait
+     */
+    public static void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            Rethrower.wrapAndRethrowSilently(e);
         }
     }
 }

@@ -6,6 +6,8 @@ package aero.sort.vizualizer.controller;
 
 import aero.sort.vizualizer.controller.sort.SortController;
 import aero.sort.vizualizer.ui.MainFrame;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * UI-Controller of the application. Fetch-able via MainFrame instance.
@@ -14,6 +16,8 @@ import aero.sort.vizualizer.ui.MainFrame;
  * @author Daniel Ladendorfer
  */
 public class Controller {
+    private static final Logger logger = LoggerFactory.getLogger(Controller.class);
+
     private final SortController sortController;
 
     public Controller(MainFrame mainFrame) {
@@ -24,6 +28,7 @@ public class Controller {
      * Invoke the sorting process of all frames.
      */
     public void sort() {
+        logger.info("Starting sort procedure for all frames");
         sortController.sort();
     }
 
@@ -31,6 +36,7 @@ public class Controller {
      * Stops the sorting process of all frames.
      */
     public void stopSort() {
+        logger.info("Stopping sort procedure of all frames");
         sortController.stop();
     }
 }

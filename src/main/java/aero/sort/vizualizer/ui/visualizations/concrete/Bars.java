@@ -17,52 +17,42 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 public class Bars extends AbstractVisualizer {
+    private static final int MARGIN = 7;
+    private static final int INTERMITTED_MARGIN = 3;
+
     public Bars(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
         super(renderPanel, style, steps);
     }
 
     @Override
-    public void render() {
-        StepResult poll = steps.poll();
+    public JPanel renderInternal(StepResult step) {
+        int maxValue = Arrays.stream(step.ints()).max(Comparator.naturalOrder()).orElse(1);
 
-        Optional<Integer> max = Arrays.stream(poll.ints()).max(Comparator.naturalOrder());
-        Optional<Integer> min = Arrays.stream(poll.ints()).min(Comparator.naturalOrder());
-
-        var render = new JPanel() {
+        return new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
 
-                int heightRatio = getPanelDimension().height / max.orElse(1);
-                int widthRatio = getPanelDimension().width / (poll.ints().length) - 3;
-                Graphics2D g2 = (Graphics2D) g;
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                        RenderingHints.VALUE_ANTIALIAS_ON);
+                int heightRatio = getPanelDimension().height / maxValue;
+                int barWidth = getPanelDimension().width / (step.ints().length) - INTERMITTED_MARGIN;
 
+                if (g instanceof Graphics2D g2) {
+                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-                for (int i = 0; i < poll.ints().length; i++) {
-                    int value = poll.ints()[i];
-                    int finalI = i;
-                    g2.setColor(Arrays.stream(poll.marked()).anyMatch(m -> m == finalI) ? Theme.RED : Theme.YELLOW);
-                    int x = 7 + i * 3 + (i * widthRatio);
-                    int y = getPanelDimension().height - value * heightRatio;
-                    int width = widthRatio;
-                    int height = value * heightRatio;
-                    g2.fillRoundRect(x, y, width, height, 10, 10);
+                    for (int index = 0; index < step.ints().length; index++) {
+                        drawBar(index, heightRatio, barWidth, g2, step);
+                    }
                 }
-//                g2.setStroke(STROKE);
-//                for (Shape shape : shapeList) {
-//                    g2.setColor(FILL_COLOR);
-//                    g2.fill(shape);
-//                    g2.setColor(BORDER_COLOR);
-//                    g2.draw(shape);
-//                }
             }
         };
-        render.setBackground(renderPanel.getBackground());
-        render.setPreferredSize(getPanelDimension());
-        renderPanel.removeAll();
-        renderPanel.add(render);
-        renderPanel.revalidate();
+    }
+
+    private void drawBar(int index, int heightRatio, int barWidth, Graphics2D g2, StepResult step) {
+        int value = step.ints()[index];
+        g2.setColor(Arrays.stream(step.marked()).anyMatch(m -> m == index) ? Theme.RED : Theme.YELLOW);
+        int x = MARGIN + index * INTERMITTED_MARGIN + (index * barWidth);
+        int y = getPanelDimension().height - value * heightRatio;
+        int height = value * heightRatio;
+        g2.fillRoundRect(x, y, barWidth, height, 10, 10);
     }
 }

@@ -107,6 +107,7 @@ public class ActionPanel extends JPanel {
         var stop = new JButton("Stop");
         sort.setSelected(true);
         sort.addActionListener(e -> MainFrame.getInstance().getController().sort());
+        stop.addActionListener(e -> MainFrame.getInstance().getController().stopSort());
         panel.add(sort);
         panel.add(step);
         panel.add(stop);

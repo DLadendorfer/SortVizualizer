@@ -6,15 +6,22 @@ package aero.sort.vizualizer.algorithms.concrete;
 
 import aero.sort.vizualizer.algorithms.AbstractSortingAlgorithm;
 import aero.sort.vizualizer.algorithms.StepResult;
-import aero.sort.vizualizer.data.options.SortOptions;
 
 import java.util.LinkedList;
 
+/**
+ * Implementation of Insertion-Sort.
+ * Insertion-Sort can be described like this:
+ *
+ * <code>
+ * Insertion sort iterates, consuming one input element each repetition, and grows a sorted output list.
+ * At each iteration, insertion sort removes one element from the input data, finds the location it belongs
+ * within the sorted list, and inserts it there. It repeats until no input elements remain.
+ * </code>
+ *
+ * @author Daniel Ladendorfer
+ */
 public class InsertionSort extends AbstractSortingAlgorithm {
-    public InsertionSort(SortOptions options) {
-        super(options);
-    }
-
     @Override
     protected LinkedList<StepResult> sortInternal() {
         var stepResults = new LinkedList<StepResult>();

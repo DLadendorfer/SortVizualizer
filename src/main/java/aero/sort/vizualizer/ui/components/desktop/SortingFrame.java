@@ -66,10 +66,10 @@ public class SortingFrame extends JInternalFrame {
 
     public void sort(Integer[] ints) {
         ISortingAlgorithm algorithm = switch (options.algorithm()) {
-            case Bubblesort -> new BubbleSort(options);
-            case Insertionsort -> new InsertionSort(options);
-            case Selectionsort -> new SelectionSort(options);
-            case Quicksort -> new QuickSort(options);
+            case Bubblesort -> new BubbleSort();
+            case Insertionsort -> new InsertionSort();
+            case Selectionsort -> new SelectionSort();
+            case Quicksort -> new QuickSort();
         };
 
         render(algorithm.sort(ints));
@@ -79,17 +79,10 @@ public class SortingFrame extends JInternalFrame {
         IStyle style = switch (options.style()) {
             case None -> new None();
         };
-        IVisualizer visualizer  = switch (options.visualization()) {
+        IVisualizer visualizer = switch (options.visualization()) {
             case Bars -> new Bars(renderPanel, style, steps);
         };
 
-        IntStream.range(0, steps.size()).forEach(step -> {
-            visualizer.render();
-            try {
-                Thread.sleep(250L);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        visualizer.render();
     }
 }

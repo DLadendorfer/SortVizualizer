@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * Contains all theme constants. These should be the only forced colors in the application. Meaning that if a
  * components foreground or background color should be changed, only colors of this class should be referenced.
- *
+ * <p>
  * In no circumstance should any invocation of new Color() be necessary in other parts of the application.
  *
  * @author Daniel Ladendorfer

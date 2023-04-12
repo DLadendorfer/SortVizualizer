@@ -4,6 +4,11 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.data.options;
 
+/**
+ * Enumeration of all visualization types.
+ *
+ * @author Daniel Ladendorfer 
+ */
 public enum Visualization {
     Bars
 }

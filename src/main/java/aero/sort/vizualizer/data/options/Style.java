@@ -4,6 +4,11 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.data.options;
 
+/**
+ * Enumeration of all render styles.
+ *
+ * @author Daniel Ladendorfer
+ */
 public enum Style {
     None
 }

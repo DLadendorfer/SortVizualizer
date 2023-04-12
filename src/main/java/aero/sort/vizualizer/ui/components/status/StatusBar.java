@@ -60,7 +60,7 @@ public class StatusBar extends JPanel {
         var rootLoggerConfig = loggerContext.getConfiguration().getLoggerConfig("");
         var appender = new JLabelAppender(logLevelLabel, messageLabel);
 
-        rootLoggerConfig.addAppender(appender, Level.ALL, null);
+        rootLoggerConfig.addAppender(appender, Level.INFO, null);
     }
 
     private JPanel createStatusPanel() {
