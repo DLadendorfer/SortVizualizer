@@ -49,6 +49,10 @@ public class Async {
      * @param future the future to cancel
      */
     public static void safeCancel(Future<?> future) {
+        if (future == null) {
+            return;
+        }
+
         try {
             logger.trace("Async::safeCancel invoked for future {}", future);
             future.cancel(true);
