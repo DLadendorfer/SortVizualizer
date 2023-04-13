@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
     // kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk17"
 
     // darcula-LaF
     implementation 'com.bulenkov:darcula:2018.2'
