@@ -1,3 +1,7 @@
+// -------------------------------------------------------------------------------
+// Copyright (c) Ladendorfer Daniel.
+// All Rights Reserved.  See LICENSE in the project root for license information.
+// -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui.laf;
 
 import aero.sort.vizualizer.throwables.Rethrower;
@@ -14,8 +18,7 @@ import javax.swing.plaf.basic.BasicLookAndFeel;
  * @author Daniel Ladendorfer
  */
 public class UIBindings {
-
-    private static Logger logger = LoggerFactory.getLogger(UIBindings.class);
+    private static final Logger logger = LoggerFactory.getLogger(UIBindings.class);
     private static boolean lafInitialized;
 
     private UIBindings() {

@@ -1,3 +1,7 @@
+// -------------------------------------------------------------------------------
+// Copyright (c) Ladendorfer Daniel.
+// All Rights Reserved.  See LICENSE in the project root for license information.
+// -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui;
 
 import aero.sort.vizualizer.controller.Controller;
@@ -7,18 +11,11 @@ import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 import aero.sort.vizualizer.ui.components.status.StatusBar;
 import aero.sort.vizualizer.ui.constants.FrameConstants;
 import aero.sort.vizualizer.ui.constants.Theme;
-import aero.sort.vizualizer.ui.laf.UIBindings;
-import com.sun.tools.javac.Main;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.plaf.InternalFrameUI;
 import java.awt.*;
-import java.io.IOException;
-import java.util.Objects;
 
 /**
  * Main application frame.
@@ -33,18 +30,16 @@ public class MainFrame extends JFrame {
 
 
     private MainFrame() {
-        createFrame();
+        controller = new Controller(this);
+        initializeFrame();
         var actionPanel = new ActionPanel();
         add(actionPanel, BorderLayout.WEST);
-        var center = new JPanel();
-        center.setBackground(Theme.BLACK);
         desktop = new JDesktopPane();
         desktop.setBackground(Theme.BLACK);
         desktop.setVisible(true);
         add(desktop, BorderLayout.CENTER);
         add(new StatusBar(), BorderLayout.SOUTH);
         pack();
-        controller = new Controller(this);
     }
 
     /**
@@ -57,7 +52,9 @@ public class MainFrame extends JFrame {
     }
 
     public void createInternalFrame(SortOptions options) {
-        desktop.add(new SortingFrame(options));
+        var frame = new SortingFrame(options);
+        desktop.add(frame);
+        frame.toFront();
     }
 
     public Controller getController() {
@@ -68,7 +65,7 @@ public class MainFrame extends JFrame {
         return desktop;
     }
 
-    private void createFrame() {
+    private void initializeFrame() {
         setTitle(FrameConstants.TITLE);
         setMinimumSize(FrameConstants.MIN_DIMENSION);
         setPreferredSize(FrameConstants.PREFERRED_DIMENSION);

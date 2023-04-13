@@ -1,8 +1,11 @@
+// -------------------------------------------------------------------------------
+// Copyright (c) Ladendorfer Daniel.
+// All Rights Reserved.  See LICENSE in the project root for license information.
+// -------------------------------------------------------------------------------
 package aero.sort.vizualizer;
 
 import aero.sort.vizualizer.app.Application;
 import aero.sort.vizualizer.app.PreLaunchHook;
-import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 
 /**
  * Entry point of the application.

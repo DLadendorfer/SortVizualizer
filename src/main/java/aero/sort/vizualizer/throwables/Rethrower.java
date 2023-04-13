@@ -1,3 +1,7 @@
+// -------------------------------------------------------------------------------
+// Copyright (c) Ladendorfer Daniel.
+// All Rights Reserved.  See LICENSE in the project root for license information.
+// -------------------------------------------------------------------------------
 package aero.sort.vizualizer.throwables;
 
 import org.slf4j.Logger;
@@ -30,5 +34,17 @@ public class Rethrower {
         logger.trace("Wrapping throwable '{}' with message '{}'.", t.getClass(), t.getMessage());
         logger.error(message);
         throw new RuntimeException(message, t);
+    }
+
+
+    /**
+     * Wraps the given throwable into a new instance of {@link RuntimeException} and re-throws it.
+     *
+     * @param t       any throwable instance; must not be null
+     */
+    public static void wrapAndRethrowSilently(Throwable t) {
+        Objects.requireNonNull(t, "Cannot wrap null throwable");
+        logger.trace("Wrapping throwable '{}' with message '{}'.", t.getClass(), t.getMessage());
+        throw new RuntimeException(t);
     }
 }

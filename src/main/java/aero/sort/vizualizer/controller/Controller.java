@@ -1,46 +1,42 @@
+// -------------------------------------------------------------------------------
+// Copyright (c) Ladendorfer Daniel.
+// All Rights Reserved.  See LICENSE in the project root for license information.
+// -------------------------------------------------------------------------------
 package aero.sort.vizualizer.controller;
 
+import aero.sort.vizualizer.controller.sort.SortController;
 import aero.sort.vizualizer.ui.MainFrame;
-import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
-
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * UI-Controller of the application. Fetchable via MainFrame instance.
+ * UI-Controller of the application. Fetch-able via MainFrame instance.
+ * This class should only be a facade for concrete controllers.
  *
  * @author Daniel Ladendorfer
  */
 public class Controller {
-    private final MainFrame mainFrame;
+    private static final Logger logger = LoggerFactory.getLogger(Controller.class);
+
+    private final SortController sortController;
 
     public Controller(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+        sortController = new SortController(mainFrame);
     }
 
     /**
      * Invoke the sorting process of all frames.
      */
     public void sort() {
-        new Thread(() -> {
-            var desktop = mainFrame.getDesktop();
-            int arrayLength = 20;
-            var ints = new ArrayList<>(IntStream.rangeClosed(1, arrayLength).boxed().toList());
-            Collections.shuffle(ints);
-            for (var frame : desktop.getAllFrames()) {
-                if (frame instanceof SortingFrame sortingFrame) {
-                    new Thread(() ->
-                            sortingFrame.sort(ints.toArray(new Integer[arrayLength]))).start();
-                }
+        logger.info("Starting sort procedure for all frames");
+        sortController.sort();
+    }
 
-                // else ? maybe there will be additional frame types in the future so we do not throw an exception
-            }
-        }).start();
+    /**
+     * Stops the sorting process of all frames.
+     */
+    public void stopSort() {
+        logger.info("Stopping sort procedure of all frames");
+        sortController.stop();
     }
 }

@@ -1,3 +1,7 @@
+// -------------------------------------------------------------------------------
+// Copyright (c) Ladendorfer Daniel.
+// All Rights Reserved.  See LICENSE in the project root for license information.
+// -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui.components.status.appender;
 
 import aero.sort.vizualizer.ui.constants.Theme;
@@ -16,8 +20,7 @@ import java.util.UUID;
  * @author Daniel Ladendorfer
  */
 public class JLabelAppender extends AbstractAppender {
-
-    public static final String LOG_PATTERN = "%m";
+    private static final String LOG_PATTERN = "%m";
     private final JLabel logLevelLabel;
     private final JLabel label;
 
@@ -34,15 +37,18 @@ public class JLabelAppender extends AbstractAppender {
 
     @Override
     public void append(LogEvent event) {
-        Color color = switch (event.getLevel().getStandardLevel()) {
+        logLevelLabel.setForeground(getColor(event));
+        logLevelLabel.setText(" [%s]  ".formatted(event.getLevel().getStandardLevel().name()));
+        label.setText(event.getMessage().getFormattedMessage());
+    }
+
+    private static Color getColor(LogEvent event) {
+        return switch (event.getLevel().getStandardLevel()) {
             case FATAL, ERROR -> Theme.RED;
             case WARN -> Theme.YELLOW;
             case INFO -> Theme.BLUE;
             case ALL, OFF, DEBUG, TRACE -> Theme.GRAY;
         };
-        logLevelLabel.setForeground(color);
-        logLevelLabel.setText(" [%s]  ".formatted(event.getLevel().getStandardLevel().name()));
-        label.setText(event.getMessage().getFormattedMessage());
     }
 
     private static PatternLayout createPatternLayout() {
