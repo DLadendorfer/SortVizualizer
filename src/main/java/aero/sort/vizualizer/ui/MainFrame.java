@@ -30,18 +30,16 @@ public class MainFrame extends JFrame {
 
 
     private MainFrame() {
-        createFrame();
+        controller = new Controller(this);
+        initializeFrame();
         var actionPanel = new ActionPanel();
         add(actionPanel, BorderLayout.WEST);
-        var center = new JPanel();
-        center.setBackground(Theme.BLACK);
         desktop = new JDesktopPane();
         desktop.setBackground(Theme.BLACK);
         desktop.setVisible(true);
         add(desktop, BorderLayout.CENTER);
         add(new StatusBar(), BorderLayout.SOUTH);
         pack();
-        controller = new Controller(this);
     }
 
     /**
@@ -54,7 +52,9 @@ public class MainFrame extends JFrame {
     }
 
     public void createInternalFrame(SortOptions options) {
-        desktop.add(new SortingFrame(options));
+        var frame = new SortingFrame(options);
+        desktop.add(frame);
+        frame.toFront();
     }
 
     public Controller getController() {
@@ -65,7 +65,7 @@ public class MainFrame extends JFrame {
         return desktop;
     }
 
-    private void createFrame() {
+    private void initializeFrame() {
         setTitle(FrameConstants.TITLE);
         setMinimumSize(FrameConstants.MIN_DIMENSION);
         setPreferredSize(FrameConstants.PREFERRED_DIMENSION);

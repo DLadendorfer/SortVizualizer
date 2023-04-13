@@ -9,6 +9,8 @@ import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.data.options.Style;
 import aero.sort.vizualizer.data.options.Visualization;
 import aero.sort.vizualizer.ui.MainFrame;
+import aero.sort.vizualizer.utilities.ui.Ui;
+import aero.sort.vizualizer.utilities.ui.UiFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,8 +53,13 @@ public class ActionPanel extends JPanel {
         var algorithmComboBox = new JComboBox<>(Algorithm.values());
         var visualizationComboBox = new JComboBox<>(Visualization.values());
         var styleComboBox = new JComboBox<>(Style.values());
-        var addButton = new JButton("Add Sorter");
-        addButton.addActionListener(e -> MainFrame.getInstance().createInternalFrame(new SortOptions((Algorithm) algorithmComboBox.getSelectedItem(), (Visualization) visualizationComboBox.getSelectedItem(), (Style) styleComboBox.getSelectedItem())));
+        var addButton = UiFactory.createButton("Add Sorter", () -> {
+            var algorithm = (Algorithm) algorithmComboBox.getSelectedItem();
+            var visualization = (Visualization) visualizationComboBox.getSelectedItem();
+            var style = (Style) styleComboBox.getSelectedItem();
+            var options = new SortOptions(algorithm, visualization, style);
+            MainFrame.getInstance().createInternalFrame(options);
+        });
 
         panel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
         panel.setAlignmentY(JPanel.TOP_ALIGNMENT);
@@ -101,18 +108,12 @@ public class ActionPanel extends JPanel {
     }
 
     private JPanel createActionInvocationPanel() {
-        var panel = new JPanel();
-        var sort = new JButton("Sort");
-        var step = new JButton("Step");
-        var stop = new JButton("Stop");
+        var sort = UiFactory.createButton("Sort", () -> MainFrame.getInstance().getController().sort());
+        var step = UiFactory.createButton("Step", () -> logger.info("Step pressed, lmao."));
+        var stop = UiFactory.createButton("Stop", () -> MainFrame.getInstance().getController().stopSort());
         sort.setSelected(true);
-        sort.addActionListener(e -> MainFrame.getInstance().getController().sort());
-        stop.addActionListener(e -> MainFrame.getInstance().getController().stopSort());
-        panel.add(sort);
-        panel.add(step);
-        panel.add(stop);
 
-        return panel;
+        return Ui.using(new JPanel()).add(sort, step, stop).get();
     }
 
 

@@ -19,9 +19,8 @@ import java.util.concurrent.Future;
  * @author Daniel Ladendorfer
  */
 public class Async {
-    private static final int CORE_POOL_SIZE = 10;
     private static final Logger logger = LoggerFactory.getLogger(Async.class);
-    private static final ExecutorService executor = Executors.newScheduledThreadPool(CORE_POOL_SIZE);
+    private static final ExecutorService executor = Executors.newCachedThreadPool();
 
     private Async() {
         // static utility class - no instance needed
