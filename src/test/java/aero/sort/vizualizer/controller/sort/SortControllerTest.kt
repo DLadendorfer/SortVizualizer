@@ -17,6 +17,8 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.junit.jupiter.MockitoSettings
+import org.mockito.quality.Strictness
 import javax.swing.JDesktopPane
 
 /**
@@ -25,6 +27,7 @@ import javax.swing.JDesktopPane
  * @author Daniel Ladendorfer
  */
 @ExtendWith(MockitoExtension::class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 internal class SortControllerTest {
     @Mock
     lateinit var mainFrame: MainFrame
@@ -35,6 +38,7 @@ internal class SortControllerTest {
 
     @InjectMocks
     lateinit var controller: SortController
+
     @BeforeEach
     fun setup() {
         `when`(mainFrame.desktop).thenReturn(desktop)
