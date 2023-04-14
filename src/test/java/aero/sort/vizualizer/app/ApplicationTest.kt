@@ -4,7 +4,6 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.app
 
-import aero.sort.vizualizer.VizualizerApplication
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 

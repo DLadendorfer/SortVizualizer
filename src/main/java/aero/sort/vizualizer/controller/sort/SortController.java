@@ -10,7 +10,6 @@ import aero.sort.vizualizer.utilities.Async;
 
 import java.util.*;
 import java.util.concurrent.Future;
-import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 import static java.util.function.Predicate.not;
@@ -59,6 +58,7 @@ public class SortController {
     private void cancelRunningFutures() {
         futures.stream()
                 .filter(not(Future::isDone))
+                .toList()
                 .forEach(Async::safeCancel);
     }
 

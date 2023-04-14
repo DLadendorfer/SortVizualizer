@@ -39,6 +39,10 @@ public class Rethrower {
 
     /**
      * Wraps the given throwable into a new instance of {@link RuntimeException} and re-throws it.
+     * <p>
+     * This is useful to not display error messages to the end user in case of non-erroneous exceptions.
+     * For example: Thread-Interrupt exceptions may be an exception to the program logic but should be handled
+     * silently.
      *
      * @param t       any throwable instance; must not be null
      */
