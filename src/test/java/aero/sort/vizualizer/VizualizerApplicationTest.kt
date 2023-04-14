@@ -17,8 +17,7 @@ internal class VizualizerApplicationTest {
     @Test
     fun `Invokes main and simply checks that no exception is thrown`() {
         assertDoesNotThrow {
-            val args = arrayOf<String>()
-            VizualizerApplication.main(args)
+            VizualizerApplication.main(emptyArray())
         }
     }
 }
