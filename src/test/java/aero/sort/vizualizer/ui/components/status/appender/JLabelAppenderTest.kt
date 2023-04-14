@@ -12,18 +12,9 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import org.mockito.InjectMocks
-import org.mockito.Mock
-import org.mockito.Mockito.anyString
-import org.mockito.Mockito.`when`
-import org.mockito.MockitoAnnotations
-import org.mockito.junit.jupiter.MockitoExtension
-import org.mockito.junit.jupiter.MockitoSettings
-import org.mockito.quality.Strictness
 import java.util.stream.Stream
 import javax.swing.JLabel
 
@@ -32,24 +23,18 @@ import javax.swing.JLabel
  *
  * @author Daniel Ladendorfer
  */
-@ExtendWith(MockitoExtension::class)
-@MockitoSettings(strictness = Strictness.LENIENT)
 internal class JLabelAppenderTest {
 
-    @Mock
-    lateinit var logLevelLabel: JLabel
+    private lateinit var logLevelLabel: JLabel
 
-    @Mock
-    lateinit var messageLabel: JLabel
+    private lateinit var messageLabel: JLabel
 
-    lateinit var appender: JLabelAppender
+    private lateinit var appender: JLabelAppender
 
     @BeforeEach
     fun setup() {
-        `when`(logLevelLabel.setText(anyString())).thenCallRealMethod()
-        `when`(logLevelLabel.text).thenCallRealMethod()
-        `when`(messageLabel.setText(anyString())).thenCallRealMethod()
-        `when`(messageLabel.text).thenCallRealMethod()
+        logLevelLabel = JLabel()
+        messageLabel = JLabel()
         appender = JLabelAppender(logLevelLabel, messageLabel)
     }
 
@@ -69,15 +54,15 @@ internal class JLabelAppenderTest {
         )
     }
 
-    @ParameterizedTest(name = "Tests if append works for loglevel: {0}")
+    @ParameterizedTest(name = "Tests if append works for log level: {0}")
     @MethodSource("logEventProvider")
-    fun `Tests if append works for loglevel`(event: LogEvent) {
+    fun `Tests if append works for each log level`(event: LogEvent) {
         appender.append(event)
         assertEquals(event.message.formattedMessage, messageLabel.text) {
             "Log message not as expected"
         }
         assertEquals(String.format(JLabelAppender.LEVEL_FORMAT, event.level.standardLevel.name), logLevelLabel.text) {
-            "Loglevel text not as expected"
+            "Log level text not as expected"
         }
     }
 
