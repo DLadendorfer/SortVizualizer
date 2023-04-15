@@ -37,6 +37,7 @@ public class MainFrame extends JFrame {
         add(new ActionPanel(), BorderLayout.WEST);
         add(desktop, BorderLayout.CENTER);
         add(new StatusBar(), BorderLayout.SOUTH);
+        pack();
         logger.debug("MainFrame initialized");
     }
 
