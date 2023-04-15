@@ -19,7 +19,7 @@
     <Loggers>
         <Root level="trace">
             <AppenderRef ref="console"/>
-            <AppenderRef ref="AsyncAppender" />
+            <AppenderRef ref="AsyncAppender"/>
         </Root>
     </Loggers>
 

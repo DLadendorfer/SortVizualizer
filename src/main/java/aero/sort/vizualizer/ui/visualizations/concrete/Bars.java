@@ -14,11 +14,10 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.Optional;
 
 public class Bars extends AbstractVisualizer {
     private static final int MARGIN = 7;
-    private static final int INTERMITTED_MARGIN = 3;
+    private static final int BAR_OFFSET = 3;
 
     public Bars(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
         super(renderPanel, style, steps);
@@ -34,7 +33,7 @@ public class Bars extends AbstractVisualizer {
                 super.paintComponent(g);
 
                 int heightRatio = getPanelDimension().height / maxValue;
-                int barWidth = getPanelDimension().width / (step.ints().length) - INTERMITTED_MARGIN;
+                int barWidth = getPanelDimension().width / (step.ints().length) - BAR_OFFSET;
 
                 if (g instanceof Graphics2D g2) {
                     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -50,7 +49,7 @@ public class Bars extends AbstractVisualizer {
     private void drawBar(int index, int heightRatio, int barWidth, Graphics2D g2, StepResult step) {
         int value = step.ints()[index];
         g2.setColor(Arrays.stream(step.marked()).anyMatch(m -> m == index) ? Theme.RED : Theme.WHITE);
-        int x = MARGIN + index * INTERMITTED_MARGIN + (index * barWidth);
+        int x = MARGIN + index * BAR_OFFSET + (index * barWidth);
         int y = getPanelDimension().height - value * heightRatio;
         int height = value * heightRatio;
         g2.fillRoundRect(x, y, barWidth, height, 10, 10);

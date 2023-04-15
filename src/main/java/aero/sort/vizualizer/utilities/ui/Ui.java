@@ -7,7 +7,7 @@ package aero.sort.vizualizer.utilities.ui;
 import javax.swing.*;
 
 /**
- * UI utility class that should simplify some java.swing code.
+ * UI utility class that should simplify some java-swing code.
  *
  * @author Daniel Ladendorfer
  */
@@ -21,10 +21,10 @@ public final class Ui {
      * Creates an instance of {@link FluentUi} managing the given component.
      *
      * @param component the component to manage
+     * @param <T>       the concrete {@link JComponent} type
      * @return the new instance of {@link FluentUi}
-     * @param <T> the concrete {@link JComponent} type
      */
     public static <T extends JComponent> FluentUi<T> using(T component) {
-        return new FluentUi<T> (component);
+        return new FluentUi<>(component);
     }
 }

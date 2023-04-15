@@ -19,7 +19,6 @@ public abstract class AbstractVisualizer implements IVisualizer {
     protected final LinkedList<StepResult> steps;
 
     public AbstractVisualizer(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
-
         this.renderPanel = renderPanel;
         this.style = style;
         this.steps = steps;

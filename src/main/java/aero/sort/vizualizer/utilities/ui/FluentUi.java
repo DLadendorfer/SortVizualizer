@@ -13,7 +13,6 @@ import java.util.function.Consumer;
  * Fluent java.swing facade.
  *
  * @param <T> the concrete type of the managed {@link JComponent}
- *
  * @author Daniel Ladendorfer
  */
 public class FluentUi<T extends JComponent> {

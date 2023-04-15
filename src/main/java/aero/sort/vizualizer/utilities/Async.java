@@ -28,6 +28,7 @@ public class Async {
 
     /**
      * Async invocation of the given runnable. Fire and forget principle.
+     *
      * @param runnable the runnable to invoke asynchronously
      */
     public static void invoke(Runnable runnable) {
@@ -39,6 +40,7 @@ public class Async {
 
     /**
      * Async invocation of the given runnable. This method returns a {@link Future} instance to interact with.
+     *
      * @param runnable the runnable to invoke asynchronously
      * @return the {@link Future}
      */
@@ -51,6 +53,7 @@ public class Async {
 
     /**
      * Safely cancels the given future by catching the {@link InterruptedException}.
+     *
      * @param future the future to cancel
      */
     public static void safeCancel(Future<?> future) {
@@ -68,6 +71,7 @@ public class Async {
 
     /**
      * Sleeps the current thread and catches and rethrows interrupt exceptions.
+     *
      * @param millis the millis to wait
      */
     public static void sleep(long millis) {

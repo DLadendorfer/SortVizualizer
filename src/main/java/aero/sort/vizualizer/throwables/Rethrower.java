@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Objects;
 
 /**
- * Allows easy rethrowing of throwables.
+ * Allows easy rethrowing a throwable.
  *
  * @author Daniel Ladendorfer
  */
@@ -39,8 +39,12 @@ public class Rethrower {
 
     /**
      * Wraps the given throwable into a new instance of {@link RuntimeException} and re-throws it.
+     * <p>
+     * This is useful to not display error messages to the end user in case of non-erroneous exceptions.
+     * For example: Thread-Interrupt exceptions may be an exception to the program logic but should be handled
+     * silently.
      *
-     * @param t       any throwable instance; must not be null
+     * @param t any throwable instance; must not be null
      */
     public static void wrapAndRethrowSilently(Throwable t) {
         Objects.requireNonNull(t, "Cannot wrap null throwable");

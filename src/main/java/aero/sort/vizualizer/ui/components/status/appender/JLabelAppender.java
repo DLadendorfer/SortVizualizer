@@ -21,8 +21,9 @@ import java.util.UUID;
  */
 public class JLabelAppender extends AbstractAppender {
     private static final String LOG_PATTERN = "%m";
+    public static final String LEVEL_FORMAT = " [%s]  ";
     private final JLabel logLevelLabel;
-    private final JLabel label;
+    private final JLabel messageLabel;
 
 
     public JLabelAppender(JLabel logLevelLabel, JLabel messageLabel) {
@@ -31,15 +32,15 @@ public class JLabelAppender extends AbstractAppender {
         Objects.requireNonNull(logLevelLabel, "Log-level-Label must not be null.");
         Objects.requireNonNull(messageLabel, "Message-Label must not be null.");
 
-        this.label = messageLabel;
+        this.messageLabel = messageLabel;
         this.logLevelLabel = logLevelLabel;
     }
 
     @Override
     public void append(LogEvent event) {
         logLevelLabel.setForeground(getColor(event));
-        logLevelLabel.setText(" [%s]  ".formatted(event.getLevel().getStandardLevel().name()));
-        label.setText(event.getMessage().getFormattedMessage());
+        logLevelLabel.setText(LEVEL_FORMAT.formatted(event.getLevel().getStandardLevel().name()));
+        messageLabel.setText(event.getMessage().getFormattedMessage());
     }
 
     private static Color getColor(LogEvent event) {

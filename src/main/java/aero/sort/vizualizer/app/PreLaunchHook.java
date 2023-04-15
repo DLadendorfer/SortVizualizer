@@ -4,6 +4,7 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.app;
 
+import aero.sort.vizualizer.throwables.Rethrower;
 import aero.sort.vizualizer.throwables.app.ApplicationStartException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public final class PreLaunchHook {
      * This method will be called prior to the start of the application. <br>
      * Command line arguments have to be handled in this method!
      * <p>
-     * Exits the application if the arguments are invalid with exit-code:
+     * Throws an unhandled exception if the arguments are invalid with exit-code:
      * {@link ApplicationStartException#APPLICATION_START_NOT_POSSIBLE_EXIT_CODE}
      *
      * @param args the command line arguments
@@ -35,7 +36,7 @@ public final class PreLaunchHook {
             logger.debug("Arguments valid");
         } catch (ApplicationStartException e) {
             logger.error("Unable to start the application. Aborting with exit-code: {}", ApplicationStartException.APPLICATION_START_NOT_POSSIBLE_EXIT_CODE);
-            System.exit(ApplicationStartException.APPLICATION_START_NOT_POSSIBLE_EXIT_CODE);
+            Rethrower.wrapAndRethrow("Cannot start app: %d".formatted(ApplicationStartException.APPLICATION_START_NOT_POSSIBLE_EXIT_CODE), e);
         }
     }
 

@@ -12,7 +12,7 @@ import java.util.LinkedList;
 /**
  * Implementation of Bubble-Sort.
  * Bubble-Sort can be described like this:
- *
+ * <p>
  * <code>
  * In bubble sort algorithm, array is traversed from first element to last element.
  * The current element is compared with the next element.
