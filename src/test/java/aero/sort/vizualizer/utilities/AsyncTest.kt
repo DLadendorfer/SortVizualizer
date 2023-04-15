@@ -132,7 +132,7 @@ internal class AsyncTest {
                 "Inner exception should be of type Interrupted Exception"
             }
         }
-        Async.sleep(2L)
+        Async.sleep(10L)
         reference.get().interrupt()
     }
 }
