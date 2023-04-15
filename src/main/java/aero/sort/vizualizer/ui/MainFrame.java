@@ -77,8 +77,11 @@ public class MainFrame extends JFrame {
         setPreferredSize(FrameConstants.PREFERRED_DIMENSION);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        setVisible(true);
+        if (!GraphicsEnvironment.isHeadless()) {
+            // headless mode disables this
+            setVisible(true);
+            setLocationRelativeTo(null);
+        }
         pack();
-        setLocationRelativeTo(null);
     }
 }
