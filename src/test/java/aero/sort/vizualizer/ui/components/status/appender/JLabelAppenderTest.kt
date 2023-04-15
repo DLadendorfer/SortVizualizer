@@ -24,11 +24,8 @@ import javax.swing.JLabel
  * @author Daniel Ladendorfer
  */
 internal class JLabelAppenderTest {
-
     private lateinit var logLevelLabel: JLabel
-
     private lateinit var messageLabel: JLabel
-
     private lateinit var appender: JLabelAppender
 
     @BeforeEach
@@ -40,18 +37,14 @@ internal class JLabelAppenderTest {
 
     @Test
     fun `Null logLevelLabel throws NullPointerException`() {
-        assertThrows<NullPointerException>(
-                { "NullPointerException should be thrown " },
-                { JLabelAppender(null, JLabel()) }
-        )
+        assertThrows<NullPointerException>({ "NullPointerException should be thrown " },
+            { JLabelAppender(null, JLabel()) })
     }
 
     @Test
     fun `Null messageLabel throws NullPointerException`() {
-        assertThrows<NullPointerException>(
-                { "NullPointerException should be thrown " },
-                { JLabelAppender(JLabel(), null) }
-        )
+        assertThrows<NullPointerException>({ "NullPointerException should be thrown " },
+            { JLabelAppender(JLabel(), null) })
     }
 
     @ParameterizedTest(name = "Tests if append works for log level: {0}")
@@ -71,14 +64,14 @@ internal class JLabelAppenderTest {
         @JvmStatic
         fun logEventProvider(): Stream<Arguments> {
             return Stream.of(
-                    Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.ALL, ObjectMessage("m"), null)),
-                    Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.OFF, ObjectMessage("m"), null)),
-                    Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.ERROR, ObjectMessage("m"), null)),
-                    Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.DEBUG, ObjectMessage("m"), null)),
-                    Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.FATAL, ObjectMessage("m"), null)),
-                    Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.WARN, ObjectMessage("m"), null)),
-                    Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.INFO, ObjectMessage("m"), null)),
-                    Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.TRACE, ObjectMessage("m"), null))
+                Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.ALL, ObjectMessage("m"), null)),
+                Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.OFF, ObjectMessage("m"), null)),
+                Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.ERROR, ObjectMessage("m"), null)),
+                Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.DEBUG, ObjectMessage("m"), null)),
+                Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.FATAL, ObjectMessage("m"), null)),
+                Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.WARN, ObjectMessage("m"), null)),
+                Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.INFO, ObjectMessage("m"), null)),
+                Arguments.of(Log4jLogEvent("logger", null, "fq.logger", Level.TRACE, ObjectMessage("m"), null))
             )
         }
     }

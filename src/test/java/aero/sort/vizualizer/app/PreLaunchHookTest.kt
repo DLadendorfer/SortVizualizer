@@ -5,7 +5,6 @@
 package aero.sort.vizualizer.app
 
 import aero.sort.vizualizer.throwables.app.ApplicationStartException
-import aero.sort.vizualizer.utilities.Async
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.extension.ExtendWith
@@ -13,10 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import org.junit.jupiter.params.provider.NullSource
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
-import java.lang.RuntimeException
 import java.util.stream.Stream
 
 /**
@@ -29,7 +25,8 @@ internal class PreLaunchHookTest {
 
     @Test
     fun `Passing zero-length array passes validate`() {
-        assertDoesNotThrow({ "Empty array should not throw exception" }, { PreLaunchHook.validateArguments(emptyArray()) })
+        assertDoesNotThrow({ "Empty array should not throw exception" },
+            { PreLaunchHook.validateArguments(emptyArray()) })
     }
 
     @ParameterizedTest
@@ -47,7 +44,12 @@ internal class PreLaunchHookTest {
     companion object {
         @JvmStatic
         fun argsProvider(): Stream<Arguments> {
-            return Stream.of(Arguments.of(arrayOf("1", "2")), Arguments.of(arrayOf("abc", "def")), Arguments.of(arrayOf("adfadfadf", "adfadfa", "          ")), Arguments.of(arrayOf("abc", "def", "")))
+            return Stream.of(
+                Arguments.of(arrayOf("1", "2")),
+                Arguments.of(arrayOf("abc", "def")),
+                Arguments.of(arrayOf("tree", "rock", "          ")),
+                Arguments.of(arrayOf("abc", "def", ""))
+            )
         }
     }
 }

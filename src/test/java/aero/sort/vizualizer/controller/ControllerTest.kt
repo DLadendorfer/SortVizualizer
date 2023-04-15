@@ -6,7 +6,6 @@ package aero.sort.vizualizer.controller
 
 import aero.sort.vizualizer.controller.sort.SortController
 import aero.sort.vizualizer.ui.MainFrame
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.extension.ExtendWith
@@ -38,23 +37,19 @@ internal class ControllerTest {
     @InjectMocks
     private lateinit var controller: Controller
 
-    @BeforeEach
-    fun setup() {
-    }
-
     @Test
     fun `SortController sort invocation does not throw any exceptions`() {
         assertDoesNotThrow(
-                { "No Exception should be thrown " },
-                controller::sort
+            { "No Exception should be thrown " },
+            controller::sort
         )
     }
 
     @Test
     fun `SortController stop invocation does not throw any exceptions`() {
         assertDoesNotThrow(
-                { "No Exception should be thrown " },
-                controller::stopSort
+            { "No Exception should be thrown " },
+            controller::stopSort
         )
     }
 }

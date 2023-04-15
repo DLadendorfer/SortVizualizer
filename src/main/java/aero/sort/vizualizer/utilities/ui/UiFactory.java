@@ -5,6 +5,7 @@
 package aero.sort.vizualizer.utilities.ui;
 
 import javax.swing.*;
+import java.util.Objects;
 
 /**
  * Factory class that creates UI components.
@@ -24,6 +25,7 @@ public final class UiFactory {
      * @return the created button
      */
     public static JButton createButton(String label, Runnable runnable) {
+        Objects.requireNonNull(runnable, "Runnable must not be null");
         var button = new JButton(label);
         button.addActionListener(e -> runnable.run());
         return button;

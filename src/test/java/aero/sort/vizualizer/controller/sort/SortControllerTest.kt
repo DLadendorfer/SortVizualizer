@@ -4,11 +4,9 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.controller.sort
 
-import aero.sort.vizualizer.app.Application
 import aero.sort.vizualizer.ui.MainFrame
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
@@ -31,8 +29,10 @@ import javax.swing.JDesktopPane
 internal class SortControllerTest {
     @Mock
     lateinit var mainFrame: MainFrame
+
     @Mock
     lateinit var desktop: JDesktopPane
+
     @Mock
     lateinit var sortingFrame: SortingFrame
 
@@ -46,27 +46,27 @@ internal class SortControllerTest {
     }
 
     @ParameterizedTest(name = "Sort invocation is not throwing; {0} times")
-    @ValueSource(ints = intArrayOf(1, 5))
+    @ValueSource(ints = [1, 5])
     fun `Sort invocation is not throwing`(times: Int) {
-        repeat (times) {
-            assertDoesNotThrow (
-                    { "No exception should be thrown " },
-                    controller::sort
+        repeat(times) {
+            assertDoesNotThrow(
+                { "No exception should be thrown " },
+                controller::sort
             )
         }
     }
 
     @ParameterizedTest(name = "Stopping invocation is not throwing; {0} times")
-    @ValueSource(ints = intArrayOf(1, 5))
+    @ValueSource(ints = [1, 5])
     fun `Stopping invocation is not throwing`(times: Int) {
-        repeat (times) {
-            assertDoesNotThrow (
-                    { "No exception should be thrown " },
-                    controller::sort
+        repeat(times) {
+            assertDoesNotThrow(
+                { "No exception should be thrown " },
+                controller::sort
             )
-            assertDoesNotThrow (
-                    { "No exception should be thrown " },
-                    controller::stop
+            assertDoesNotThrow(
+                { "No exception should be thrown " },
+                controller::stop
             )
         }
     }

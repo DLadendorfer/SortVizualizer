@@ -12,7 +12,7 @@ import java.util.LinkedList;
 /**
  * Implementation of Insertion-Sort.
  * Insertion-Sort can be described like this:
- *
+ * <p>
  * <code>
  * Insertion sort iterates, consuming one input element each repetition, and grows a sorted output list.
  * At each iteration, insertion sort removes one element from the input data, finds the location it belongs

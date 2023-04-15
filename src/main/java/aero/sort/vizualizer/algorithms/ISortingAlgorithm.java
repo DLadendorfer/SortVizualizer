@@ -17,6 +17,7 @@ public interface ISortingAlgorithm {
 
     /**
      * Sorts the given array of {@link Integer}.
+     *
      * @param ints the array to sort
      * @return each step required to achieve a fully sorted array
      */

@@ -4,7 +4,6 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.algorithms
 
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -19,7 +18,7 @@ internal abstract class AbstractSortingAlgorithmTest {
     private val sortedArr = arrayOf(0, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, Integer.MAX_VALUE)
     private val unsortedArr = arrayOf(1, 1, 0, 2, 9, 8, 2, 3, 4, 5, Integer.MAX_VALUE, 7, 6, 10)
 
-    protected abstract fun getAlgorithm() : ISortingAlgorithm
+    protected abstract fun getAlgorithm(): ISortingAlgorithm
 
     @Test
     fun `Tests the sort function`() {

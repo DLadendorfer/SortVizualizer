@@ -11,6 +11,7 @@ import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 import aero.sort.vizualizer.ui.components.status.StatusBar;
 import aero.sort.vizualizer.ui.constants.FrameConstants;
 import aero.sort.vizualizer.ui.constants.Theme;
+import aero.sort.vizualizer.utilities.ui.Ui;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,23 +24,27 @@ import java.awt.*;
  * @author Daniel Ladendorfer
  */
 public class MainFrame extends JFrame {
-    private static final MainFrame INSTANCE = new MainFrame();
     private static final Logger logger = LoggerFactory.getLogger(MainFrame.class);
+    private static final MainFrame instance = new MainFrame();
     private final JDesktopPane desktop;
     private final Controller controller;
 
 
     private MainFrame() {
         controller = new Controller(this);
+        desktop = createDesktop();
         initializeFrame();
-        var actionPanel = new ActionPanel();
-        add(actionPanel, BorderLayout.WEST);
-        desktop = new JDesktopPane();
-        desktop.setBackground(Theme.BLACK);
-        desktop.setVisible(true);
+        add(new ActionPanel(), BorderLayout.WEST);
         add(desktop, BorderLayout.CENTER);
         add(new StatusBar(), BorderLayout.SOUTH);
-        pack();
+        logger.debug("MainFrame initialized");
+    }
+
+    private JDesktopPane createDesktop() {
+        return Ui.using(new JDesktopPane())
+                .execute(d -> d.setBackground(Theme.BLACK))
+                .execute(d -> d.setVisible(true))
+                .get();
     }
 
     /**
@@ -48,7 +53,7 @@ public class MainFrame extends JFrame {
      * @return the application main frame
      */
     public static MainFrame getInstance() {
-        return INSTANCE;
+        return instance;
     }
 
     public void createInternalFrame(SortOptions options) {

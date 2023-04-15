@@ -24,7 +24,7 @@ public final class PreLaunchHook {
      * This method will be called prior to the start of the application. <br>
      * Command line arguments have to be handled in this method!
      * <p>
-     * Throws an unhandled exception if the application if the arguments are invalid with exit-code:
+     * Throws an unhandled exception if the arguments are invalid with exit-code:
      * {@link ApplicationStartException#APPLICATION_START_NOT_POSSIBLE_EXIT_CODE}
      *
      * @param args the command line arguments

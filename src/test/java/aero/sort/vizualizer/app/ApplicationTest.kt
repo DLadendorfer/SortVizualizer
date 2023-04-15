@@ -17,8 +17,8 @@ internal class ApplicationTest {
     @Test
     fun `Launch does not throw any exception`() {
         assertDoesNotThrow(
-                { "No exception should occur" },
-                { Application.launch() }
+            { "No exception should occur" },
+            { Application.launch() }
         )
     }
 }

@@ -11,7 +11,6 @@ import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.junit.jupiter.MockitoSettings
 import org.mockito.quality.Strictness
-import java.lang.RuntimeException
 import java.time.Instant
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Future
@@ -80,7 +79,7 @@ internal class AsyncTest {
     }
 
     @Test
-    fun `Tests if safeCancel is nullsafe`() {
+    fun `Tests if safeCancel is null safe`() {
         assertDoesNotThrow {
             safeCancel(null)
         }
@@ -103,10 +102,10 @@ internal class AsyncTest {
     @Test
     fun `Tests if cancel exception is not rethrown`() {
         `when`(throwingCancelFuture.cancel(true)).thenThrow(RuntimeException())
-         assertDoesNotThrow(
-                 { "No exception should be thrown" },
-                 { safeCancel(throwingCancelFuture) }
-         )
+        assertDoesNotThrow(
+            { "No exception should be thrown" },
+            { safeCancel(throwingCancelFuture) }
+        )
     }
 
     @Test
