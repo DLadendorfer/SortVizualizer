@@ -20,8 +20,8 @@ public class Controller {
 
     private final SortController sortController;
 
-    public Controller(MainFrame mainFrame) {
-        sortController = new SortController(mainFrame);
+    public Controller() {
+        sortController = new SortController();
     }
 
     /**

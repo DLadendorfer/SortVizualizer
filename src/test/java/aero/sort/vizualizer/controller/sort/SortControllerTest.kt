@@ -28,9 +28,6 @@ import javax.swing.JDesktopPane
 @MockitoSettings(strictness = Strictness.LENIENT)
 internal class SortControllerTest {
     @Mock
-    lateinit var mainFrame: MainFrame
-
-    @Mock
     lateinit var desktop: JDesktopPane
 
     @Mock
@@ -41,7 +38,6 @@ internal class SortControllerTest {
 
     @BeforeEach
     fun setup() {
-        `when`(mainFrame.desktop).thenReturn(desktop)
         `when`(desktop.allFrames).thenReturn(arrayOf(sortingFrame))
     }
 

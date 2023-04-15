@@ -8,7 +8,9 @@ import aero.sort.vizualizer.ui.MainFrame;
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 import aero.sort.vizualizer.utilities.Async;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.Future;
 import java.util.stream.IntStream;
 
@@ -22,11 +24,6 @@ import static java.util.function.Predicate.not;
 public class SortController {
     // holds all async sort futures (so they can be cancelled)
     private final Set<Future<?>> futures = Collections.synchronizedSet(new HashSet<>());
-    private final MainFrame mainFrame;
-
-    public SortController(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
-    }
 
     /**
      * Invoke the sorting process of all frames.
@@ -65,10 +62,12 @@ public class SortController {
     private void invokeSort() {
         Async.invoke(() -> {
             var ints = createRandomList();
-            for (var frame : mainFrame.getDesktop().getAllFrames()) {
-                if (frame instanceof SortingFrame sortingFrame) {
-                    Runnable sortTask = () -> sortingFrame.sort(ints.toArray(new Integer[0]));
-                    futures.add(Async.submit(sortTask));
+            if (!GraphicsEnvironment.isHeadless()) {
+                for (var frame : MainFrame.getInstance().getDesktop().getAllFrames()) {
+                    if (frame instanceof SortingFrame sortingFrame) {
+                        Runnable sortTask = () -> sortingFrame.sort(ints.toArray(new Integer[0]));
+                        futures.add(Async.submit(sortTask));
+                    }
                 }
             }
         });

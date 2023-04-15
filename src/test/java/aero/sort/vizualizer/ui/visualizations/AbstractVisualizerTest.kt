@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import java.util.*
@@ -35,7 +36,7 @@ internal abstract class AbstractVisualizerTest {
 
         val asyncMock = Mockito.mockStatic(Async::class.java)
         asyncMock.use {
-            Mockito.`when` { Async.sleep(any()) }.then { }
+            asyncMock.`when`<Async> { Async.sleep(anyLong()) }.then { }
         }
         val visualizer = getVisualizer(list)
         assertDoesNotThrow { visualizer.render() }

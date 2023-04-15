@@ -13,6 +13,8 @@ import aero.sort.vizualizer.ui.laf.UIBindings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
+
 /**
  * The main application class.
  *
@@ -27,7 +29,11 @@ public class Application {
 
     public static void launch() {
         logger.info("Launching application...");
-        createDefaultSortFrame();
+
+        if (!GraphicsEnvironment.isHeadless()) {
+            createDefaultSortFrame();
+        }
+
         logger.info("Application start successful");
     }
 

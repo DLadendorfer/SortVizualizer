@@ -28,10 +28,6 @@ internal class ControllerTest {
 
     @Suppress("unused") // mock injection
     @Mock
-    lateinit var mainFrame: MainFrame
-
-    @Suppress("unused") // mock injection
-    @Mock
     lateinit var sortController: SortController
 
     @InjectMocks

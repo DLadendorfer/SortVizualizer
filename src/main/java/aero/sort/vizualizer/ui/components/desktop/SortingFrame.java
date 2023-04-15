@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -52,7 +53,11 @@ public class SortingFrame extends JInternalFrame {
     private void initializeFrame(SortOptions options) {
         add(renderPanel);
         setTitle("%s - %s".formatted(options.algorithm(), options.visualization()));
-        setBounds(10 + createOffset, 10 + createOffset, MainFrame.getInstance().getDesktop().getWidth() / 2, MainFrame.getInstance().getDesktop().getHeight() / 3 * 2);
+
+        if (!GraphicsEnvironment.isHeadless()) {
+            setBounds(10 + createOffset, 10 + createOffset, MainFrame.getInstance().getDesktop().getWidth() / 2, MainFrame.getInstance().getDesktop().getHeight() / 3 * 2);
+        }
+
         setResizable(true);
         setMaximizable(true);
         setIconifiable(true);

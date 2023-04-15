@@ -31,7 +31,7 @@ public class MainFrame extends JFrame {
 
 
     private MainFrame() {
-        controller = new Controller(this);
+        controller = new Controller();
         desktop = createDesktop();
         initializeFrame();
         add(new ActionPanel(), BorderLayout.WEST);
@@ -77,11 +77,8 @@ public class MainFrame extends JFrame {
         setPreferredSize(FrameConstants.PREFERRED_DIMENSION);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        if (!GraphicsEnvironment.isHeadless()) {
-            // headless mode disables this
-            setVisible(true);
-            setLocationRelativeTo(null);
-        }
+        setVisible(true);
         pack();
+        setLocationRelativeTo(null);
     }
 }
