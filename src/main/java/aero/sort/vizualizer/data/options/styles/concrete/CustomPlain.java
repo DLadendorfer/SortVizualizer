@@ -5,9 +5,9 @@
 package aero.sort.vizualizer.data.options.styles.concrete;
 
 import aero.sort.vizualizer.data.options.styles.AbstractPlainStyle;
-import aero.sort.vizualizer.ui.constants.Theme;
 
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * Custom plain style. The user can choose the preferred color.
@@ -15,7 +15,13 @@ import java.awt.*;
  * @author Daniel Ladendorfer
  */
 public class CustomPlain extends AbstractPlainStyle {
-    private Color color = Theme.YELLOW;
+    private final Color color;
+
+    public CustomPlain(Color color) {
+        Objects.requireNonNull(color, "The specified color must not be null");
+        this.color = color;
+    }
+
     @Override
     protected Color getPlainColor() {
         return color;

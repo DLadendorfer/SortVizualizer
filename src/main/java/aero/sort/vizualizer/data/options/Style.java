@@ -10,6 +10,9 @@ package aero.sort.vizualizer.data.options;
  * @author Daniel Ladendorfer
  */
 public enum Style {
+    CustomGradient,
+    BlackWhiteGradient,
+    CustomPlain,
     White,
     Cyan,
     Green,

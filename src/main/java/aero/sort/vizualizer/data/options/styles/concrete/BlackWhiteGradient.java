@@ -1,23 +1,27 @@
 // -------------------------------------------------------------------------------
-// Copyright (c) Ladendorfer Daniel.
+// Copyright (c) Ladendorfer Daniel.  
 // All Rights Reserved.  See LICENSE in the project root for license information.
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.data.options.styles.concrete;
 
-import aero.sort.vizualizer.data.options.styles.AbstractPlainStyle;
+import aero.sort.vizualizer.data.options.styles.AbstractGradientStyle;
 import aero.sort.vizualizer.ui.constants.Theme;
 
 import java.awt.*;
 
 /**
- * White style.
+ * BlackWhite gradient style.
  *
  * @author Daniel Ladendorfer
  */
-public class White extends AbstractPlainStyle {
+public class BlackWhiteGradient extends AbstractGradientStyle {
+    @Override
+    protected Color getPrimaryColor() {
+        return Theme.BLACK;
+    }
 
     @Override
-    protected Color getPlainColor() {
+    protected Color getSecondaryColor() {
         return Theme.WHITE;
     }
 }

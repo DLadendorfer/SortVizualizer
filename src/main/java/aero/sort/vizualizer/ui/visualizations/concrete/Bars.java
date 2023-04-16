@@ -49,7 +49,7 @@ public class Bars extends AbstractVisualizer {
 
     private void drawBar(int index, int maxValue, int minValue, int heightRatio, int barWidth, Graphics2D g2, StepResult step) {
         int value = step.ints()[index];
-        g2.setColor(Arrays.stream(step.marked()).anyMatch(m -> m == index) ? Theme.RED : style.getColor(index, value, maxValue, minValue));
+        g2.setColor(Arrays.stream(step.marked()).anyMatch(m -> m == index) ? Theme.RED : style.getColor(g2, step.ints().length, index, value, maxValue, minValue));
         int x = MARGIN + index * BAR_OFFSET + (index * barWidth);
         int y = getPanelDimension().height - value * heightRatio;
         int height = value * heightRatio;

@@ -54,11 +54,13 @@ public class ActionPanel extends JPanel {
         var algorithmComboBox = new JComboBox<>(Algorithm.values());
         var visualizationComboBox = new JComboBox<>(Visualization.values());
         var styleComboBox = new JComboBox<>(Style.values());
+        var primaryColor = new JColorChooser(Theme.CYAN);
+        var secondaryColor = new JColorChooser(Theme.YELLOW);
         var addButton = UiFactory.createButton("Add Sorter", () -> {
             var algorithm = (Algorithm) algorithmComboBox.getSelectedItem();
             var visualization = (Visualization) visualizationComboBox.getSelectedItem();
             var style = (Style) styleComboBox.getSelectedItem();
-            var options = new SortOptions(algorithm, visualization, style);
+            var options = new SortOptions(algorithm, visualization, style, primaryColor.getColor(), secondaryColor.getColor());
             MainFrame.getInstance().createInternalFrame(options);
         });
 
@@ -88,13 +90,14 @@ public class ActionPanel extends JPanel {
         panel.add(styleComboBox, constraints);
         constraints.gridy++;
         constraints.gridx = 0;
-        JColorChooser jColorChooser = new JColorChooser();
-        jColorChooser.setColor(Theme.YELLOW);
-        var chooser = jColorChooser.getChooserPanels()[1];
-        var button = UiFactory.createColorButton(jColorChooser::getColor, () -> JOptionPane.showMessageDialog(null, chooser, "Choose a color", JOptionPane.PLAIN_MESSAGE));
         panel.add(new JLabel("Primary Color: "), constraints);
         constraints.gridx++;
-        panel.add(button, constraints);
+        panel.add(UiFactory.createColorButton(primaryColor::getColor, () -> JOptionPane.showMessageDialog(null, primaryColor.getChooserPanels()[1], "Choose a primary color", JOptionPane.PLAIN_MESSAGE)), constraints);
+        constraints.gridy++;
+        constraints.gridx = 0;
+        panel.add(new JLabel("Secondary Color: "), constraints);
+        constraints.gridx++;
+        panel.add(UiFactory.createColorButton(secondaryColor::getColor, () -> JOptionPane.showMessageDialog(null, secondaryColor.getChooserPanels()[1], "Choose a secondary color", JOptionPane.PLAIN_MESSAGE)), constraints);
         constraints.gridy++;
         constraints.gridx = 0;
         constraints.gridwidth = 2;
