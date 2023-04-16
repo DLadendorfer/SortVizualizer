@@ -34,6 +34,11 @@ public class FrameManagementController {
      */
     public void arrangeSideBySide() {
         var frames = getAllFrames();
+
+        if (frames.length == 0) {
+            return;
+        }
+
         var desktopWidth = getDesktopWidth();
         var desktopHeight = getDesktopHeight();
         var width = desktopWidth / frames.length;
@@ -191,7 +196,7 @@ public class FrameManagementController {
         return getDesktop().getHeight();
     }
 
-    static void injectDesktop(JDesktopPane desktop) {
+     public static void injectDesktop(JDesktopPane desktop) {
         injectedDesktop = desktop;
     }
 }

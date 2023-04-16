@@ -4,8 +4,10 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.controller
 
+import aero.sort.vizualizer.controller.management.FrameManagementController
 import aero.sort.vizualizer.controller.sort.SortController
 import aero.sort.vizualizer.ui.MainFrame
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,6 +16,7 @@ import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.junit.jupiter.MockitoSettings
 import org.mockito.quality.Strictness
+import javax.swing.JDesktopPane
 
 /**
  * Tests [Controller].
@@ -30,8 +33,17 @@ internal class ControllerTest {
     @Mock
     lateinit var sortController: SortController
 
+    @Suppress("unused") // mock injection
+    @Mock
+    lateinit var frameManagementController: FrameManagementController
+
     @InjectMocks
     private lateinit var controller: Controller
+
+    @BeforeEach
+    fun setup() {
+        FrameManagementController.injectDesktop(JDesktopPane())
+    }
 
     @Test
     fun `SortController sort invocation does not throw any exceptions`() {
