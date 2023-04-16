@@ -18,8 +18,5 @@ import javax.swing.JPanel
  * @author Daniel Ladendorfer
  */
 internal class BarsTest : AbstractVisualizerTest() {
-    override fun getVisualizer(steps: LinkedList<StepResult>): IVisualizer {
-        return Bars(JPanel(), White(), steps)
-    }
-
+    override fun getVisualizer(steps: LinkedList<StepResult>): IVisualizer = Bars(JPanel(), White(), steps)
 }
