@@ -99,6 +99,9 @@ public class SortingFrame extends JInternalFrame {
         IStyle style = switch (options.style()) {
             case CustomGradient -> new CustomGradient(options.primaryColor(), options.secondaryColor());
             case Grayscale -> new Grayscale();
+            case Auqa -> new Aqua();
+            case Sunrise -> new Sunrise();
+            case Sunset -> new Sunset();
             case CustomPlain -> new CustomPlain(options.primaryColor());
             case White -> new White();
             case Cyan -> new Cyan();
