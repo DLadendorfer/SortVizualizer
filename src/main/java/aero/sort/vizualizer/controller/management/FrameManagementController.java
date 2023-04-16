@@ -17,6 +17,9 @@ import java.util.Arrays;
  */
 public class FrameManagementController {
 
+    // for unit tests
+    private static JDesktopPane injectedDesktop;
+
     /**
      * Closes all frames.
      */
@@ -63,12 +66,16 @@ public class FrameManagementController {
         }
     }
 
-    private static int getDesktopWidth() {
-        return MainFrame.getInstance().getDesktop().getWidth();
+    private int getDesktopWidth() {
+        return getDesktop().getWidth();
     }
 
-    private static JInternalFrame[] getAllFrames() {
-        return MainFrame.getInstance().getDesktop().getAllFrames();
+    private JDesktopPane getDesktop() {
+        return injectedDesktop == null ? MainFrame.getInstance().getDesktop() : injectedDesktop;
+    }
+
+    private JInternalFrame[] getAllFrames() {
+        return getDesktop().getAllFrames();
     }
 
     /**
@@ -101,11 +108,11 @@ public class FrameManagementController {
 
         for (int i = 9; i < frames.length; i++) {
             var frame = frames[i];
-            MainFrame.getInstance().getDesktop().getDesktopManager().openFrame(frame);
+            getDesktop().getDesktopManager().openFrame(frame);
             frame.toFront();
         }
 
-        JOptionPane.showMessageDialog(MainFrame.getInstance().getDesktop(),
+        JOptionPane.showMessageDialog(getDesktop(),
                 "Only up to 9 frames can be arranged smartly",
                 "Too many frames to smart arrange", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -181,6 +188,10 @@ public class FrameManagementController {
     }
 
     private int getDesktopHeight() {
-        return MainFrame.getInstance().getDesktop().getHeight();
+        return getDesktop().getHeight();
     }
+
+    static void injectDesktop(JDesktopPane desktop) {
+        injectedDesktop = desktop;
     }
+}

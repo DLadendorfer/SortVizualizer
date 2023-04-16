@@ -48,4 +48,36 @@ internal class ControllerTest {
             controller::stopSort
         )
     }
+
+    @Test
+    fun `ManagementController closeAll invocation does not throw any exceptions`() {
+        assertDoesNotThrow(
+            { "No Exception should be thrown " },
+            controller::closeAll
+        )
+    }
+
+    @Test
+    fun `ManagementController arrange stacking invocation does not throw any exceptions`() {
+        assertDoesNotThrow(
+            { "No Exception should be thrown " },
+            controller::arrangeStacking
+        )
+    }
+
+    @Test
+    fun `ManagementController smart arrange invocation does not throw any exceptions`() {
+        assertDoesNotThrow(
+            { "No Exception should be thrown " },
+            controller::smartArrange
+        )
+    }
+
+    @Test
+    fun `ManagementController arrange side-by-side invocation does not throw any exceptions`() {
+        assertDoesNotThrow(
+            { "No Exception should be thrown " },
+            controller::arrangeSideBySide
+        )
+    }
 }
