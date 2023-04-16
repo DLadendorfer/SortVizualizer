@@ -10,5 +10,15 @@ package aero.sort.vizualizer.data.options;
  * @author Daniel Ladendorfer
  */
 public enum Style {
-    None
+    CustomGradient,
+    Grayscale,
+    Sunset,
+    Sunrise,
+    Auqa,
+    CustomPlain,
+    White,
+    Cyan,
+    Green,
+    Purple,
+    Yellow,
 }

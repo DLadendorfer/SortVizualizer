@@ -4,7 +4,9 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.utilities.ui;
 
+import java.util.function.Supplier;
 import javax.swing.*;
+import java.awt.*;
 import java.util.Objects;
 
 /**
@@ -27,6 +29,33 @@ public final class UiFactory {
     public static JButton createButton(String label, Runnable runnable) {
         Objects.requireNonNull(runnable, "Runnable must not be null");
         var button = new JButton(label);
+        button.addActionListener(e -> runnable.run());
+        return button;
+    }
+
+    /**
+     * Creates a colored rectangle shaped Button. The color will be fetched by the color supplier. The given runnable
+     * is invoked on click.
+     *
+     * @param colorSupplier the color supplier
+     * @param runnable the button action to invoke
+     * @return the created button
+     */
+    public static JButton createColorButton(Supplier<Color> colorSupplier, Runnable runnable) {
+        Objects.requireNonNull(colorSupplier, "Color supplier must not be null");
+        Objects.requireNonNull(runnable, "Runnable must not be null");
+        var button = new JButton(" ") {
+            @Override
+            public void paintComponent(Graphics g) {
+                setBorder(null);
+                super.paintComponent(g);
+                if(g instanceof Graphics2D g2) {
+                    g2.setColor(colorSupplier.get());
+                    g2.fillRect(0, 0, getWidth(), getHeight());
+                }
+            }
+        };
+
         button.addActionListener(e -> runnable.run());
         return button;
     }

@@ -26,6 +26,7 @@ public class Bars extends AbstractVisualizer {
     @Override
     public JPanel renderInternal(StepResult step) {
         int maxValue = Arrays.stream(step.ints()).max(Comparator.naturalOrder()).orElse(1);
+        int minValue = Arrays.stream(step.ints()).min(Comparator.naturalOrder()).orElse(1);
 
         return new JPanel() {
             @Override
@@ -39,16 +40,16 @@ public class Bars extends AbstractVisualizer {
                     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
                     for (int index = 0; index < step.ints().length; index++) {
-                        drawBar(index, heightRatio, barWidth, g2, step);
+                        drawBar(index, maxValue, minValue, heightRatio, barWidth, g2, step);
                     }
                 }
             }
         };
     }
 
-    private void drawBar(int index, int heightRatio, int barWidth, Graphics2D g2, StepResult step) {
+    private void drawBar(int index, int maxValue, int minValue, int heightRatio, int barWidth, Graphics2D g2, StepResult step) {
         int value = step.ints()[index];
-        g2.setColor(Arrays.stream(step.marked()).anyMatch(m -> m == index) ? Theme.RED : Theme.WHITE);
+        g2.setColor(Arrays.stream(step.marked()).anyMatch(m -> m == index) ? Theme.RED : style.getColor(g2, step.ints().length, index, value, maxValue, minValue));
         int x = MARGIN + index * BAR_OFFSET + (index * barWidth);
         int y = getPanelDimension().height - value * heightRatio;
         int height = value * heightRatio;
