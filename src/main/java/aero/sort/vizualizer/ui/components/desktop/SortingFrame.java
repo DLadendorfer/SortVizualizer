@@ -12,7 +12,7 @@ import aero.sort.vizualizer.algorithms.concrete.QuickSort;
 import aero.sort.vizualizer.algorithms.concrete.SelectionSort;
 import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.data.options.styles.IStyle;
-import aero.sort.vizualizer.data.options.styles.concrete.None;
+import aero.sort.vizualizer.data.options.styles.concrete.*;
 import aero.sort.vizualizer.ui.MainFrame;
 import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.ui.visualizations.IVisualizer;
@@ -52,7 +52,7 @@ public class SortingFrame extends JInternalFrame {
 
     private void initializeFrame(SortOptions options) {
         add(renderPanel);
-        setTitle("%s - %s".formatted(options.algorithm(), options.visualization()));
+        setTitle("%s - %s - %s".formatted(options.algorithm(), options.visualization(), options.style()));
 
         if (!GraphicsEnvironment.isHeadless()) {
             setBounds(10 + createOffset, 10 + createOffset, MainFrame.getInstance().getDesktop().getWidth() / 2, MainFrame.getInstance().getDesktop().getHeight() / 3 * 2);
@@ -97,7 +97,11 @@ public class SortingFrame extends JInternalFrame {
 
     private void render(LinkedList<StepResult> steps) {
         IStyle style = switch (options.style()) {
-            case None -> new None();
+            case White -> new White();
+            case Cyan -> new Cyan();
+            case Green -> new Green();
+            case Purple -> new Purple();
+            case Yellow -> new Yellow();
         };
         IVisualizer visualizer = switch (options.visualization()) {
             case Bars -> new Bars(renderPanel, style, steps);

@@ -13,7 +13,5 @@ import aero.sort.vizualizer.algorithms.ISortingAlgorithm
  * @author Daniel Ladendorfer
  */
 internal class InsertionSortTest : AbstractSortingAlgorithmTest() {
-    override fun getAlgorithm(): ISortingAlgorithm {
-        return InsertionSort()
-    }
+    override fun getAlgorithm(): ISortingAlgorithm = InsertionSort()
 }

@@ -10,5 +10,9 @@ package aero.sort.vizualizer.data.options;
  * @author Daniel Ladendorfer
  */
 public enum Style {
-    None
+    White,
+    Cyan,
+    Green,
+    Purple,
+    Yellow,
 }

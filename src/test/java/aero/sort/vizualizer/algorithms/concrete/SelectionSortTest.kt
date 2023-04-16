@@ -15,7 +15,5 @@ import org.junit.jupiter.api.Disabled
  */
 @Disabled
 internal class SelectionSortTest : AbstractSortingAlgorithmTest() {
-    override fun getAlgorithm(): ISortingAlgorithm {
-        return SelectionSort()
-    }
+    override fun getAlgorithm(): ISortingAlgorithm = SelectionSort()
 }

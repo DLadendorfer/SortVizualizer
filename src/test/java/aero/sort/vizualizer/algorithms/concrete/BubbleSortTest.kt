@@ -13,7 +13,5 @@ import aero.sort.vizualizer.algorithms.ISortingAlgorithm
  * @author Daniel Ladendorfer
  */
 internal class BubbleSortTest : AbstractSortingAlgorithmTest() {
-    override fun getAlgorithm(): ISortingAlgorithm {
-        return BubbleSort()
-    }
+    override fun getAlgorithm(): ISortingAlgorithm = BubbleSort()
 }
