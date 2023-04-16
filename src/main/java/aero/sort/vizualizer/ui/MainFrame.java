@@ -8,6 +8,7 @@ import aero.sort.vizualizer.controller.Controller;
 import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.ui.components.action.ActionPanel;
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
+import aero.sort.vizualizer.ui.components.management.FrameManagementPanel;
 import aero.sort.vizualizer.ui.components.status.StatusBar;
 import aero.sort.vizualizer.ui.constants.FrameConstants;
 import aero.sort.vizualizer.ui.constants.Theme;
@@ -28,6 +29,7 @@ public class MainFrame extends JFrame {
     private static final MainFrame instance = new MainFrame();
     private final JDesktopPane desktop;
     private final Controller controller;
+    private boolean autoSmartArrange = true;
 
 
     private MainFrame() {
@@ -35,10 +37,19 @@ public class MainFrame extends JFrame {
         desktop = createDesktop();
         initializeFrame();
         add(new ActionPanel(), BorderLayout.WEST);
-        add(desktop, BorderLayout.CENTER);
+        add(createCenterPanel(), BorderLayout.CENTER);
         add(new StatusBar(), BorderLayout.SOUTH);
         pack();
         logger.debug("MainFrame initialized");
+    }
+
+    private JPanel createCenterPanel() {
+        var panel = new JPanel(new BorderLayout());
+
+        panel.add(new FrameManagementPanel(), BorderLayout.NORTH);
+        panel.add(desktop, BorderLayout.CENTER);
+
+        return panel;
     }
 
     private JDesktopPane createDesktop() {
@@ -57,10 +68,23 @@ public class MainFrame extends JFrame {
         return instance;
     }
 
+    /**
+     * Sets the auto smart arrange flag of the controller.
+     * @param enabled true to enable; false to disable
+     */
+    public void autoSmartArrange(boolean enabled) {
+        logger.info("Smart arranging frames: {}", enabled);
+        this.autoSmartArrange = enabled;
+    }
+
     public void createInternalFrame(SortOptions options) {
         var frame = new SortingFrame(options);
         desktop.add(frame);
         frame.toFront();
+
+        if(autoSmartArrange) {
+            controller.smartArrange();
+        }
     }
 
     public Controller getController() {

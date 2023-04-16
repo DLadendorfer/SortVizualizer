@@ -74,7 +74,7 @@ public class SortController {
     }
 
     private List<Integer> createRandomList() {
-        int arrayLength = 50;
+        int arrayLength = 20;
         var ints = new ArrayList<>(IntStream.rangeClosed(1, arrayLength).boxed().toList());
         Collections.shuffle(ints);
         return ints;

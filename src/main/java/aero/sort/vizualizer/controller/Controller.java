@@ -4,6 +4,7 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.controller;
 
+import aero.sort.vizualizer.controller.management.FrameManagementController;
 import aero.sort.vizualizer.controller.sort.SortController;
 import aero.sort.vizualizer.ui.MainFrame;
 import org.slf4j.Logger;
@@ -19,9 +20,11 @@ public class Controller {
     private static final Logger logger = LoggerFactory.getLogger(Controller.class);
 
     private final SortController sortController;
+    private final FrameManagementController frameManagementController;
 
     public Controller() {
         sortController = new SortController();
+        frameManagementController = new FrameManagementController();
     }
 
     /**
@@ -38,5 +41,38 @@ public class Controller {
     public void stopSort() {
         logger.info("Stopping sort procedure of all frames");
         sortController.stop();
+    }
+
+    /**
+     * Closes all frames.
+     */
+    public void closeAll() {
+        logger.info("Closing all frames");
+        stopSort();
+        frameManagementController.closeAll();
+    }
+
+    /**
+     * Arrange all internal frames side by side.
+     */
+    public void arrangeSideBySide() {
+        logger.info("Arranging frames side by side");
+        frameManagementController.arrangeSideBySide();
+    }
+
+    /**
+     * Arrange all internal frames stacking.
+     */
+    public void arrangeStacking() {
+        logger.info("Arranging frames stacking");
+        frameManagementController.arrangeStacking();
+    }
+
+    /**
+     * Smart arranges all internal frames.
+     */
+    public void smartArrange() {
+        logger.info("Smart arranging frames");
+        frameManagementController.smartArrange();
     }
 }
