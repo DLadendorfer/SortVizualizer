@@ -11,7 +11,7 @@ package aero.sort.vizualizer.data.options;
  */
 public enum Style {
     CustomGradient,
-    BlackWhiteGradient,
+    Grayscale,
     CustomPlain,
     White,
     Cyan,

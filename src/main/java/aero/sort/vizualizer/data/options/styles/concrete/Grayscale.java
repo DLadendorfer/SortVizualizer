@@ -14,10 +14,10 @@ import java.awt.*;
  *
  * @author Daniel Ladendorfer
  */
-public class BlackWhiteGradient extends AbstractGradientStyle {
+public class Grayscale extends AbstractGradientStyle {
     @Override
     protected Color getPrimaryColor() {
-        return Theme.BLACK;
+        return Theme.GRAY;
     }
 
     @Override
