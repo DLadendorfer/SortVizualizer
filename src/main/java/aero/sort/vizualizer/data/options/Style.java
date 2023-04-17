@@ -10,6 +10,7 @@ package aero.sort.vizualizer.data.options;
  * @author Daniel Ladendorfer
  */
 public enum Style {
+    Rainbow,
     CustomGradient,
     Grayscale,
     Sunset,

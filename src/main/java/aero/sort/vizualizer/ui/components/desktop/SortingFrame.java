@@ -97,6 +97,7 @@ public class SortingFrame extends JInternalFrame {
 
     private void render(LinkedList<StepResult> steps) {
         IStyle style = switch (options.style()) {
+            case Rainbow -> new Rainbow();
             case CustomGradient -> new CustomGradient(options.primaryColor(), options.secondaryColor());
             case Grayscale -> new Grayscale();
             case Auqa -> new Aqua();

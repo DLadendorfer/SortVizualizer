@@ -4,7 +4,7 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui;
 
-import aero.sort.vizualizer.controller.Controller;
+import aero.sort.vizualizer.controller.ControllerFacade;
 import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.ui.components.action.ActionPanel;
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
@@ -28,12 +28,12 @@ public class MainFrame extends JFrame {
     private static final Logger logger = LoggerFactory.getLogger(MainFrame.class);
     private static final MainFrame instance = new MainFrame();
     private final JDesktopPane desktop;
-    private final Controller controller;
+    private final ControllerFacade controller;
     private boolean autoSmartArrange = true;
 
 
     private MainFrame() {
-        controller = new Controller();
+        controller = new ControllerFacade();
         desktop = createDesktop();
         initializeFrame();
         add(new ActionPanel(), BorderLayout.WEST);
@@ -87,7 +87,7 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public Controller getController() {
+    public ControllerFacade getController() {
         return controller;
     }
 

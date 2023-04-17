@@ -4,6 +4,7 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.app;
 
+import aero.sort.vizualizer.annotation.meta.Justification;
 import aero.sort.vizualizer.data.options.Algorithm;
 import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.data.options.Style;
