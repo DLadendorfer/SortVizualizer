@@ -4,9 +4,9 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.controller
 
+import aero.sort.vizualizer.annotation.meta.Justification
 import aero.sort.vizualizer.controller.management.FrameManagementController
 import aero.sort.vizualizer.controller.sort.SortController
-import aero.sort.vizualizer.ui.MainFrame
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
@@ -19,26 +19,28 @@ import org.mockito.quality.Strictness
 import javax.swing.JDesktopPane
 
 /**
- * Tests [Controller].
+ * Tests [ControllerFacade].
  *
  * @author Daniel Ladendorfer
  */
 @ExtendWith(MockitoExtension::class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-internal class ControllerTest {
+internal class ControllerFacadeTest {
     // ! this class should not test the functionality of the concrete controllers
     // ! only their invocation should be tested
 
-    @Suppress("unused") // mock injection
+    @Justification("Suppressing 'unused' due to mock injection")
+    @Suppress("unused")
     @Mock
     lateinit var sortController: SortController
 
-    @Suppress("unused") // mock injection
+    @Justification("Suppressing 'unused' due to mock injection")
+    @Suppress("unused")
     @Mock
     lateinit var frameManagementController: FrameManagementController
 
     @InjectMocks
-    private lateinit var controller: Controller
+    private lateinit var controller: ControllerFacade
 
     @BeforeEach
     fun setup() {
@@ -48,48 +50,42 @@ internal class ControllerTest {
     @Test
     fun `SortController sort invocation does not throw any exceptions`() {
         assertDoesNotThrow(
-            { "No Exception should be thrown " },
-            controller::sort
+            { "No Exception should be thrown " }, controller::sort
         )
     }
 
     @Test
     fun `SortController stop invocation does not throw any exceptions`() {
         assertDoesNotThrow(
-            { "No Exception should be thrown " },
-            controller::stopSort
+            { "No Exception should be thrown " }, controller::stopSort
         )
     }
 
     @Test
     fun `ManagementController closeAll invocation does not throw any exceptions`() {
         assertDoesNotThrow(
-            { "No Exception should be thrown " },
-            controller::closeAll
+            { "No Exception should be thrown " }, controller::closeAll
         )
     }
 
     @Test
     fun `ManagementController arrange stacking invocation does not throw any exceptions`() {
         assertDoesNotThrow(
-            { "No Exception should be thrown " },
-            controller::arrangeStacking
+            { "No Exception should be thrown " }, controller::arrangeStacking
         )
     }
 
     @Test
     fun `ManagementController smart arrange invocation does not throw any exceptions`() {
         assertDoesNotThrow(
-            { "No Exception should be thrown " },
-            controller::smartArrange
+            { "No Exception should be thrown " }, controller::smartArrange
         )
     }
 
     @Test
     fun `ManagementController arrange side-by-side invocation does not throw any exceptions`() {
         assertDoesNotThrow(
-            { "No Exception should be thrown " },
-            controller::arrangeSideBySide
+            { "No Exception should be thrown " }, controller::arrangeSideBySide
         )
     }
 }

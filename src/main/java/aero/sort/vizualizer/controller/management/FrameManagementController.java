@@ -4,6 +4,7 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.controller.management;
 
+import aero.sort.vizualizer.annotation.meta.Justification;
 import aero.sort.vizualizer.ui.MainFrame;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ import java.util.Arrays;
  */
 public class FrameManagementController {
 
-    // for unit tests
+    @Justification("Unit tests need to inject a desktop instance because github CI is in headless gfx mode")
     private static JDesktopPane injectedDesktop;
 
     /**
@@ -196,7 +197,12 @@ public class FrameManagementController {
         return getDesktop().getHeight();
     }
 
-     public static void injectDesktop(JDesktopPane desktop) {
+    /**
+     * Internal static API to enable unit testing.
+     * @param desktop the desktop to statically inject
+     */
+    @Justification("Unit tests need to inject a desktop instance because github CI is in headless gfx mode")
+    public static void injectDesktop(JDesktopPane desktop) {
         injectedDesktop = desktop;
     }
 }

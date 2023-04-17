@@ -6,7 +6,6 @@ package aero.sort.vizualizer.controller;
 
 import aero.sort.vizualizer.controller.management.FrameManagementController;
 import aero.sort.vizualizer.controller.sort.SortController;
-import aero.sort.vizualizer.ui.MainFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,13 +15,13 @@ import org.slf4j.LoggerFactory;
  *
  * @author Daniel Ladendorfer
  */
-public class Controller {
-    private static final Logger logger = LoggerFactory.getLogger(Controller.class);
+public class ControllerFacade {
+    private static final Logger logger = LoggerFactory.getLogger(ControllerFacade.class);
 
     private final SortController sortController;
     private final FrameManagementController frameManagementController;
 
-    public Controller() {
+    public ControllerFacade() {
         sortController = new SortController();
         frameManagementController = new FrameManagementController();
     }
