@@ -4,6 +4,7 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.app;
 
+import aero.sort.vizualizer.annotation.meta.Justification;
 import aero.sort.vizualizer.throwables.Rethrower;
 import aero.sort.vizualizer.throwables.app.ApplicationStartException;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ public final class PreLaunchHook {
     private static final Logger logger = LoggerFactory.getLogger(PreLaunchHook.class);
 
     private PreLaunchHook() {
+        // utility class - no instance needed
     }
 
     /**
@@ -40,9 +42,9 @@ public final class PreLaunchHook {
         }
     }
 
+    @Justification("Fail fast if the user expects arguments to be valid")
     private static void validate(String[] args) throws ApplicationStartException {
         if (args == null || args.length != 0) {
-            // currently no arguments are allowed
             throw new ApplicationStartException();
         }
     }

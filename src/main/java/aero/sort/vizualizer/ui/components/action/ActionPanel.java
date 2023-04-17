@@ -10,6 +10,7 @@ import aero.sort.vizualizer.data.options.Style;
 import aero.sort.vizualizer.data.options.Visualization;
 import aero.sort.vizualizer.ui.MainFrame;
 import aero.sort.vizualizer.ui.constants.Theme;
+import aero.sort.vizualizer.utilities.ui.FluentConstraints;
 import aero.sort.vizualizer.utilities.ui.Ui;
 import aero.sort.vizualizer.utilities.ui.UiFactory;
 import org.slf4j.Logger;
@@ -50,7 +51,7 @@ public class ActionPanel extends JPanel {
 
     private JPanel createAddFramePanel() {
         var panel = new JPanel(new GridBagLayout());
-        var constraints = createGridBagConstraints();
+        var constraints = FluentConstraints.of(createGridBagConstraints());
         var algorithmComboBox = new JComboBox<>(Algorithm.values());
         var visualizationComboBox = new JComboBox<>(Visualization.values());
         var styleComboBox = new JComboBox<>(Style.values());
@@ -60,52 +61,27 @@ public class ActionPanel extends JPanel {
             var algorithm = (Algorithm) algorithmComboBox.getSelectedItem();
             var visualization = (Visualization) visualizationComboBox.getSelectedItem();
             var style = (Style) styleComboBox.getSelectedItem();
-            var options = new SortOptions(algorithm, visualization, style, primaryColor.getColor(), secondaryColor.getColor());
+            var colors = new SortOptions.Colors(primaryColor.getColor(), secondaryColor.getColor());
+            var options = new SortOptions(algorithm, visualization, style, colors);
             MainFrame.getInstance().createInternalFrame(options);
         });
 
         panel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
         panel.setAlignmentY(JPanel.TOP_ALIGNMENT);
-        constraints.gridwidth = 2;
-        constraints.ipady = 5;
-        panel.add(new JSeparator(), constraints);
-        constraints.gridy++;
-        constraints.ipady = 0;
-        panel.add(new JLabel(), constraints);
-        constraints.gridwidth = 1;
-        constraints.gridy++;
-        constraints.gridx = 0;
-        panel.add(new JLabel("Algorithm: "), constraints);
-        constraints.gridx++;
-        panel.add(algorithmComboBox, constraints);
-        constraints.gridx = 0;
-        constraints.gridy++;
-        panel.add(new JLabel("Visualization: "), constraints);
-        constraints.gridx++;
-        panel.add(visualizationComboBox, constraints);
-        constraints.gridx = 0;
-        constraints.gridy++;
-        panel.add(new JLabel("Style: "), constraints);
-        constraints.gridx++;
-        panel.add(styleComboBox, constraints);
-        constraints.gridy++;
-        constraints.gridx = 0;
-        panel.add(new JLabel("Primary Color: "), constraints);
-        constraints.gridx++;
-        panel.add(UiFactory.createColorButton(primaryColor::getColor, () -> JOptionPane.showMessageDialog(null, primaryColor.getChooserPanels()[1], "Choose a primary color", JOptionPane.PLAIN_MESSAGE)), constraints);
-        constraints.gridy++;
-        constraints.gridx = 0;
-        panel.add(new JLabel("Secondary Color: "), constraints);
-        constraints.gridx++;
-        panel.add(UiFactory.createColorButton(secondaryColor::getColor, () -> JOptionPane.showMessageDialog(null, secondaryColor.getChooserPanels()[1], "Choose a secondary color", JOptionPane.PLAIN_MESSAGE)), constraints);
-        constraints.gridy++;
-        constraints.gridx = 0;
-        constraints.gridwidth = 2;
-        panel.add(addButton, constraints);
-        constraints.gridy++;
-        constraints.weighty = 420.69f; // do not delete this or else the ui will break
-        panel.add(new JPanel(), constraints);
-
+        panel.add(new JSeparator(), constraints.width(2).padY(5).get());
+        panel.add(new JLabel(), constraints.incrementY().padY(0).get());
+        panel.add(new JLabel("Algorithm: "), constraints.width(1).incrementY().resetX().get());
+        panel.add(algorithmComboBox, constraints.incrementX().get());
+        panel.add(new JLabel("Visualization: "), constraints.resetX().incrementY().get());
+        panel.add(visualizationComboBox, constraints.incrementX().get());
+        panel.add(new JLabel("Style: "), constraints.resetX().incrementY().get());
+        panel.add(styleComboBox, constraints.incrementX().get());
+        panel.add(new JLabel("Primary Color: "), constraints.resetX().incrementY().get());
+        panel.add(UiFactory.createColorButton(primaryColor::getColor, () -> Ui.showInfo("Choose a primary color", primaryColor.getChooserPanels()[1])), constraints.incrementX().get());
+        panel.add(new JLabel("Secondary Color: "), constraints.resetX().incrementY().get());
+        panel.add(UiFactory.createColorButton(secondaryColor::getColor, () -> Ui.showInfo("Choose a secondary color", secondaryColor.getChooserPanels()[1])), constraints.incrementX().get());
+        panel.add(addButton, constraints.resetX().incrementY().width(2).get());
+        panel.add(new JPanel(), constraints.incrementY().weightY(420.69f).get());// do not delete this or else the ui will break
 
         return panel;
     }

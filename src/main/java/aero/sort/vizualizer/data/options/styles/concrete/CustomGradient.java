@@ -4,6 +4,7 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.data.options.styles.concrete;
 
+import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.data.options.styles.AbstractGradientStyle;
 
 import java.awt.*;
@@ -15,23 +16,20 @@ import java.util.Objects;
  * @author Daniel Ladendorfer
  */
 public class CustomGradient extends AbstractGradientStyle {
-    private final Color primaryColor;
-    private final Color secondaryColor;
+    private final SortOptions.Colors colors;
 
-    public CustomGradient(Color primaryColor, Color secondaryColor) {
-        Objects.requireNonNull(primaryColor, "The specified primary color must not be null");
-        Objects.requireNonNull(secondaryColor, "The specified secondary color must not be null");
-        this.primaryColor = primaryColor;
-        this.secondaryColor = secondaryColor;
+    public CustomGradient(SortOptions.Colors colors) {
+        Objects.requireNonNull(colors, "The specified primary colors must not be null");
+        this.colors = colors;
     }
 
     @Override
     protected Color getPrimaryColor() {
-        return primaryColor;
+        return colors.primary();
     }
 
     @Override
     protected Color getSecondaryColor() {
-        return secondaryColor;
+        return colors.secondary();
     }
 }

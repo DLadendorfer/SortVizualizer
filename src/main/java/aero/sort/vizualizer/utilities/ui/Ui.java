@@ -4,6 +4,10 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.utilities.ui;
 
+import aero.sort.vizualizer.ui.MainFrame;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.*;
 
 /**
@@ -12,6 +16,8 @@ import javax.swing.*;
  * @author Daniel Ladendorfer
  */
 public final class Ui {
+
+    private static final Logger logger = LoggerFactory.getLogger(Ui.class);
 
     private Ui() {
         // static utility class - no instance needed
@@ -26,5 +32,15 @@ public final class Ui {
      */
     public static <T extends JComponent> FluentUi<T> using(T component) {
         return new FluentUi<>(component);
+    }
+
+    /**
+     * Shows an info message dialog with the given title and message.
+     * @param title the title
+     * @param message the message; can be a JComponent
+     */
+    public static void showInfo(String title, Object message) {
+        logger.debug("Showing message '{}':'{}'", title, message);
+        JOptionPane.showMessageDialog(MainFrame.getInstance().getDesktop(), message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 }
