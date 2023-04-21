@@ -20,7 +20,7 @@ import java.awt.*;
  */
 public record SortOptions(Algorithm algorithm, Visualization visualization, Style style, Colors colors) {
     @Justification("Some visualization styles have locked colors, thus making the colors parameter insignificant for them")
-    private static final Colors DEFAULT_COLORS = new Colors(Theme.DEEPBLUE, Theme.CYAN);
+    private static final Colors DEFAULT_COLORS = new Colors(Theme.DEEP_BLUE, Theme.CYAN);
 
     /**
      * Options of visualizing a sorting algorithm. The colors are insignificant.

@@ -40,6 +40,7 @@ public class JLabelAppender extends AbstractAppender {
     public void append(LogEvent event) {
         logLevelLabel.setForeground(getColor(event));
         logLevelLabel.setText(LEVEL_FORMAT.formatted(event.getLevel().getStandardLevel().name()));
+        logLevelLabel.setFont(logLevelLabel.getFont().deriveFont(Font.BOLD));
         messageLabel.setText(event.getMessage().getFormattedMessage());
     }
 

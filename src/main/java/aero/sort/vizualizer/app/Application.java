@@ -40,7 +40,7 @@ public class Application {
     }
 
     private static void createDefaultSortFrame() {
-        var options = new SortOptions(Algorithm.Bubblesort, Visualization.Bars, Style.Auqa);
+        var options = new SortOptions(Algorithm.Bubblesort, Visualization.Bars, Style.App);
         MainFrame.getInstance().createInternalFrame(options);
     }
 }

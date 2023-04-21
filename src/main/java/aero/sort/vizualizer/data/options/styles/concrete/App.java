@@ -10,18 +10,18 @@ import aero.sort.vizualizer.ui.constants.Theme;
 import java.awt.*;
 
 /**
- * Aqua gradient style.
+ * App gradient style.
  *
  * @author Daniel Ladendorfer
  */
-public class Aqua extends AbstractGradientStyle {
+public class App extends AbstractGradientStyle {
     @Override
     protected Color getPrimaryColor() {
-        return Theme.BLUE;
+        return Theme.UI_ACCENT;
     }
 
     @Override
     protected Color getSecondaryColor() {
-        return Theme.DEEP_BLUE;
+        return Theme.UI_ACCENT_2;
     }
 }

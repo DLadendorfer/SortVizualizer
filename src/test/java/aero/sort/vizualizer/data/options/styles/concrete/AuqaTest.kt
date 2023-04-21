@@ -16,6 +16,6 @@ import java.awt.Color
  */
 internal class AuqaTest : AbstractGradientStyleTest() {
     override fun getExpectedPrimaryColor(): Color = Theme.BLUE
-    override fun getExpectedSecondaryColor(): Color = Theme.DEEPBLUE
+    override fun getExpectedSecondaryColor(): Color = Theme.DEEP_BLUE
     override fun getGradientStyle(): AbstractGradientStyle = Aqua()
 }

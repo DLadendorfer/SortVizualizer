@@ -12,12 +12,14 @@ import aero.sort.vizualizer.ui.components.management.FrameManagementPanel;
 import aero.sort.vizualizer.ui.components.status.StatusBar;
 import aero.sort.vizualizer.ui.constants.FrameConstants;
 import aero.sort.vizualizer.ui.constants.Theme;
+import aero.sort.vizualizer.utilities.Async;
 import aero.sort.vizualizer.utilities.ui.Ui;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.stream.IntStream;
 
 /**
  * Main application frame.
@@ -81,10 +83,10 @@ public class MainFrame extends JFrame {
         var frame = new SortingFrame(options);
         desktop.add(frame);
         frame.toFront();
-
         if(autoSmartArrange) {
             controller.smartArrange();
         }
+        Async.invoke(() -> frame.render(IntStream.rangeClosed(1, 20).boxed().toArray(Integer[]::new)));
     }
 
     public ControllerFacade getController() {

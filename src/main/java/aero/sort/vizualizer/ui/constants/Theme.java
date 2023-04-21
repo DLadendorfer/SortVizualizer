@@ -20,7 +20,8 @@ public class Theme {
     public static final Color GREEN = new Color(0x98C379);
     public static final Color YELLOW = new Color(0xE5C07B);
     public static final Color BLUE = new Color(0x61AFEF);
-    public static final Color DEEPBLUE = new Color(0x084777);
+    public static final Color DEEP_BLUE = new Color(0x084777);
+    public static final Color DARK_GREEN = new Color(0x378022);
     public static final Color PURPLE = new Color(0xC678DD);
     public static final Color CYAN = new Color(0x56B6C2);
     public static final Color WHITE = new Color(0xDCDFE4);
@@ -30,4 +31,6 @@ public class Theme {
 
     public static final Color FOREGROUND = new Color(0xDCDFE4);
 
+    public static final Color UI_ACCENT = Theme.GREEN;
+    public static final Color UI_ACCENT_2 = Theme.DARK_GREEN;
 }

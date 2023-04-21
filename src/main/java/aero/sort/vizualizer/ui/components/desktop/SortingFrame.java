@@ -17,6 +17,7 @@ import aero.sort.vizualizer.ui.MainFrame;
 import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.ui.visualizations.IVisualizer;
 import aero.sort.vizualizer.ui.visualizations.concrete.Bars;
+import aero.sort.vizualizer.utilities.Async;
 import aero.sort.vizualizer.utilities.ui.Ui;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,8 @@ import org.slf4j.LoggerFactory;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -34,13 +37,14 @@ import java.util.UUID;
  *
  * @author Daniel Ladendorfer
  */
-public class SortingFrame extends JInternalFrame {
+public class SortingFrame extends JInternalFrame implements ComponentListener {
     public static final String ICONS_SORT_PNG = "icons/sort.png";
     // this variable is used to make sure new windows are not exactly on top of each others
     private static int createOffset = 0;
     private final SortOptions options;
     private final JPanel renderPanel;
     private final Logger logger;
+    private LinkedList<StepResult> previousRenderData = new LinkedList<>();
 
     public SortingFrame(SortOptions options) {
         this.options = options;
@@ -65,7 +69,9 @@ public class SortingFrame extends JInternalFrame {
         setVisible(true);
         setIcon();
         recalculateNewCreationOffset();
+        addComponentListener(this);
     }
+
 
     private void setIcon() {
         try {
@@ -84,6 +90,17 @@ public class SortingFrame extends JInternalFrame {
         }
     }
 
+    /**
+     * Just rendering the given int array.
+     *
+     * @param ints the ints to render
+     */
+    public void render(Integer[] ints) {
+        var list = new LinkedList<StepResult>();
+        list.add(new StepResult(new Integer[]{}, ints));
+        render(list);
+    }
+
     public void sort(Integer[] ints) {
         ISortingAlgorithm algorithm = switch (options.algorithm()) {
             case Bubblesort -> new BubbleSort();
@@ -96,7 +113,10 @@ public class SortingFrame extends JInternalFrame {
     }
 
     private void render(LinkedList<StepResult> steps) {
+        previousRenderData = new LinkedList<>();
+        previousRenderData.add(new StepResult(steps.getFirst().marked(), steps.getFirst().ints()));
         IStyle style = switch (options.style()) {
+            case App -> new App();
             case Rainbow -> new Rainbow();
             case CustomGradient -> new CustomGradient(options.colors());
             case Grayscale -> new Grayscale();
@@ -115,5 +135,29 @@ public class SortingFrame extends JInternalFrame {
         };
 
         visualizer.render();
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        redraw();
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        redraw();
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+        redraw();
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+        redraw();
+    }
+
+    private void redraw() {
+        Async.invoke(() -> render(previousRenderData));
     }
 }

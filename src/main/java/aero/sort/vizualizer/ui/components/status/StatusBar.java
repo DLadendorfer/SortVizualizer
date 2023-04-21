@@ -5,6 +5,7 @@
 package aero.sort.vizualizer.ui.components.status;
 
 import aero.sort.vizualizer.ui.components.status.appender.JLabelAppender;
+import aero.sort.vizualizer.ui.constants.Theme;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -37,7 +38,7 @@ public class StatusBar extends JPanel {
         var constraints = createGridBagConstraints();
 
         createAndRegisterLogAppender(logLevelLabel, messageLabel);
-        panel.setBackground(getBackground().darker());
+        panel.setBackground(Theme.UI_ACCENT_2);
         panel.add(logLevelLabel, constraints);
         panel.add(messageLabel, constraints);
 
@@ -61,7 +62,7 @@ public class StatusBar extends JPanel {
 
     private void createPanel() {
         setLayout(new GridBagLayout());
-        setBackground(getBackground().darker());
+        setBackground(Theme.UI_ACCENT_2);
         add(logPanel, createGridBagConstraints());
     }
 
