@@ -12,7 +12,9 @@ import org.apache.logging.log4j.core.layout.PatternLayout;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.function.BiConsumer;
 
 /**
  * Log-Appender that logs to a JLabel.
@@ -24,6 +26,7 @@ public class JLabelAppender extends AbstractAppender {
     public static final String LEVEL_FORMAT = " [%s]  ";
     private final JLabel logLevelLabel;
     private final JLabel messageLabel;
+    private BiConsumer<JLabel, JLabel> eventCallback;
 
 
     public JLabelAppender(JLabel logLevelLabel, JLabel messageLabel) {
@@ -42,6 +45,15 @@ public class JLabelAppender extends AbstractAppender {
         logLevelLabel.setText(LEVEL_FORMAT.formatted(event.getLevel().getStandardLevel().name()));
         logLevelLabel.setFont(logLevelLabel.getFont().deriveFont(Font.BOLD));
         messageLabel.setText(event.getMessage().getFormattedMessage());
+
+        Optional.ofNullable(eventCallback).ifPresent(this::invokeCallback);
+    }
+
+    private void invokeCallback(BiConsumer<JLabel, JLabel> callBack) {
+        var levelClone = new JLabel(logLevelLabel.getText());
+        var messageClone = new JLabel(messageLabel.getText());
+        levelClone.setForeground(logLevelLabel.getForeground());
+        callBack.accept(levelClone, messageClone);
     }
 
     private static Color getColor(LogEvent event) {
@@ -55,5 +67,9 @@ public class JLabelAppender extends AbstractAppender {
 
     private static PatternLayout createPatternLayout() {
         return PatternLayout.newBuilder().withPattern(LOG_PATTERN).build();
+    }
+
+    public void setEventCallback(BiConsumer<JLabel, JLabel> eventCallback) {
+        this.eventCallback = eventCallback;
     }
 }

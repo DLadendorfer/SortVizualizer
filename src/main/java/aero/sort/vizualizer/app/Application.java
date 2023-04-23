@@ -4,13 +4,11 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.app;
 
-import aero.sort.vizualizer.annotation.meta.Justification;
 import aero.sort.vizualizer.data.options.Algorithm;
 import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.data.options.Style;
 import aero.sort.vizualizer.data.options.Visualization;
 import aero.sort.vizualizer.ui.MainFrame;
-import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.ui.laf.UIBindings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +38,7 @@ public class Application {
     }
 
     private static void createDefaultSortFrame() {
-        var options = new SortOptions(Algorithm.Bubblesort, Visualization.Bars, Style.App);
+        var options = new SortOptions(Algorithm.Bubblesort, Visualization.Bars, Style.App, true);
         MainFrame.getInstance().createInternalFrame(options);
     }
 }

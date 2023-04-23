@@ -10,6 +10,7 @@ import aero.sort.vizualizer.algorithms.concrete.BubbleSort;
 import aero.sort.vizualizer.algorithms.concrete.InsertionSort;
 import aero.sort.vizualizer.algorithms.concrete.QuickSort;
 import aero.sort.vizualizer.algorithms.concrete.SelectionSort;
+import aero.sort.vizualizer.annotation.meta.Justification;
 import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.data.options.styles.IStyle;
 import aero.sort.vizualizer.data.options.styles.concrete.*;
@@ -40,6 +41,7 @@ import java.util.UUID;
 public class SortingFrame extends JInternalFrame implements ComponentListener {
     public static final String ICONS_SORT_PNG = "icons/sort.png";
     // this variable is used to make sure new windows are not exactly on top of each others
+    @Justification("If the frames are not offset, it may be hard for the user to realize that a frame was created")
     private static int createOffset = 0;
     private final SortOptions options;
     private final JPanel renderPanel;

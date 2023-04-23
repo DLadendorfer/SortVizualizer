@@ -4,13 +4,15 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.controller.sort;
 
+import aero.sort.vizualizer.data.options.SortSetOptions;
+import aero.sort.vizualizer.data.registry.DataRegistry;
 import aero.sort.vizualizer.ui.MainFrame;
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 import aero.sort.vizualizer.utilities.Async;
 
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.concurrent.Future;
 import java.util.stream.IntStream;
 
@@ -74,7 +76,7 @@ public class SortController {
     }
 
     private List<Integer> createRandomList() {
-        int arrayLength = 20;
+        int arrayLength = DataRegistry.get(SortSetOptions.class).setSize();
         var ints = new ArrayList<>(IntStream.rangeClosed(1, arrayLength).boxed().toList());
         Collections.shuffle(ints);
         return ints;

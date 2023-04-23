@@ -105,13 +105,24 @@ public class FluentConstraints {
 
 
     /**
-     * Sets ipady to the given padding.
+     * Sets weighty to the given padding.
      *
      * @param weight the new padding
      * @return this
      */
     public FluentConstraints weightY(float weight) {
         gbc.weighty = weight;
+        return this;
+    }
+
+    /**
+     * Sets weightx to the given padding.
+     *
+     * @param weight the new padding
+     * @return this
+     */
+    public FluentConstraints weightX(float weight) {
+        gbc.weightx = weight;
         return this;
     }
 

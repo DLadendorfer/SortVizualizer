@@ -6,7 +6,7 @@ package aero.sort.vizualizer.ui;
 
 import aero.sort.vizualizer.controller.ControllerFacade;
 import aero.sort.vizualizer.data.options.SortOptions;
-import aero.sort.vizualizer.ui.components.action.ActionPanel;
+import aero.sort.vizualizer.ui.components.menu.MenuPanel;
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 import aero.sort.vizualizer.ui.components.management.FrameManagementPanel;
 import aero.sort.vizualizer.ui.components.status.StatusBar;
@@ -38,7 +38,7 @@ public class MainFrame extends JFrame {
         controller = new ControllerFacade();
         desktop = createDesktop();
         initializeFrame();
-        add(new ActionPanel(), BorderLayout.WEST);
+        add(new MenuPanel(), BorderLayout.WEST);
         add(createCenterPanel(), BorderLayout.CENTER);
         add(new StatusBar(), BorderLayout.SOUTH);
         pack();

@@ -4,6 +4,8 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.utilities.ui;
 
+import aero.sort.vizualizer.ui.constants.Theme;
+
 import java.util.function.Supplier;
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +31,7 @@ public final class UiFactory {
     public static JButton createButton(String label, Runnable runnable) {
         Objects.requireNonNull(runnable, "Runnable must not be null");
         var button = new JButton(label);
+        button.setForeground(Theme.UI_ACCENT);
         button.addActionListener(e -> runnable.run());
         return button;
     }

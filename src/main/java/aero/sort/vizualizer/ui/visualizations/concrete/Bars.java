@@ -5,8 +5,9 @@
 package aero.sort.vizualizer.ui.visualizations.concrete;
 
 import aero.sort.vizualizer.algorithms.StepResult;
+import aero.sort.vizualizer.data.options.VisualizationOptions;
 import aero.sort.vizualizer.data.options.styles.IStyle;
-import aero.sort.vizualizer.ui.constants.Theme;
+import aero.sort.vizualizer.data.registry.DataRegistry;
 import aero.sort.vizualizer.ui.visualizations.AbstractVisualizer;
 
 import javax.swing.*;
@@ -49,10 +50,29 @@ public class Bars extends AbstractVisualizer {
 
     private void drawBar(int index, int maxValue, int minValue, int heightRatio, int barWidth, Graphics2D g2, StepResult step) {
         int value = step.ints()[index];
-        g2.setColor(Arrays.stream(step.marked()).anyMatch(m -> m == index) ? Theme.RED : style.getColor(g2, step.ints().length, index, value, maxValue, minValue));
+        boolean markedIndex = Arrays.stream(step.marked()).anyMatch(m -> m == index);
+        g2.setColor(style.getColor(g2, step.ints().length, index, value, maxValue, minValue));
         int x = MARGIN + index * BAR_OFFSET + (index * barWidth);
         int y = getPanelDimension().height - value * heightRatio;
         int height = value * heightRatio;
         g2.fillRoundRect(x, y, barWidth, height, 10, 10);
+
+        if (markedIndex) {
+            var markOptions = DataRegistry.get(VisualizationOptions.class).marker();
+
+            g2.setColor(markOptions.markColor());
+            g2.setStroke(new BasicStroke(3));
+            switch (markOptions.markType()) {
+                case FILL -> {
+                    g2.fillRoundRect(x, y, barWidth, height, 10, 10);
+                }
+                case OUTLINE -> {
+                    g2.drawRoundRect(x, y, barWidth, height, 10, 10);
+                }
+                case OFF -> {
+                }
+            }
+
+        }
     }
 }
