@@ -35,8 +35,8 @@ public class BubbleSort extends AbstractSortingAlgorithm {
                     temp = ints[j - 1];
                     ints[j - 1] = ints[j];
                     ints[j] = temp;
-                    stepResults.add(createStep(marked));
                 }
+                stepResults.add(createStep(marked));
             }
         }
         stepResults.add(createEmptyStep());

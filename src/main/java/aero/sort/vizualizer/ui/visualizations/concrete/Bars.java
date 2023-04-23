@@ -58,7 +58,7 @@ public class Bars extends AbstractVisualizer {
         g2.fillRoundRect(x, y, barWidth, height, 10, 10);
 
         if (markedIndex) {
-            var markOptions = DataRegistry.get(VisualizationOptions.class).marker();
+            var markOptions = DataRegistry.fetch(VisualizationOptions.class).marker();
 
             g2.setColor(markOptions.markColor());
             g2.setStroke(new BasicStroke(3));

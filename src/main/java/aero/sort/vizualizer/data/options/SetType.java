@@ -13,5 +13,4 @@ public enum SetType {
     RANDOM,
     SORTED,
     ALMOST_SORTED,
-    COMPLETELY_SORTED
 }

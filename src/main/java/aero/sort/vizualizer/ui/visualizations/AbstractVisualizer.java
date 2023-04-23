@@ -29,7 +29,7 @@ public abstract class AbstractVisualizer implements IVisualizer {
     @Override
     public final void render() {
         while (!steps.isEmpty()) {
-            var options = DataRegistry.get(VisualizationOptions.class);
+            var options = DataRegistry.fetch(VisualizationOptions.class);
             if (!options.showSteps()) {
                 removeAllStepsButLast();
             }

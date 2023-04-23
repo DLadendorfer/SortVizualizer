@@ -48,22 +48,16 @@ public class SortController {
     }
 
     private void removeDoneFutures() {
-        futures.stream()
-                .filter(Future::isDone)
-                .toList()
-                .forEach(futures::remove);
+        futures.stream().filter(Future::isDone).toList().forEach(futures::remove);
     }
 
     private void cancelRunningFutures() {
-        futures.stream()
-                .filter(not(Future::isDone))
-                .toList()
-                .forEach(Async::safeCancel);
+        futures.stream().filter(not(Future::isDone)).toList().forEach(Async::safeCancel);
     }
 
     private void invokeSort() {
         Async.invoke(() -> {
-            var ints = createRandomList();
+            var ints = createList();
             if (!GraphicsEnvironment.isHeadless()) {
                 for (var frame : MainFrame.getInstance().getDesktop().getAllFrames()) {
                     if (frame instanceof SortingFrame sortingFrame) {
@@ -75,10 +69,64 @@ public class SortController {
         });
     }
 
-    private List<Integer> createRandomList() {
-        int arrayLength = DataRegistry.get(SortSetOptions.class).setSize();
-        var ints = new ArrayList<>(IntStream.rangeClosed(1, arrayLength).boxed().toList());
-        Collections.shuffle(ints);
-        return ints;
+    private List<Integer> createList() {
+        return createInts();
+    }
+
+    private static ArrayList<Integer> createInts() {
+        var options = DataRegistry.fetch(SortSetOptions.class);
+        int size = options.size();
+        var list = new ArrayList<>(IntStream.rangeClosed(1, size).boxed().toList());
+
+        switch (options.duplicates()) {
+            case SOME -> duplicateEntries(5, list);
+            case MANY -> duplicateEntries(2, list);
+            case NONE -> {
+            }
+        }
+
+        return switch (options.setType()) {
+            case RANDOM -> {
+                Collections.shuffle(list);
+                yield list;
+            }
+            case SORTED -> {
+                Collections.sort(list);
+                yield list;
+            }
+            case ALMOST_SORTED -> {
+                almostSort(list);
+                yield list;
+            }
+        };
+    }
+
+    private static void almostSort(ArrayList<Integer> list) {
+        Collections.sort(list);
+        var random = new Random();
+        int size = DataRegistry.fetch(SortSetOptions.class).size();
+        var swaps = size / 2;
+        swaps = swaps == 0 ? 1 : swaps;
+        IntStream.range(0, swaps).forEach(i -> {
+            var index1 = random.nextInt(size);
+            var index2 = random.nextInt(size);
+            var val1 = list.get(index1);
+            var val2 = list.get(index2);
+            list.set(index1, val2);
+            list.set(index2, val1);
+        });
+    }
+
+    private static ArrayList<Integer> duplicateEntries(int divisor, ArrayList<Integer> list) {
+        var random = new Random();
+        int size = DataRegistry.fetch(SortSetOptions.class).size();
+        var duplications = size / divisor;
+        duplications = duplications == 0 ? 1 : duplications;
+        IntStream.range(0, duplications).forEach(i -> {
+            var index1 = random.nextInt(size);
+            var index2 = random.nextInt(size);
+            list.set(index2, list.get(index1));
+        });
+        return list;
     }
 }

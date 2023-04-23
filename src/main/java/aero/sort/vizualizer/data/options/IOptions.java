@@ -9,6 +9,6 @@ package aero.sort.vizualizer.data.options;
  *
  * @author Daniel Ladendorfer
  */
-public interface IOptions {
+public sealed interface IOptions permits SortOptions, DebugOptions, VisualizationOptions, SortSetOptions {
     // marker interface
 }

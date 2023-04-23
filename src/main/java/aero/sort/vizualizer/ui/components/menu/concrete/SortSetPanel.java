@@ -9,7 +9,6 @@ import aero.sort.vizualizer.data.options.SetType;
 import aero.sort.vizualizer.data.options.SortSetOptions;
 import aero.sort.vizualizer.ui.components.menu.AbstractMenuPanel;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
@@ -27,7 +26,6 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
     private JRadioButton random;
     private JRadioButton sorted;
     private JRadioButton almostSorted;
-    private JRadioButton completelyUnsorted;
 
     public SortSetPanel(FluentConstraints constraints) {
         super(constraints);
@@ -58,11 +56,9 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
         random = new JRadioButton("Random", true);
         sorted = new JRadioButton("Sorted");
         almostSorted = new JRadioButton("Almost sorted");
-        completelyUnsorted = new JRadioButton("Completely unsorted");
         setType.add(random);
         setType.add(sorted);
         setType.add(almostSorted);
-        setType.add(completelyUnsorted);
         elements.setMajorTickSpacing(10);
         elements.setPaintTicks(true);
         elements.setPaintLabels(true);
@@ -82,8 +78,6 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
         add(random, constraints.incrementX().padY(-10).get());
         add(sorted, constraints.incrementY().get());
         add(almostSorted, constraints.incrementY().get());
-        add(completelyUnsorted, constraints.incrementY().get());
-
     }
 
     private SetType getSetType() {
@@ -91,10 +85,8 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
             return SetType.RANDOM;
         } else if (sorted.isSelected()) {
             return SetType.SORTED;
-        } else if (almostSorted.isSelected()) {
-            return SetType.ALMOST_SORTED;
         }
-        return SetType.COMPLETELY_SORTED;
+        return SetType.ALMOST_SORTED;
     }
 
     private Duplicates getDuplicates() {
