@@ -15,11 +15,13 @@ import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.data.options.styles.IStyle;
 import aero.sort.vizualizer.data.options.styles.concrete.*;
 import aero.sort.vizualizer.ui.MainFrame;
+import aero.sort.vizualizer.ui.components.statistics.StatisticsPanel;
 import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.ui.visualizations.IVisualizer;
 import aero.sort.vizualizer.ui.visualizations.concrete.Bars;
 import aero.sort.vizualizer.utilities.Async;
 import aero.sort.vizualizer.utilities.ui.Ui;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,13 +50,15 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
     private final JPanel renderPanel;
     private final JPanel statsPanel;
     private final Logger logger;
+    private final ISortingAlgorithm algorithm;
     private LinkedList<StepResult> previousRenderData = new LinkedList<>();
 
     public SortingFrame(SortOptions options) {
         this.options = options;
         this.logger = LoggerFactory.getLogger("%s:%s:%s:%s".formatted(options.algorithm(), options.visualization(), options.style(), UUID.randomUUID()));
         this.renderPanel = Ui.using(new JPanel()).execute(panel -> panel.setBackground(Theme.BACKGROUND)).get();
-        this.statsPanel = new JPanel();
+        this.algorithm = getSortingAlgorithm();
+        this.statsPanel = new StatisticsPanel(options, algorithm);
         initializeFrame(options);
     }
 
@@ -63,32 +67,6 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
         framePanel.add(renderPanel, BorderLayout.CENTER);
 
         if (options.showStatistics()) {
-            statsPanel.setLayout(new GridLayout(4, 6));
-            statsPanel.add(new JLabel("Algorithm:"));
-            statsPanel.add(Ui.using(new JLabel(options.algorithm().name())).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
-            statsPanel.add(new JLabel("Status:"));
-            statsPanel.add(Ui.using(new JLabel("Done")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
-            statsPanel.add(new JLabel("Comparison:"));
-            statsPanel.add(Ui.using(new JLabel("Yes")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
-            statsPanel.add(new JLabel("Method: "));
-            statsPanel.add(Ui.using(new JLabel("Exchanging")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
-            statsPanel.add(new JLabel("Memory:"));
-            statsPanel.add(Ui.using(new JLabel("1")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
-            statsPanel.add(new JLabel(""));
-            statsPanel.add(Ui.using(new JLabel("")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
-            statsPanel.add(new JLabel("Best:"));
-            statsPanel.add(Ui.using(new JLabel("n")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
-            statsPanel.add(new JLabel("Average:"));
-            statsPanel.add(Ui.using(new JLabel("n\u00B2")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
-            statsPanel.add(new JLabel("Worst:"));
-            statsPanel.add(Ui.using(new JLabel("n\u00B2")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
-            statsPanel.add(new JLabel("Swaps:"));
-            statsPanel.add(Ui.using(new JLabel("78")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
-            statsPanel.add(new JLabel("Array-Access:"));
-            statsPanel.add(Ui.using(new JLabel("2994")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
-            statsPanel.add(new JLabel("Temp-Vars:"));
-            statsPanel.add(Ui.using(new JLabel("50")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
-            Arrays.stream(statsPanel.getComponents()).forEach(c -> c.getFont().deriveFont(8f));
             framePanel.add(statsPanel, BorderLayout.SOUTH);
         }
 
@@ -141,14 +119,16 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
     }
 
     public void sort(Integer[] ints) {
-        ISortingAlgorithm algorithm = switch (options.algorithm()) {
+        render(algorithm.sort(ints));
+    }
+
+    private ISortingAlgorithm getSortingAlgorithm() {
+        return switch (options.algorithm()) {
             case Bubblesort -> new BubbleSort();
             case Insertionsort -> new InsertionSort();
             case Selectionsort -> new SelectionSort();
             case Quicksort -> new QuickSort();
         };
-
-        render(algorithm.sort(ints));
     }
 
     private void render(LinkedList<StepResult> steps) {
