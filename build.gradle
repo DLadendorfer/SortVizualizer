@@ -45,7 +45,7 @@ application {
 }
 
 test {
-    jvmArgs   '-Djava.awt.headless=true' // add line
+    jvmArgs '-Djava.awt.headless=true' // add line
 }
 
 tasks.named('test') {

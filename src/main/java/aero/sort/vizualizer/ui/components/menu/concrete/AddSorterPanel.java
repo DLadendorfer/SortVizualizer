@@ -60,7 +60,7 @@ public class AddSorterPanel extends AbstractMenuPanel<SortOptions> {
         styleComboBox = new JComboBox<>(Style.values());
         primaryColor = new JColorChooser(Theme.UI_ACCENT);
         secondaryColor = new JColorChooser(Theme.UI_ACCENT_2);
-        showStats = new JCheckBox("", true);
+        showStats = new JCheckBox("", false);
     }
 
     @Override

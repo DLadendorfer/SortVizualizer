@@ -36,7 +36,8 @@ public final class Ui {
 
     /**
      * Shows an info message dialog with the given title and message.
-     * @param title the title
+     *
+     * @param title   the title
      * @param message the message; can be a JComponent
      */
     public static void showInfo(String title, Object message) {

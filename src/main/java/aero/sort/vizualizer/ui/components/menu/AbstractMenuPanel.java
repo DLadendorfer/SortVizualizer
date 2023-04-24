@@ -18,7 +18,6 @@ import java.awt.*;
  * Abstract implementation of a menu panel.
  *
  * @param <T> the configuration option
- *
  * @author Daniel Ladendorfer
  */
 public abstract class AbstractMenuPanel<T extends IOptions> extends JPanel {
@@ -52,12 +51,14 @@ public abstract class AbstractMenuPanel<T extends IOptions> extends JPanel {
 
     /**
      * Returns the title of the panel.
+     *
      * @return the title
      */
     protected abstract String getTitle();
 
     /**
      * Returns the current data representation of the panel.
+     *
      * @return the data of the panel
      */
     protected abstract T getData();

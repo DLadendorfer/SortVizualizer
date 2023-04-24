@@ -6,10 +6,10 @@ package aero.sort.vizualizer.utilities.ui;
 
 import aero.sort.vizualizer.ui.constants.Theme;
 
-import java.util.function.Supplier;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 /**
  * Factory class that creates UI components.
@@ -41,7 +41,7 @@ public final class UiFactory {
      * is invoked on click.
      *
      * @param colorSupplier the color supplier
-     * @param runnable the button action to invoke
+     * @param runnable      the button action to invoke
      * @return the created button
      */
     public static JButton createColorButton(Supplier<Color> colorSupplier, Runnable runnable) {
@@ -52,7 +52,7 @@ public final class UiFactory {
             public void paintComponent(Graphics g) {
                 setBorder(null);
                 super.paintComponent(g);
-                if(g instanceof Graphics2D g2) {
+                if (g instanceof Graphics2D g2) {
                     g2.setColor(colorSupplier.get());
                     g2.fillRect(0, 0, getWidth(), getHeight());
                 }

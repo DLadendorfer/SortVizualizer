@@ -29,6 +29,7 @@ import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.UUID;
@@ -45,6 +46,7 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
     private static int createOffset = 0;
     private final SortOptions options;
     private final JPanel renderPanel;
+    private final JPanel statsPanel;
     private final Logger logger;
     private LinkedList<StepResult> previousRenderData = new LinkedList<>();
 
@@ -52,12 +54,45 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
         this.options = options;
         this.logger = LoggerFactory.getLogger("%s:%s:%s:%s".formatted(options.algorithm(), options.visualization(), options.style(), UUID.randomUUID()));
         this.renderPanel = Ui.using(new JPanel()).execute(panel -> panel.setBackground(Theme.BACKGROUND)).get();
-
+        this.statsPanel = new JPanel();
         initializeFrame(options);
     }
 
     private void initializeFrame(SortOptions options) {
-        add(renderPanel);
+        var framePanel = new JPanel(new BorderLayout());
+        framePanel.add(renderPanel, BorderLayout.CENTER);
+
+        if (options.showStatistics()) {
+            statsPanel.setLayout(new GridLayout(4, 6));
+            statsPanel.add(new JLabel("Algorithm:"));
+            statsPanel.add(Ui.using(new JLabel(options.algorithm().name())).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+            statsPanel.add(new JLabel("Status:"));
+            statsPanel.add(Ui.using(new JLabel("Done")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+            statsPanel.add(new JLabel("Comparison:"));
+            statsPanel.add(Ui.using(new JLabel("Yes")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+            statsPanel.add(new JLabel("Method: "));
+            statsPanel.add(Ui.using(new JLabel("Exchanging")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+            statsPanel.add(new JLabel("Memory:"));
+            statsPanel.add(Ui.using(new JLabel("1")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+            statsPanel.add(new JLabel(""));
+            statsPanel.add(Ui.using(new JLabel("")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+            statsPanel.add(new JLabel("Best:"));
+            statsPanel.add(Ui.using(new JLabel("n")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+            statsPanel.add(new JLabel("Average:"));
+            statsPanel.add(Ui.using(new JLabel("n\u00B2")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+            statsPanel.add(new JLabel("Worst:"));
+            statsPanel.add(Ui.using(new JLabel("n\u00B2")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+            statsPanel.add(new JLabel("Swaps:"));
+            statsPanel.add(Ui.using(new JLabel("78")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+            statsPanel.add(new JLabel("Array-Access:"));
+            statsPanel.add(Ui.using(new JLabel("2994")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+            statsPanel.add(new JLabel("Temp-Vars:"));
+            statsPanel.add(Ui.using(new JLabel("50")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+            Arrays.stream(statsPanel.getComponents()).forEach(c -> c.getFont().deriveFont(8f));
+            framePanel.add(statsPanel, BorderLayout.SOUTH);
+        }
+
+        add(framePanel);
         setTitle("%s - %s - %s".formatted(options.algorithm(), options.visualization(), options.style()));
 
         if (!GraphicsEnvironment.isHeadless()) {
@@ -71,6 +106,8 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
         setVisible(true);
         setIcon();
         recalculateNewCreationOffset();
+        revalidate();
+        pack();
         addComponentListener(this);
     }
 

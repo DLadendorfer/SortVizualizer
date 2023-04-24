@@ -6,9 +6,9 @@ package aero.sort.vizualizer.ui;
 
 import aero.sort.vizualizer.controller.ControllerFacade;
 import aero.sort.vizualizer.data.options.SortOptions;
-import aero.sort.vizualizer.ui.components.menu.MenuPanel;
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 import aero.sort.vizualizer.ui.components.management.FrameManagementPanel;
+import aero.sort.vizualizer.ui.components.menu.MenuPanel;
 import aero.sort.vizualizer.ui.components.status.StatusBar;
 import aero.sort.vizualizer.ui.constants.FrameConstants;
 import aero.sort.vizualizer.ui.constants.Theme;
@@ -72,6 +72,7 @@ public class MainFrame extends JFrame {
 
     /**
      * Sets the auto smart arrange flag of the controller.
+     *
      * @param enabled true to enable; false to disable
      */
     public void autoSmartArrange(boolean enabled) {
@@ -83,7 +84,7 @@ public class MainFrame extends JFrame {
         var frame = new SortingFrame(options);
         desktop.add(frame);
         frame.toFront();
-        if(autoSmartArrange) {
+        if (autoSmartArrange) {
             controller.smartArrange();
         }
         Async.invoke(() -> frame.render(IntStream.rangeClosed(1, 20).boxed().toArray(Integer[]::new)));

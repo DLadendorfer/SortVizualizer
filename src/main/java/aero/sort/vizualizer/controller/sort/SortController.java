@@ -57,11 +57,13 @@ public class SortController {
 
     private void invokeSort() {
         Async.invoke(() -> {
-            var ints = createList();
+            boolean useIdenticalSet = DataRegistry.fetch(SortSetOptions.class).identical();
+            var ints = useIdenticalSet ? createList() : List.<Integer>of();
             if (!GraphicsEnvironment.isHeadless()) {
                 for (var frame : MainFrame.getInstance().getDesktop().getAllFrames()) {
                     if (frame instanceof SortingFrame sortingFrame) {
-                        Runnable sortTask = () -> sortingFrame.sort(ints.toArray(new Integer[0]));
+                        var listToUse = useIdenticalSet ? ints : createList();
+                        Runnable sortTask = () -> sortingFrame.sort(listToUse.toArray(new Integer[0]));
                         futures.add(Async.submit(sortTask));
                     }
                 }
@@ -73,7 +75,7 @@ public class SortController {
         return createInts();
     }
 
-    private static ArrayList<Integer> createInts() {
+    private ArrayList<Integer> createInts() {
         var options = DataRegistry.fetch(SortSetOptions.class);
         int size = options.size();
         var list = new ArrayList<>(IntStream.rangeClosed(1, size).boxed().toList());
@@ -101,11 +103,11 @@ public class SortController {
         };
     }
 
-    private static void almostSort(ArrayList<Integer> list) {
+    private void almostSort(ArrayList<Integer> list) {
         Collections.sort(list);
         var random = new Random();
         int size = DataRegistry.fetch(SortSetOptions.class).size();
-        var swaps = size / 2;
+        var swaps = size / 3;
         swaps = swaps == 0 ? 1 : swaps;
         IntStream.range(0, swaps).forEach(i -> {
             var index1 = random.nextInt(size);
@@ -117,7 +119,7 @@ public class SortController {
         });
     }
 
-    private static ArrayList<Integer> duplicateEntries(int divisor, ArrayList<Integer> list) {
+    private void duplicateEntries(int divisor, ArrayList<Integer> list) {
         var random = new Random();
         int size = DataRegistry.fetch(SortSetOptions.class).size();
         var duplications = size / divisor;
@@ -127,6 +129,5 @@ public class SortController {
             var index2 = random.nextInt(size);
             list.set(index2, list.get(index1));
         });
-        return list;
     }
 }

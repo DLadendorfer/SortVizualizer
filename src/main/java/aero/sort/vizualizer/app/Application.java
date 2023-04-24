@@ -38,7 +38,7 @@ public class Application {
     }
 
     private static void createDefaultSortFrame() {
-        var options = new SortOptions(Algorithm.Bubblesort, Visualization.Bars, Style.App, true);
+        var options = new SortOptions(Algorithm.Bubblesort, Visualization.Bars, Style.App, false);
         MainFrame.getInstance().createInternalFrame(options);
     }
 }

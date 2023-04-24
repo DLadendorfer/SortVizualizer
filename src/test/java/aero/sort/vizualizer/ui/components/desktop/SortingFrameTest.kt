@@ -5,7 +5,6 @@
 package aero.sort.vizualizer.ui.components.desktop
 
 import aero.sort.vizualizer.data.options.SortOptions
-import aero.sort.vizualizer.ui.components.desktop.SortingFrame
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.extension.ExtendWith

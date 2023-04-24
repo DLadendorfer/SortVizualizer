@@ -6,7 +6,6 @@ package aero.sort.vizualizer.controller.management;
 
 import aero.sort.vizualizer.annotation.meta.Justification;
 import aero.sort.vizualizer.ui.MainFrame;
-import aero.sort.vizualizer.utilities.Async;
 import aero.sort.vizualizer.utilities.ui.Ui;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

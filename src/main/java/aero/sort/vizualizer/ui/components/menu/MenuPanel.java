@@ -4,11 +4,8 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui.components.menu;
 
-import aero.sort.vizualizer.ui.MainFrame;
 import aero.sort.vizualizer.ui.components.menu.concrete.*;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
-import aero.sort.vizualizer.utilities.ui.Ui;
-import aero.sort.vizualizer.utilities.ui.UiFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,9 +58,9 @@ public class MenuPanel extends JPanel {
 
     private static void createMenuPanels(JPanel panel, FluentConstraints constraints) {
         panel.add(new AddSorterPanel(constraints), constraints.width(1).get());
-        panel.add(new VisualizationPanel(constraints),constraints.resetX().incrementY().width(1).get());
+        panel.add(new VisualizationPanel(constraints), constraints.resetX().incrementY().width(1).get());
         panel.add(new SortSetPanel(constraints), constraints.resetX().incrementY().padY(0).width(1).get());
-        panel.add(new DebugPanel(constraints),  constraints.resetX().incrementY().width(1).get());
+        panel.add(new DebugPanel(constraints), constraints.resetX().incrementY().width(1).get());
     }
 
     private GridBagConstraints createGridBagConstraints() {

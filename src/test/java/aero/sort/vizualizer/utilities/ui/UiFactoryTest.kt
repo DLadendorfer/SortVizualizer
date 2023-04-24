@@ -11,8 +11,6 @@ import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.NullSource
 import org.junit.jupiter.params.provider.ValueSource
-import java.awt.Graphics
-import java.awt.Graphics2D
 import java.util.concurrent.CountDownLatch
 import javax.swing.JButton
 
