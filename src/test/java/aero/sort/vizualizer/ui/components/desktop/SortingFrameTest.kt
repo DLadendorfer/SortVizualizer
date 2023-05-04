@@ -4,7 +4,6 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui.components.desktop
 
-import aero.sort.vizualizer.algorithms.concrete.BubbleSort
 import aero.sort.vizualizer.data.options.Algorithm
 import aero.sort.vizualizer.data.options.SortOptions
 import org.junit.jupiter.api.BeforeEach
