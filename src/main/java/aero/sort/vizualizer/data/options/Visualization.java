@@ -11,7 +11,9 @@ package aero.sort.vizualizer.data.options;
  */
 public enum Visualization {
     BARS("Bars"),
-    PYRAMID("Pyramid");
+    PYRAMID("Pyramid"),
+    BUBBLES("Bubbles"),
+    SQUARES("Squares");
 
     private final String displayText;
 
