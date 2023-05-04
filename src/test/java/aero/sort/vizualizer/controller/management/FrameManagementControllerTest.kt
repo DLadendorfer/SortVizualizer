@@ -17,7 +17,7 @@ import javax.swing.JDesktopPane
 import javax.swing.JInternalFrame
 
 /**
- * Tests [FrameManagementController].
+ * Tests [FrameController].
  *
  * @author Daniel Ladendorfer
  */
@@ -26,13 +26,13 @@ import javax.swing.JInternalFrame
 internal class FrameManagementControllerTest {
 
     private lateinit var desktop: JDesktopPane
-    private lateinit var controller: FrameManagementController
+    private lateinit var controller: FrameController
 
     @BeforeEach
     fun setup() {
         desktop = JDesktopPane()
-        controller = FrameManagementController()
-        FrameManagementController.injectDesktop(desktop)
+        controller = FrameController()
+        FrameController.injectDesktop(desktop)
     }
 
     @ParameterizedTest

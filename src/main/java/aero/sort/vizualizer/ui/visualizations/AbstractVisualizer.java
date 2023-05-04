@@ -5,7 +5,9 @@
 package aero.sort.vizualizer.ui.visualizations;
 
 import aero.sort.vizualizer.algorithms.StepResult;
+import aero.sort.vizualizer.data.options.VisualizationOptions;
 import aero.sort.vizualizer.data.options.styles.IStyle;
+import aero.sort.vizualizer.data.registry.DataRegistry;
 import aero.sort.vizualizer.utilities.Async;
 
 import javax.swing.*;
@@ -18,7 +20,7 @@ public abstract class AbstractVisualizer implements IVisualizer {
     protected final IStyle style;
     protected final LinkedList<StepResult> steps;
 
-    public AbstractVisualizer(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
+    protected AbstractVisualizer(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
         this.renderPanel = renderPanel;
         this.style = style;
         this.steps = steps;
@@ -27,10 +29,21 @@ public abstract class AbstractVisualizer implements IVisualizer {
     @Override
     public final void render() {
         while (!steps.isEmpty()) {
+            var options = DataRegistry.fetch(VisualizationOptions.class);
+            if (!options.showSteps()) {
+                removeAllStepsButLast();
+            }
+
             var render = renderInternal(steps.poll());
             setRenderPanel(render);
-            Async.sleep(250L);
+            Async.sleep(options.stepDuration());
         }
+    }
+
+    private void removeAllStepsButLast() {
+        var temp = steps.pollLast();
+        steps.clear();
+        steps.add(temp);
     }
 
     private void setRenderPanel(JPanel render) {

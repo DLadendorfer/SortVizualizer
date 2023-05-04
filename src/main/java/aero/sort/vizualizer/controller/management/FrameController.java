@@ -5,28 +5,73 @@
 package aero.sort.vizualizer.controller.management;
 
 import aero.sort.vizualizer.annotation.meta.Justification;
-import aero.sort.vizualizer.ui.MainFrame;
+import aero.sort.vizualizer.controller.IController;
+import aero.sort.vizualizer.data.options.SortOptions;
+import aero.sort.vizualizer.data.options.SortSetOptions;
+import aero.sort.vizualizer.data.registry.DataRegistry;
+import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
+import aero.sort.vizualizer.utilities.Async;
+import aero.sort.vizualizer.utilities.ui.Ui;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 /**
  * Handles the frame management invocations of UI elements.
  *
  * @author Daniel Ladendorfer
  */
-public class FrameManagementController {
+public class FrameController implements IController {
+    private static final String TOO_MANY_MESSAGE = "Only up to 9 frames can be arranged smartly";
+    private static final String TOO_MANY_TITLE = "Too many frames to smart arrange";
 
     @Justification("Unit tests need to inject a desktop instance because github CI is in headless gfx mode")
     private static JDesktopPane injectedDesktop;
+
+    private static final Logger logger = LoggerFactory.getLogger(FrameController.class);
+    private boolean autoSmartArrange = true;
+    private final JDesktopPane desktop;
+
+    public FrameController(JDesktopPane desktop) {
+        this.desktop = desktop;
+    }
+
+    /**
+     * Internal static API to enable unit testing.
+     *
+     * @param desktop the desktop to statically inject
+     */
+    @Justification("Unit tests need to inject a desktop instance because github CI is in headless gfx mode")
+    public static void injectDesktop(JDesktopPane desktop) {
+        injectedDesktop = desktop;
+    }
 
     /**
      * Closes all frames.
      */
     public void closeAll() {
-        Arrays.stream(getAllFrames())
-                .forEach(JInternalFrame::dispose);
+        logger.debug("Disposing all frames.");
+        Arrays.stream(getAllFrames()).forEach(JInternalFrame::dispose);
+    }
+
+    /**
+     * Creates an internal sort frame.
+     *
+     * @param options the options for this specific frame
+     */
+    public void createInternalFrame(SortOptions options) {
+        var frame = new SortingFrame(options);
+        getDesktop().add(frame);
+        frame.toFront();
+        if (autoSmartArrange) {
+            smartArrange();
+        }
+        int elementCount = DataRegistry.fetch(SortSetOptions.class).size();
+        Async.invoke(() -> frame.render(IntStream.rangeClosed(1, elementCount).boxed().toArray(Integer[]::new)));
     }
 
 
@@ -34,19 +79,20 @@ public class FrameManagementController {
      * Arrange all internal frames side by side.
      */
     public void arrangeSideBySide() {
+        logger.debug("Arranging frames side-by-side");
         var frames = getAllFrames();
 
         if (frames.length == 0) {
             return;
         }
 
-        var desktopWidth = getDesktopWidth();
-        var desktopHeight = getDesktopHeight();
-        var width = desktopWidth / frames.length;
+
+        var dimension = getDesktopDimension();
+        var width = dimension.width / frames.length;
         for (int i = 0; i < frames.length; i++) {
             var frame = frames[i];
-            frame.setPreferredSize(new Dimension(width, desktopHeight));
-            frame.setSize(new Dimension(width, desktopHeight));
+            frame.setPreferredSize(new Dimension(width, dimension.height));
+            frame.setSize(new Dimension(width, dimension.height));
             frame.setLocation(i + (i * width), 0);
         }
     }
@@ -55,39 +101,28 @@ public class FrameManagementController {
      * Arrange all internal frames stacking.
      */
     public void arrangeStacking() {
+        logger.debug("Arranging frames stacking");
         var frames = getAllFrames();
 
         if (frames.length == 0) {
             return;
         }
 
-        var desktopWidth = getDesktopWidth();
-        var desktopHeight = getDesktopHeight();
-        var height = desktopHeight / frames.length;
+        var dimensions = getDesktopDimension();
+        var height = dimensions.height / frames.length;
         for (int i = 0; i < frames.length; i++) {
             var frame = frames[i];
-            frame.setPreferredSize(new Dimension(desktopWidth, height));
-            frame.setSize(new Dimension(desktopWidth, height));
+            frame.setPreferredSize(new Dimension(dimensions.width, height));
+            frame.setSize(new Dimension(dimensions.width, height));
             frame.setLocation(0, i + (i * height));
         }
-    }
-
-    private int getDesktopWidth() {
-        return getDesktop().getWidth();
-    }
-
-    private JDesktopPane getDesktop() {
-        return injectedDesktop == null ? MainFrame.getInstance().getDesktop() : injectedDesktop;
-    }
-
-    private JInternalFrame[] getAllFrames() {
-        return getDesktop().getAllFrames();
     }
 
     /**
      * Smart arranges all internal frames.
      */
     public void smartArrange() {
+        logger.debug("Smart arranging frames");
         var frames = getAllFrames();
 
         if (frames.length == 0) {
@@ -103,7 +138,18 @@ public class FrameManagementController {
         }
     }
 
+    /**
+     * Sets the auto smart arrange flag of the controller.
+     *
+     * @param enabled true to enable; false to disable
+     */
+    public void autoSmartArrange(boolean enabled) {
+        logger.info("Smart arranging frames: {}", enabled);
+        this.autoSmartArrange = enabled;
+    }
+
     private void arrangeTooMany() {
+        logger.debug("Arranging too many frames");
         var frames = getAllFrames();
 
         if (frames.length == 0) {
@@ -118,22 +164,20 @@ public class FrameManagementController {
             frame.toFront();
         }
 
-        JOptionPane.showMessageDialog(getDesktop(),
-                "Only up to 9 frames can be arranged smartly",
-                "Too many frames to smart arrange", JOptionPane.INFORMATION_MESSAGE);
+        Ui.showInfo(TOO_MANY_TITLE, TOO_MANY_MESSAGE);
     }
 
     private void arrangeTripleTriplets() {
+        logger.debug("Arranging triple triplets");
         var frames = getAllFrames();
 
         if (frames.length == 0) {
             return;
         }
 
-        var desktopWidth = getDesktopWidth();
-        var desktopHeight = getDesktopHeight();
-        var height = desktopHeight / 3;
-        var width = desktopWidth / 3;
+        var dimension = getDesktopDimension();
+        var height = dimension.height / 3;
+        var width = dimension.width / 3;
         for (int i = 0; i < frames.length; i++) {
             var frame = frames[i];
 
@@ -155,16 +199,16 @@ public class FrameManagementController {
     }
 
     private void arrangeDoubleTriplets() {
+        logger.debug("Arranging double triplets");
         var frames = getAllFrames();
 
         if (frames.length == 0) {
             return;
         }
 
-        var desktopWidth = getDesktopWidth();
-        var desktopHeight = getDesktopHeight();
-        var height = desktopHeight / 2;
-        var width = desktopWidth / 3;
+        var dimension = getDesktopDimension();
+        var height = dimension.height / 2;
+        var width = dimension.width / 3;
         for (int i = 0; i < frames.length; i++) {
             var frame = frames[i];
 
@@ -180,11 +224,11 @@ public class FrameManagementController {
     }
 
     private void arrangeQuadrant() {
+        logger.debug("Arranging quadrants");
         var frames = getAllFrames();
-        var desktopWidth = getDesktopWidth();
-        var desktopHeight = getDesktopHeight();
-        var height = desktopHeight / 2;
-        var width = desktopWidth / 2;
+        var dimension = getDesktopDimension();
+        var height = dimension.height / 2;
+        var width = dimension.width / 2;
         for (int i = 0; i < frames.length; i++) {
             var frame = frames[i];
             frame.setPreferredSize(new Dimension(width, height));
@@ -193,16 +237,21 @@ public class FrameManagementController {
         }
     }
 
-    private int getDesktopHeight() {
-        return getDesktop().getHeight();
+
+    private Dimension getDesktopDimension() {
+        return new Dimension(getDesktop().getWidth(), getDesktop().getHeight());
     }
 
     /**
-     * Internal static API to enable unit testing.
-     * @param desktop the desktop to statically inject
+     * Returns the {@link JDesktopPane} instance of the application.
+     *
+     * @return the desktop
      */
-    @Justification("Unit tests need to inject a desktop instance because github CI is in headless gfx mode")
-    public static void injectDesktop(JDesktopPane desktop) {
-        injectedDesktop = desktop;
+    public JDesktopPane getDesktop() {
+        return injectedDesktop == null ? desktop : injectedDesktop;
+    }
+
+    private JInternalFrame[] getAllFrames() {
+        return getDesktop().getAllFrames();
     }
 }

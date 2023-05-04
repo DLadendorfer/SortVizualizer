@@ -4,6 +4,8 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.algorithms;
 
+import java.util.Arrays;
+
 /**
  * Record that contains the marks of a step and the result of the array after the step.
  *
@@ -11,4 +13,28 @@ package aero.sort.vizualizer.algorithms;
  * @param ints   the new array
  */
 public record StepResult(Integer[] marked, Integer[] ints) {
+    // manual equals and hashcode override due to arrays
+    // SL$ S6218
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StepResult that = (StepResult) o;
+        return Arrays.equals(marked, that.marked) && Arrays.equals(ints, that.ints);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Arrays.hashCode(marked);
+        result = 31 * result + Arrays.hashCode(ints);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "StepResult{" +
+                "marked=" + Arrays.toString(marked) +
+                ", ints=" + Arrays.toString(ints) +
+                '}';
+    }
 }

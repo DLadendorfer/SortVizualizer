@@ -10,7 +10,6 @@ import aero.sort.vizualizer.utilities.Async
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension

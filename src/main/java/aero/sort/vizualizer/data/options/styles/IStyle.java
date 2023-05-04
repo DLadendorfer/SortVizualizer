@@ -17,7 +17,7 @@ public interface IStyle {
      * Returns a color for the value at the given index. Additionally, the max value of the set and the min value are
      * specified.
      *
-     * @param g2 the graphics context
+     * @param g2     the graphics context
      * @param length the number of elements in the sort-set
      * @param index  the index to color
      * @param value  the value of the sort-set-entry

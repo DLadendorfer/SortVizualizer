@@ -4,7 +4,6 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.controller.sort
 
-import aero.sort.vizualizer.ui.MainFrame
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.assertDoesNotThrow

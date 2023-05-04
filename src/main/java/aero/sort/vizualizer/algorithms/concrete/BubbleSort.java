@@ -6,6 +6,9 @@ package aero.sort.vizualizer.algorithms.concrete;
 
 import aero.sort.vizualizer.algorithms.AbstractSortingAlgorithm;
 import aero.sort.vizualizer.algorithms.StepResult;
+import aero.sort.vizualizer.data.characteristics.Method;
+import aero.sort.vizualizer.data.characteristics.Performance;
+import aero.sort.vizualizer.data.maths.Notation;
 
 import java.util.LinkedList;
 
@@ -35,11 +38,26 @@ public class BubbleSort extends AbstractSortingAlgorithm {
                     temp = ints[j - 1];
                     ints[j - 1] = ints[j];
                     ints[j] = temp;
-                    stepResults.add(createStep(marked));
                 }
+                stepResults.add(createStep(marked));
             }
         }
         stepResults.add(createEmptyStep());
         return stepResults;
+    }
+
+    @Override
+    public boolean isStable() {
+        return true;
+    }
+
+    @Override
+    public Performance getPerformance() {
+        return new Performance(Notation.N, Notation.N_SQUARE, Notation.N_SQUARE, Notation.ONE);
+    }
+
+    @Override
+    public Method getMethod() {
+        return Method.EXCHANGING;
     }
 }

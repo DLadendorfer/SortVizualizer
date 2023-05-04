@@ -10,8 +10,19 @@ package aero.sort.vizualizer.data.options;
  * @author Daniel Ladendorfer
  */
 public enum Algorithm {
-    Bubblesort,
-    Insertionsort,
-    Selectionsort,
-    Quicksort
+    BUBBLE("Bubble-Sort"),
+    INSERTION("Insertion-Sort"),
+    SELECTION("Selection-Sort"),
+    QUICK("Quick-Sort");
+
+    private final String displayText;
+
+    Algorithm(String displayText) {
+        this.displayText = displayText;
+    }
+
+    @Override
+    public String toString() {
+        return displayText;
+    }
 }

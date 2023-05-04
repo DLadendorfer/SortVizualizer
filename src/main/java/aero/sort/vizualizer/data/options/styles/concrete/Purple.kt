@@ -2,22 +2,17 @@
 // Copyright (c) Ladendorfer Daniel.
 // All Rights Reserved.  See LICENSE in the project root for license information.
 // -------------------------------------------------------------------------------
-package aero.sort.vizualizer.data.options.styles.concrete;
+package aero.sort.vizualizer.data.options.styles.concrete
 
-import aero.sort.vizualizer.data.options.styles.AbstractPlainStyle;
-import aero.sort.vizualizer.ui.constants.Theme;
-
-import java.awt.*;
+import aero.sort.vizualizer.data.options.styles.AbstractPlainStyle
+import aero.sort.vizualizer.ui.constants.Theme
+import java.awt.Color
 
 /**
  * Purple style.
  *
  * @author Daniel Ladendorfer
  */
-public class Purple extends AbstractPlainStyle {
-
-    @Override
-    protected Color getPlainColor() {
-        return Theme.PURPLE;
-    }
+class Purple : AbstractPlainStyle() {
+    override fun getPlainColor(): Color = Theme.PURPLE
 }

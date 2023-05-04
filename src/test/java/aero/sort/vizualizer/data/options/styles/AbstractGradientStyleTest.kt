@@ -4,7 +4,6 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.data.options.styles
 
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.awt.Color
@@ -15,9 +14,10 @@ import java.awt.Color
  * @author Daniel Ladendorfer
  */
 internal abstract class AbstractGradientStyleTest {
-    protected abstract fun getExpectedPrimaryColor() : Color
-    protected abstract fun getExpectedSecondaryColor() : Color
-    protected abstract fun getGradientStyle() : AbstractGradientStyle
+    protected abstract fun getExpectedPrimaryColor(): Color
+    protected abstract fun getExpectedSecondaryColor(): Color
+    protected abstract fun getGradientStyle(): AbstractGradientStyle
+
     @Test
     fun `Tests if the expected gradient color matching the getColor call`() {
         assertEquals(getExpectedPrimaryColor(), getGradientStyle().primaryColor) {

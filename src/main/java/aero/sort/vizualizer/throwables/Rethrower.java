@@ -4,6 +4,7 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.throwables;
 
+import aero.sort.vizualizer.throwables.generic.RethrowWrappedRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +34,7 @@ public class Rethrower {
         Objects.requireNonNull(t, "Cannot wrap null throwable");
         logger.trace("Wrapping throwable '{}' with message '{}'.", t.getClass(), t.getMessage());
         logger.error(message);
-        throw new RuntimeException(message, t);
+        throw new RethrowWrappedRuntimeException(message, t);
     }
 
 
@@ -49,6 +50,6 @@ public class Rethrower {
     public static void wrapAndRethrowSilently(Throwable t) {
         Objects.requireNonNull(t, "Cannot wrap null throwable");
         logger.trace("Wrapping throwable '{}' with message '{}'.", t.getClass(), t.getMessage());
-        throw new RuntimeException(t);
+        throw new RethrowWrappedRuntimeException(t.getMessage(), t);
     }
 }

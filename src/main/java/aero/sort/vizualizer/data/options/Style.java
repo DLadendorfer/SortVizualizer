@@ -10,16 +10,27 @@ package aero.sort.vizualizer.data.options;
  * @author Daniel Ladendorfer
  */
 public enum Style {
-    Rainbow,
-    CustomGradient,
-    Grayscale,
-    Sunset,
-    Sunrise,
-    Auqa,
-    CustomPlain,
-    White,
-    Cyan,
-    Green,
-    Purple,
-    Yellow,
+    APP("Application Theme"),
+    RAINBOW("Rainbow"),
+    CUSTOM_GRADIENT("Custom 2-Color Gradient"),
+    GRAY("Grayscale"), SUNSET("Sunset-Red"),
+    SUNRISE("Sunrise-Blue"),
+    AQUA("Aqua"),
+    CUSTOM_PLAIN("Custom Plain Color"),
+    WHITE("White"),
+    CYAN("Cyan"),
+    GREEN("Green"),
+    PURPLE("Purple"),
+    YELLOW("Yellow");
+
+    private final String displayText;
+
+    Style(String displayText) {
+        this.displayText = displayText;
+    }
+
+    @Override
+    public String toString() {
+        return displayText;
+    }
 }

@@ -15,8 +15,9 @@ import java.awt.Color
  */
 internal abstract class AbstractPlainStyleTest {
 
-    protected abstract fun getExpectedColor() : Color
-    protected abstract fun getPlainStyle() : AbstractPlainStyle
+    protected abstract fun getExpectedColor(): Color
+    protected abstract fun getPlainStyle(): AbstractPlainStyle
+
     @Test
     fun `Tests if the expected plain color matching the getColor call`() {
         assertEquals(getExpectedColor(), getPlainStyle().plainColor) {
