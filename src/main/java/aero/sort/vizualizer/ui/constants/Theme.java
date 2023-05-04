@@ -29,8 +29,8 @@ public class Theme {
     public static final Color GRAY = new Color(0x5A6374);
     public static final Color BACKGROUND = new Color(0x282C34);
     public static final Color FOREGROUND = new Color(0xDCDFE4);
-    public static final Color UI_ACCENT = Theme.GREEN;
-    public static final Color UI_ACCENT_2 = Theme.DARK_GREEN;
+    public static final Color UI_ACCENT = Theme.BLUE;
+    public static final Color UI_ACCENT_2 = Theme.DEEP_BLUE;
 
     private Theme() {
         // static utility class - no instance needed
