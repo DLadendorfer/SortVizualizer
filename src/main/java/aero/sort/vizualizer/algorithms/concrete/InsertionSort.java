@@ -37,7 +37,7 @@ public class InsertionSort extends AbstractSortingAlgorithm {
             while ((i > -1) && (ints[i] > key)) {
                 ints[i + 1] = ints[i];
                 i--;
-                stepResults.add(createStep(new Integer[]{i}));
+                stepResults.add(createStep(new Integer[]{i, j}));
             }
             ints[i + 1] = key;
             stepResults.add(createEmptyStep());
