@@ -8,6 +8,7 @@ import aero.sort.vizualizer.algorithms.StepResult;
 import aero.sort.vizualizer.data.options.MarkType;
 import aero.sort.vizualizer.data.options.VisualizationOptions;
 import aero.sort.vizualizer.data.options.styles.IStyle;
+import aero.sort.vizualizer.data.options.styles.StyleContext;
 import aero.sort.vizualizer.data.registry.DataRegistry;
 import aero.sort.vizualizer.ui.visualizations.AbstractVisualizer;
 
@@ -19,6 +20,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 public class Bars extends AbstractVisualizer {
+    public static final int ARC = 10;
     private static final int MARGIN = 7;
     private static final int BAR_OFFSET = 3;
 
@@ -36,40 +38,43 @@ public class Bars extends AbstractVisualizer {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
 
-                int heightRatio = getPanelDimension().height / maxValue;
-                int barWidth = getPanelDimension().width / (step.ints().length) - BAR_OFFSET;
-
                 if (g instanceof Graphics2D g2) {
+                    int heightRatio = getPanelDimension().height / maxValue;
+                    int barWidth = getPanelDimension().width / (step.ints().length) - BAR_OFFSET;
                     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
                     for (int index = 0; index < step.ints().length; index++) {
-                        drawBar(index, maxValue, minValue, heightRatio, barWidth, g2, step);
+                        var context = new StyleContext(g2, step.ints().length, index, step.ints()[index], maxValue, minValue);
+                        drawBar(context, heightRatio, barWidth, step);
                     }
                 }
             }
         };
     }
 
-    private void drawBar(int index, int maxValue, int minValue, int heightRatio, int barWidth, Graphics2D g2, StepResult step) {
-        int value = step.ints()[index];
-        boolean markedIndex = Arrays.stream(step.marked()).anyMatch(m -> m == index);
-        g2.setColor(style.getColor(g2, step.ints().length, index, value, maxValue, minValue));
-        int x = MARGIN + index * BAR_OFFSET + (index * barWidth);
-        int y = getPanelDimension().height - value * heightRatio;
-        int height = value * heightRatio;
-        g2.fillRoundRect(x, y, barWidth, height, 10, 10);
+    private void drawBar(StyleContext context, int heightRatio, int barWidth, StepResult step) {
+        boolean markedIndex = Arrays.stream(step.marked()).anyMatch(m -> m == context.index());
+        context.g2().setColor(style.getColor(context));
+        int x = MARGIN + context.index() * BAR_OFFSET + (context.index() * barWidth);
+        int y = getPanelDimension().height - context.value() * heightRatio;
+        int height = context.value() * heightRatio;
+        context.g2().fillRoundRect(x, y, barWidth, height, ARC, ARC);
 
         if (markedIndex) {
-            var markOptions = DataRegistry.fetch(VisualizationOptions.class).marker();
+            drawMarker(context, barWidth, x, y, height);
+        }
+    }
 
-            g2.setColor(markOptions.markColor());
-            g2.setStroke(new BasicStroke(3));
-            var markType = markOptions.markType();
-            if (Objects.requireNonNull(markType) == MarkType.FILL) {
-                g2.fillRoundRect(x, y, barWidth, height, 10, 10);
-            } else if (markType == MarkType.OUTLINE) {
-                g2.drawRoundRect(x, y, barWidth, height, 10, 10);
-            }
+    private static void drawMarker(StyleContext context, int barWidth, int x, int y, int height) {
+        var markOptions = DataRegistry.fetch(VisualizationOptions.class).marker();
+
+        context.g2().setColor(markOptions.markColor());
+        context.g2().setStroke(new BasicStroke(3));
+        var markType = markOptions.markType();
+        if (Objects.requireNonNull(markType) == MarkType.FILL) {
+            context.g2().fillRoundRect(x, y, barWidth, height, ARC, ARC);
+        } else if (markType == MarkType.OUTLINE) {
+            context.g2().drawRoundRect(x, y, barWidth, height, ARC, ARC);
         }
     }
 }

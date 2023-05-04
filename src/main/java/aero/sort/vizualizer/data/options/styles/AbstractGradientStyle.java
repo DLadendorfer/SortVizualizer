@@ -28,13 +28,13 @@ public abstract class AbstractGradientStyle implements IStyle {
     protected abstract Color getSecondaryColor();
 
     @Override
-    public Color getColor(Graphics2D g2, int count, int index, int value, int max, int min) {
+    public Color getColor(StyleContext context) {
 
         /*
          Interpolating colours by calculating the same interpolation for each of its components (R, G, B).
          Linear interpolation: Take percentage p of the first colour and percentage 1 - p of the second
          */
-        double p = (double) value / max;
+        double p = (double) context.value() / context.max();
         Color from = getPrimaryColor();
         Color to = getSecondaryColor();
         return new Color((int) (from.getRed() * p + to.getRed() * (1 - p)), (int) (from.getGreen() * p + to.getGreen() * (1 - p)), (int) (from.getBlue() * p + to.getBlue() * (1 - p)));

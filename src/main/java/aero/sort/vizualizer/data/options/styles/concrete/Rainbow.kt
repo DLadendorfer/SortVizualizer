@@ -5,8 +5,8 @@
 package aero.sort.vizualizer.data.options.styles.concrete
 
 import aero.sort.vizualizer.data.options.styles.IStyle
+import aero.sort.vizualizer.data.options.styles.StyleContext
 import java.awt.Color
-import java.awt.Graphics2D
 
 /**
  * Rainbow style
@@ -14,6 +14,6 @@ import java.awt.Graphics2D
  * @author Daniel Ladendorfer
  */
 class Rainbow : IStyle {
-    override fun getColor(g2: Graphics2D, length: Int, index: Int, value: Int, max: Int, min: Int): Color =
-        Color.getHSBColor(value.toFloat() / max, 0.7f, 0.7f)
+    override fun getColor(context: StyleContext): Color =
+        Color.getHSBColor(context.value.toFloat() / context.max, 0.7f, 0.7f)
 }

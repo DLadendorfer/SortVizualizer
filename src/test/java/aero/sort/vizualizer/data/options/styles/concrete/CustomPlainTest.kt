@@ -4,6 +4,7 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.data.options.styles.concrete
 
+import aero.sort.vizualizer.data.options.styles.StyleContext
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -22,7 +23,7 @@ internal class CustomPlainTest {
     @ValueSource(ints = [0x000000, 0xFFFFFF, 0x0F0F0F])
     fun `Tests that a null color constructor invocation leads to a null pointer exception`(color: Int) {
         val customPlain = CustomPlain(Color(color))
-        assertEquals(Color(color), customPlain.getColor(null, 1, 0, 0, 0, 0)) {
+        assertEquals(Color(color), customPlain.getColor(StyleContext(null, 1, 0, 0, 0, 0))) {
             "Colors should match"
         }
     }

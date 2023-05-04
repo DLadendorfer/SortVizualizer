@@ -21,7 +21,7 @@ public abstract class AbstractPlainStyle implements IStyle {
     protected abstract Color getPlainColor();
 
     @Override
-    public Color getColor(Graphics2D g2, int length, int index, int value, int max, int min) {
+    public Color getColor(StyleContext context) {
         return getPlainColor();
     }
 }

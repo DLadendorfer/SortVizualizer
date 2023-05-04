@@ -28,11 +28,11 @@ internal abstract class AbstractGradientStyleTest {
             "Colors should match"
         }
 
-        assertEquals(getExpectedPrimaryColor(), getGradientStyle().getColor(null, 2, 0, 2, 2, 1)) {
+        assertEquals(getExpectedPrimaryColor(), getGradientStyle().getColor(StyleContext(null, 2, 0, 2, 2, 1))) {
             "Colors should match"
         }
 
-        assertEquals(getExpectedSecondaryColor(), getGradientStyle().getColor(null, 2, 1, 0, 2, 1)) {
+        assertEquals(getExpectedSecondaryColor(), getGradientStyle().getColor(StyleContext(null, 2, 1, 0, 2, 1))) {
             "Colors should match"
         }
     }
