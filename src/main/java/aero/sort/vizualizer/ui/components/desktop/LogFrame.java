@@ -4,6 +4,8 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui.components.desktop;
 
+import aero.sort.vizualizer.controller.Controllers;
+import aero.sort.vizualizer.controller.management.FrameController;
 import aero.sort.vizualizer.data.options.DebugOptions;
 import aero.sort.vizualizer.ui.MainFrame;
 import aero.sort.vizualizer.ui.components.status.appender.JLabelAppender;
@@ -13,6 +15,8 @@ import aero.sort.vizualizer.utilities.ui.Ui;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -28,10 +32,10 @@ import static aero.sort.vizualizer.ui.components.desktop.SortingFrame.ICONS_SORT
  * @author Daniel Ladendorfer
  */
 public class LogFrame extends JInternalFrame {
-    private static final int MAX_LOG_ENTRIES = 100;
+    private static final Logger logger = LoggerFactory.getLogger(LogFrame.class);
     private final JPanel logPanel;
-    private final FluentConstraints constraints;
-    private DebugOptions options;
+    private final transient FluentConstraints constraints;
+    private final transient DebugOptions options;
 
     public LogFrame(DebugOptions options) {
         this.options = options;
@@ -45,7 +49,8 @@ public class LogFrame extends JInternalFrame {
         setTitle("Log - Level=%s".formatted(options.logLevel()));
 
         if (!GraphicsEnvironment.isHeadless()) {
-            setBounds(10, 10, MainFrame.getInstance().getDesktop().getWidth() / 2, MainFrame.getInstance().getDesktop().getHeight() / 3 * 2);
+            var desktop = Controllers.fetch(FrameController.class).getDesktop();
+            setBounds(10, 10, desktop.getWidth() / 2, desktop.getHeight() / 3 * 2);
         }
 
         var levelLabel = new JLabel();
@@ -88,16 +93,16 @@ public class LogFrame extends JInternalFrame {
             var icon = new ImageIcon(ImageIO.read(resource));
             setFrameIcon(icon);
         } catch (NullPointerException | IOException e) {
-            // todo logger.warn("Failed to load frame icon: {}", e.getMessage());
+            logger.warn("Failed to load frame icon: {}", e.getMessage());
         }
     }
 
     private GridBagConstraints createGridBagConstraints() {
-        var constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.NORTHWEST;
-        constraints.fill = GridBagConstraints.VERTICAL;
-        constraints.insets = new Insets(1, 7, 1, 3);
-        constraints.weightx = 1.0;
-        return constraints;
+        var cons = new GridBagConstraints();
+        cons.anchor = GridBagConstraints.NORTHWEST;
+        cons.fill = GridBagConstraints.VERTICAL;
+        cons.insets = new Insets(1, 7, 1, 3);
+        cons.weightx = 1.0;
+        return cons;
     }
 }

@@ -4,8 +4,9 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui.components.menu.concrete;
 
+import aero.sort.vizualizer.controller.Controllers;
+import aero.sort.vizualizer.controller.management.FrameController;
 import aero.sort.vizualizer.data.options.DebugOptions;
-import aero.sort.vizualizer.ui.MainFrame;
 import aero.sort.vizualizer.ui.components.desktop.LogFrame;
 import aero.sort.vizualizer.ui.components.menu.AbstractMenuPanel;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
@@ -49,7 +50,8 @@ public class DebugPanel extends AbstractMenuPanel<DebugOptions> {
         logLevelComboBox.setSelectedItem(Level.DEBUG);
         add(UiFactory.createButton("Add Log Frame", () -> {
             var logFrame = new LogFrame(getData());
-            MainFrame.getInstance().getDesktop().add(logFrame);
+            var desktop = Controllers.fetch(FrameController.class).getDesktop();
+            desktop.add(logFrame);
             logFrame.toFront();
         }), constraints.resetX().incrementY().width(2).get());
     }

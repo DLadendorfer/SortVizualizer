@@ -5,6 +5,7 @@
 package aero.sort.vizualizer.ui.visualizations.concrete;
 
 import aero.sort.vizualizer.algorithms.StepResult;
+import aero.sort.vizualizer.data.options.MarkType;
 import aero.sort.vizualizer.data.options.VisualizationOptions;
 import aero.sort.vizualizer.data.options.styles.IStyle;
 import aero.sort.vizualizer.data.registry.DataRegistry;
@@ -15,6 +16,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class Bars extends AbstractVisualizer {
     private static final int MARGIN = 7;
@@ -62,17 +64,12 @@ public class Bars extends AbstractVisualizer {
 
             g2.setColor(markOptions.markColor());
             g2.setStroke(new BasicStroke(3));
-            switch (markOptions.markType()) {
-                case FILL -> {
-                    g2.fillRoundRect(x, y, barWidth, height, 10, 10);
-                }
-                case OUTLINE -> {
-                    g2.drawRoundRect(x, y, barWidth, height, 10, 10);
-                }
-                case OFF -> {
-                }
+            var markType = markOptions.markType();
+            if (Objects.requireNonNull(markType) == MarkType.FILL) {
+                g2.fillRoundRect(x, y, barWidth, height, 10, 10);
+            } else if (markType == MarkType.OUTLINE) {
+                g2.drawRoundRect(x, y, barWidth, height, 10, 10);
             }
-
         }
     }
 }

@@ -48,7 +48,7 @@ public class VisualizationPanel extends AbstractMenuPanel<VisualizationOptions> 
     protected void createUiComponents() {
         showShuffle = new JCheckBox("", true);
         showSteps = new JCheckBox("", true);
-        stepTime = new JSlider(0, 1000, 200);
+        stepTime = new JSlider(0, 1000, 45);
         var markType = new ButtonGroup();
         fill = new JRadioButton("Fill", true);
         outline = new JRadioButton("Outline");

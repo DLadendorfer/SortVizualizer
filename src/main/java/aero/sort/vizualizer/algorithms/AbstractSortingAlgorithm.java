@@ -21,7 +21,7 @@ public abstract class AbstractSortingAlgorithm implements ISortingAlgorithm {
     private final Logger logger;
     protected Integer[] ints;
 
-    public AbstractSortingAlgorithm() {
+    protected AbstractSortingAlgorithm() {
         stepResults = new LinkedList<>();
         logger = LoggerFactory.getLogger("Algorithm-%s".formatted(getClass().getSimpleName()));
     }

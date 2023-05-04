@@ -2,14 +2,11 @@
 // Copyright (c) Ladendorfer Daniel.  
 // All Rights Reserved.  See LICENSE in the project root for license information.
 // -------------------------------------------------------------------------------
-package aero.sort.vizualizer.data.options;
-
+package aero.sort.vizualizer.throwables.generic
 
 /**
- * Marker interface for options.
+ * Exception that explicitly holds/wraps another exception.
  *
  * @author Daniel Ladendorfer
  */
-public sealed interface IOptions permits SortOptions, DebugOptions, VisualizationOptions, SortSetOptions {
-    // marker interface
-}
+class RethrowWrappedRuntimeException(message: String?, t: Throwable) : RuntimeException(message, t)

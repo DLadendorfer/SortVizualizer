@@ -22,9 +22,9 @@ import java.awt.*;
  */
 public abstract class AbstractMenuPanel<T extends IOptions> extends JPanel {
 
-    protected FluentConstraints constraints;
+    protected transient FluentConstraints constraints;
 
-    public AbstractMenuPanel(FluentConstraints constraints) {
+    protected AbstractMenuPanel(FluentConstraints constraints) {
         this.constraints = constraints;
         initialize();
     }

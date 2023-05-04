@@ -20,6 +20,10 @@ public class DataRegistry {
 
     private static final Map<Class<? extends IOptions>, Supplier<IOptions>> registry = new ConcurrentHashMap<>();
 
+    private DataRegistry() {
+        // static utility class - no instance needed
+    }
+
     /**
      * Registers an option supplier.
      *

@@ -16,7 +16,7 @@ public class SelectionSort extends AbstractSortingAlgorithm {
 
     @Override
     protected LinkedList<StepResult> sortInternal() {
-        return null;
+        return new LinkedList<>();
     }
 
     @Override

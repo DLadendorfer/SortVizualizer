@@ -10,6 +10,17 @@ package aero.sort.vizualizer.data.options.styles;
  * @author Daniel Ladendorfer
  */
 public enum StyleType {
-    Gradient,
-    Plain,
+    GRADIENT("2-Color Gradient"),
+    PLAIN("Plain Color");
+
+    private final String displayText;
+
+    StyleType(String displayText) {
+        this.displayText = displayText;
+    }
+
+    @Override
+    public String toString() {
+        return displayText;
+    }
 }

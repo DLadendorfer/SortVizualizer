@@ -4,12 +4,13 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui.components.menu.concrete;
 
+import aero.sort.vizualizer.controller.Controllers;
+import aero.sort.vizualizer.controller.management.FrameController;
 import aero.sort.vizualizer.data.options.Algorithm;
 import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.data.options.Style;
 import aero.sort.vizualizer.data.options.Visualization;
 import aero.sort.vizualizer.data.options.styles.StyleType;
-import aero.sort.vizualizer.ui.MainFrame;
 import aero.sort.vizualizer.ui.components.menu.AbstractMenuPanel;
 import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
@@ -96,6 +97,6 @@ public class AddSorterPanel extends AbstractMenuPanel<SortOptions> {
         add(UiFactory.createColorButton(secondaryColor::getColor, () -> Ui.showInfo("Choose a secondary color", secondaryColor.getChooserPanels()[1])), constraints.incrementX().get());
 
         // -- add sorter button
-        add(UiFactory.createButton("Add Sorter", () -> MainFrame.getInstance().createInternalFrame(getData())), constraints.resetX().incrementY().width(2).get());
+        add(UiFactory.createButton("Add Sorter", () -> Controllers.fetch(FrameController.class).createInternalFrame(getData())), constraints.resetX().incrementY().width(2).get());
     }
 }

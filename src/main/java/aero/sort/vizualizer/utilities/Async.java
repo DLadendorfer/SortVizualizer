@@ -4,7 +4,6 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.utilities;
 
-import aero.sort.vizualizer.throwables.Rethrower;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,11 +43,11 @@ public class Async {
      * @param runnable the runnable to invoke asynchronously
      * @return the {@link Future}
      */
-    public static Future<?> submit(Runnable runnable) {
+    public static Future<Void> submit(Runnable runnable) {
         Objects.requireNonNull(runnable, "Async::submit does not except null as the runnable argument");
         logger.trace("Async::submit of runnable {}", runnable);
 
-        return executor.submit(runnable);
+        return executor.submit(runnable, null);
     }
 
     /**
@@ -78,7 +77,7 @@ public class Async {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
-            Rethrower.wrapAndRethrowSilently(e);
+            Thread.currentThread().interrupt();
         }
     }
 }

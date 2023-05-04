@@ -15,7 +15,7 @@ import java.util.LinkedList;
 public class QuickSort extends AbstractSortingAlgorithm {
     @Override
     protected LinkedList<StepResult> sortInternal() {
-        return null;
+        return new LinkedList<>();
     }
 
     @Override

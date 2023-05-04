@@ -2,14 +2,12 @@
 // Copyright (c) Ladendorfer Daniel.  
 // All Rights Reserved.  See LICENSE in the project root for license information.
 // -------------------------------------------------------------------------------
-package aero.sort.vizualizer.data.options;
-
+package aero.sort.vizualizer.controller;
 
 /**
- * Marker interface for options.
+ * Marker interface for all controllers.
  *
  * @author Daniel Ladendorfer
  */
-public sealed interface IOptions permits SortOptions, DebugOptions, VisualizationOptions, SortSetOptions {
-    // marker interface
+public interface IController {
 }

@@ -4,9 +4,12 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.controller.sort;
 
+import aero.sort.vizualizer.controller.Controllers;
+import aero.sort.vizualizer.controller.IController;
+import aero.sort.vizualizer.controller.management.FrameController;
+import aero.sort.vizualizer.data.options.Duplicates;
 import aero.sort.vizualizer.data.options.SortSetOptions;
 import aero.sort.vizualizer.data.registry.DataRegistry;
-import aero.sort.vizualizer.ui.MainFrame;
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 import aero.sort.vizualizer.utilities.Async;
 
@@ -23,9 +26,10 @@ import static java.util.function.Predicate.not;
  *
  * @author Daniel Ladendorfer
  */
-public class SortController {
+public class SortController implements IController {
     // holds all async sort futures (so they can be cancelled)
     private final Set<Future<?>> futures = Collections.synchronizedSet(new HashSet<>());
+    private final Random random = new Random();
 
     /**
      * Invoke the sorting process of all frames.
@@ -56,16 +60,17 @@ public class SortController {
     }
 
     private void invokeSort() {
+        if (GraphicsEnvironment.isHeadless()) {
+            return;
+        }
+
         Async.invoke(() -> {
             boolean useIdenticalSet = DataRegistry.fetch(SortSetOptions.class).identical();
             var ints = useIdenticalSet ? createList() : List.<Integer>of();
-            if (!GraphicsEnvironment.isHeadless()) {
-                for (var frame : MainFrame.getInstance().getDesktop().getAllFrames()) {
-                    if (frame instanceof SortingFrame sortingFrame) {
-                        var listToUse = useIdenticalSet ? ints : createList();
-                        Runnable sortTask = () -> sortingFrame.sort(listToUse.toArray(new Integer[0]));
-                        futures.add(Async.submit(sortTask));
-                    }
+            for (var frame : Controllers.fetch(FrameController.class).getDesktop().getAllFrames()) {
+                if (frame instanceof SortingFrame sortingFrame) {
+                    var listToUse = useIdenticalSet ? ints : createList();
+                    futures.add(Async.submit(() -> sortingFrame.sort(listToUse.toArray(new Integer[0]))));
                 }
             }
         });
@@ -80,11 +85,11 @@ public class SortController {
         int size = options.size();
         var list = new ArrayList<>(IntStream.rangeClosed(1, size).boxed().toList());
 
-        switch (options.duplicates()) {
-            case SOME -> duplicateEntries(5, list);
-            case MANY -> duplicateEntries(2, list);
-            case NONE -> {
-            }
+        Duplicates duplicates = options.duplicates();
+        if (duplicates == Duplicates.SOME) {
+            duplicateEntries(5, list);
+        } else if (duplicates == Duplicates.MANY) {
+            duplicateEntries(2, list);
         }
 
         return switch (options.setType()) {
@@ -105,7 +110,6 @@ public class SortController {
 
     private void almostSort(ArrayList<Integer> list) {
         Collections.sort(list);
-        var random = new Random();
         int size = DataRegistry.fetch(SortSetOptions.class).size();
         var swaps = size / 3;
         swaps = swaps == 0 ? 1 : swaps;
@@ -120,7 +124,6 @@ public class SortController {
     }
 
     private void duplicateEntries(int divisor, ArrayList<Integer> list) {
-        var random = new Random();
         int size = DataRegistry.fetch(SortSetOptions.class).size();
         var duplications = size / divisor;
         duplications = duplications == 0 ? 1 : duplications;

@@ -11,6 +11,8 @@ import aero.sort.vizualizer.algorithms.concrete.InsertionSort;
 import aero.sort.vizualizer.algorithms.concrete.QuickSort;
 import aero.sort.vizualizer.algorithms.concrete.SelectionSort;
 import aero.sort.vizualizer.annotation.meta.Justification;
+import aero.sort.vizualizer.controller.Controllers;
+import aero.sort.vizualizer.controller.management.FrameController;
 import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.data.options.styles.IStyle;
 import aero.sort.vizualizer.data.options.styles.concrete.*;
@@ -21,7 +23,6 @@ import aero.sort.vizualizer.ui.visualizations.IVisualizer;
 import aero.sort.vizualizer.ui.visualizations.concrete.Bars;
 import aero.sort.vizualizer.utilities.Async;
 import aero.sort.vizualizer.utilities.ui.Ui;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,6 @@ import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.UUID;
@@ -46,12 +46,12 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
     // this variable is used to make sure new windows are not exactly on top of each others
     @Justification("If the frames are not offset, it may be hard for the user to realize that a frame was created")
     private static int createOffset = 0;
-    private final SortOptions options;
+    private final transient SortOptions options;
     private final JPanel renderPanel;
     private final JPanel statsPanel;
-    private final Logger logger;
-    private final ISortingAlgorithm algorithm;
-    private LinkedList<StepResult> previousRenderData = new LinkedList<>();
+    private final transient Logger logger;
+    private final transient ISortingAlgorithm algorithm;
+    private transient LinkedList<StepResult> previousRenderData = new LinkedList<>();
 
     public SortingFrame(SortOptions options) {
         this.options = options;
@@ -74,7 +74,8 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
         setTitle("%s - %s - %s".formatted(options.algorithm(), options.visualization(), options.style()));
 
         if (!GraphicsEnvironment.isHeadless()) {
-            setBounds(10 + createOffset, 10 + createOffset, MainFrame.getInstance().getDesktop().getWidth() / 2, MainFrame.getInstance().getDesktop().getHeight() / 3 * 2);
+            var desktop = Controllers.fetch(FrameController.class).getDesktop();
+            setBounds(10 + createOffset, 10 + createOffset, desktop.getWidth() / 2, desktop.getHeight() / 3 * 2);
         }
 
         setResizable(true);
@@ -124,10 +125,10 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
 
     private ISortingAlgorithm getSortingAlgorithm() {
         return switch (options.algorithm()) {
-            case Bubblesort -> new BubbleSort();
-            case Insertionsort -> new InsertionSort();
-            case Selectionsort -> new SelectionSort();
-            case Quicksort -> new QuickSort();
+            case BUBBLE -> new BubbleSort();
+            case INSERTION -> new InsertionSort();
+            case SELECTION -> new SelectionSort();
+            case QUICK -> new QuickSort();
         };
     }
 
@@ -135,22 +136,22 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
         previousRenderData = new LinkedList<>();
         previousRenderData.add(new StepResult(steps.getFirst().marked(), steps.getFirst().ints()));
         IStyle style = switch (options.style()) {
-            case App -> new App();
-            case Rainbow -> new Rainbow();
-            case CustomGradient -> new CustomGradient(options.colors());
-            case Grayscale -> new Grayscale();
-            case Auqa -> new Aqua();
-            case Sunrise -> new Sunrise();
-            case Sunset -> new Sunset();
-            case CustomPlain -> new CustomPlain(options.colors().primary());
-            case White -> new White();
-            case Cyan -> new Cyan();
-            case Green -> new Green();
-            case Purple -> new Purple();
-            case Yellow -> new Yellow();
+            case APP -> new App();
+            case RAINBOW -> new Rainbow();
+            case CUSTOM_GRADIENT -> new CustomGradient(options.colors());
+            case GRAY -> new Grayscale();
+            case AQUA -> new Aqua();
+            case SUNRISE -> new Sunrise();
+            case SUNSET -> new Sunset();
+            case CUSTOM_PLAIN -> new CustomPlain(options.colors().primary());
+            case WHITE -> new White();
+            case CYAN -> new Cyan();
+            case GREEN -> new Green();
+            case PURPLE -> new Purple();
+            case YELLOW -> new Yellow();
         };
         IVisualizer visualizer = switch (options.visualization()) {
-            case Bars -> new Bars(renderPanel, style, steps);
+            case BARS -> new Bars(renderPanel, style, steps);
         };
 
         visualizer.render();

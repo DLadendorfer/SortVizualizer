@@ -5,7 +5,12 @@
 package aero.sort.vizualizer.controller.management;
 
 import aero.sort.vizualizer.annotation.meta.Justification;
-import aero.sort.vizualizer.ui.MainFrame;
+import aero.sort.vizualizer.controller.IController;
+import aero.sort.vizualizer.data.options.SortOptions;
+import aero.sort.vizualizer.data.options.SortSetOptions;
+import aero.sort.vizualizer.data.registry.DataRegistry;
+import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
+import aero.sort.vizualizer.utilities.Async;
 import aero.sort.vizualizer.utilities.ui.Ui;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,20 +18,27 @@ import org.slf4j.LoggerFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 /**
  * Handles the frame management invocations of UI elements.
  *
  * @author Daniel Ladendorfer
  */
-public class FrameManagementController {
-    private static final String tooManyMessage = "Only up to 9 frames can be arranged smartly";
-    private static final String tooManyTitle = "Too many frames to smart arrange";
+public class FrameController implements IController {
+    private static final String TOO_MANY_MESSAGE = "Only up to 9 frames can be arranged smartly";
+    private static final String TOO_MANY_TITLE = "Too many frames to smart arrange";
 
     @Justification("Unit tests need to inject a desktop instance because github CI is in headless gfx mode")
     private static JDesktopPane injectedDesktop;
 
-    private static final Logger logger = LoggerFactory.getLogger(FrameManagementController.class);
+    private static final Logger logger = LoggerFactory.getLogger(FrameController.class);
+    private boolean autoSmartArrange = true;
+    private final JDesktopPane desktop;
+
+    public FrameController(JDesktopPane desktop) {
+        this.desktop = desktop;
+    }
 
     /**
      * Internal static API to enable unit testing.
@@ -44,6 +56,22 @@ public class FrameManagementController {
     public void closeAll() {
         logger.debug("Disposing all frames.");
         Arrays.stream(getAllFrames()).forEach(JInternalFrame::dispose);
+    }
+
+    /**
+     * Creates an internal sort frame.
+     *
+     * @param options the options for this specific frame
+     */
+    public void createInternalFrame(SortOptions options) {
+        var frame = new SortingFrame(options);
+        getDesktop().add(frame);
+        frame.toFront();
+        if (autoSmartArrange) {
+            smartArrange();
+        }
+        int elementCount = DataRegistry.fetch(SortSetOptions.class).size();
+        Async.invoke(() -> frame.render(IntStream.rangeClosed(1, elementCount).boxed().toArray(Integer[]::new)));
     }
 
 
@@ -110,6 +138,16 @@ public class FrameManagementController {
         }
     }
 
+    /**
+     * Sets the auto smart arrange flag of the controller.
+     *
+     * @param enabled true to enable; false to disable
+     */
+    public void autoSmartArrange(boolean enabled) {
+        logger.info("Smart arranging frames: {}", enabled);
+        this.autoSmartArrange = enabled;
+    }
+
     private void arrangeTooMany() {
         logger.debug("Arranging too many frames");
         var frames = getAllFrames();
@@ -126,7 +164,7 @@ public class FrameManagementController {
             frame.toFront();
         }
 
-        Ui.showInfo(tooManyTitle, tooManyMessage);
+        Ui.showInfo(TOO_MANY_TITLE, TOO_MANY_MESSAGE);
     }
 
     private void arrangeTripleTriplets() {
@@ -201,12 +239,16 @@ public class FrameManagementController {
 
 
     private Dimension getDesktopDimension() {
-        var desktop = getDesktop();
-        return new Dimension(desktop.getWidth(), desktop.getHeight());
+        return new Dimension(getDesktop().getWidth(), getDesktop().getHeight());
     }
 
-    private JDesktopPane getDesktop() {
-        return injectedDesktop == null ? MainFrame.getInstance().getDesktop() : injectedDesktop;
+    /**
+     * Returns the {@link JDesktopPane} instance of the application.
+     *
+     * @return the desktop
+     */
+    public JDesktopPane getDesktop() {
+        return injectedDesktop == null ? desktop : injectedDesktop;
     }
 
     private JInternalFrame[] getAllFrames() {

@@ -4,7 +4,8 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui.components.management;
 
-import aero.sort.vizualizer.ui.MainFrame;
+import aero.sort.vizualizer.controller.Controllers;
+import aero.sort.vizualizer.controller.management.FrameController;
 import aero.sort.vizualizer.utilities.ui.Ui;
 import aero.sort.vizualizer.utilities.ui.UiFactory;
 
@@ -23,13 +24,17 @@ public class FrameManagementPanel extends JPanel {
     private void initializePanel() {
         setLayout(new FlowLayout(FlowLayout.RIGHT));
         var checkBox = new JCheckBox("Smart Arrange automatically", true);
-        checkBox.addChangeListener(e -> MainFrame.getInstance().autoSmartArrange(checkBox.isSelected()));
+        checkBox.addChangeListener(e -> fetchController().autoSmartArrange(checkBox.isSelected()));
         Ui.using(this).add(
                 checkBox,
-                UiFactory.createButton("Smart Arrange", () -> MainFrame.getInstance().getController().smartArrange()),
-                UiFactory.createButton("Arrange Stacking", () -> MainFrame.getInstance().getController().arrangeStacking()),
-                UiFactory.createButton("Arrange Side-by-Side", () -> MainFrame.getInstance().getController().arrangeSideBySide()),
-                UiFactory.createButton("Close All", () -> MainFrame.getInstance().getController().closeAll())
+                UiFactory.createButton("Smart Arrange", () -> fetchController().smartArrange()),
+                UiFactory.createButton("Arrange Stacking", () -> fetchController().arrangeStacking()),
+                UiFactory.createButton("Arrange Side-by-Side", () -> fetchController().arrangeSideBySide()),
+                UiFactory.createButton("Close All", () -> fetchController().closeAll())
         );
+    }
+
+    private static FrameController fetchController() {
+        return Controllers.fetch(FrameController.class);
     }
 }

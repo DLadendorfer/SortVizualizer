@@ -4,6 +4,8 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.app;
 
+import aero.sort.vizualizer.controller.Controllers;
+import aero.sort.vizualizer.controller.management.FrameController;
 import aero.sort.vizualizer.data.options.Algorithm;
 import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.data.options.Style;
@@ -27,9 +29,14 @@ public class Application {
         UIBindings.setupLookAndFeel();
     }
 
+    private Application() {
+        // static utility class - no instance needed
+    }
+
     public static void launch() {
         logger.info("Launching application...");
 
+        new MainFrame();
         if (!GraphicsEnvironment.isHeadless()) {
             createDefaultSortFrame();
         }
@@ -38,7 +45,7 @@ public class Application {
     }
 
     private static void createDefaultSortFrame() {
-        var options = new SortOptions(Algorithm.Bubblesort, Visualization.Bars, Style.App, false);
-        MainFrame.getInstance().createInternalFrame(options);
+        var options = new SortOptions(Algorithm.BUBBLE, Visualization.BARS, Style.APP, false);
+        Controllers.fetch(FrameController.class).createInternalFrame(options);
     }
 }

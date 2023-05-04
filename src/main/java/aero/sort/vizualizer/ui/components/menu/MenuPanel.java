@@ -21,11 +21,11 @@ public class MenuPanel extends JPanel {
     private static final Logger logger = LoggerFactory.getLogger(MenuPanel.class);
 
     private final JPanel actionInvocationPanel;
-    private final JPanel menuPanel;
+    private final JPanel sidebarPanel;
 
     public MenuPanel() {
         actionInvocationPanel = createActionInvocationPanel();
-        menuPanel = createMenuPanels();
+        sidebarPanel = createSidebarPanel();
 
         initialize();
     }
@@ -39,24 +39,24 @@ public class MenuPanel extends JPanel {
     private void createPanel() {
         setLayout(new BorderLayout());
         add(actionInvocationPanel, BorderLayout.NORTH);
-        var scrollPane = new JScrollPane(menuPanel);
+        var scrollPane = new JScrollPane(sidebarPanel);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    private JPanel createMenuPanels() {
+    private JPanel createSidebarPanel() {
         var panel = new JPanel(new GridBagLayout());
         var constraints = FluentConstraints.of(createGridBagConstraints());
 
-        panel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
-        panel.setAlignmentY(JPanel.TOP_ALIGNMENT);
-        createMenuPanels(panel, constraints);
+        panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.setAlignmentY(Component.TOP_ALIGNMENT);
+        createSidebarPanel(panel, constraints);
         panel.add(new JPanel(), constraints.incrementY().weightY(420.69f).get());// do not delete this or else the ui will break
 
         return panel;
     }
 
-    private static void createMenuPanels(JPanel panel, FluentConstraints constraints) {
+    private static void createSidebarPanel(JPanel panel, FluentConstraints constraints) {
         panel.add(new AddSorterPanel(constraints), constraints.width(1).get());
         panel.add(new VisualizationPanel(constraints), constraints.resetX().incrementY().width(1).get());
         panel.add(new SortSetPanel(constraints), constraints.resetX().incrementY().padY(0).width(1).get());

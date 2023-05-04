@@ -4,7 +4,8 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.utilities.ui;
 
-import aero.sort.vizualizer.ui.MainFrame;
+import aero.sort.vizualizer.controller.Controllers;
+import aero.sort.vizualizer.controller.management.FrameController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +43,7 @@ public final class Ui {
      */
     public static void showInfo(String title, Object message) {
         logger.debug("Showing message '{}':'{}'", title, message);
-        JOptionPane.showMessageDialog(MainFrame.getInstance().getDesktop(), message, title, JOptionPane.INFORMATION_MESSAGE);
+        var desktop = Controllers.fetch(FrameController.class).getDesktop();
+        JOptionPane.showMessageDialog(desktop, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 }

@@ -20,8 +20,8 @@ import java.util.Arrays;
  */
 public class StatisticsPanel extends JPanel {
 
-    private final SortOptions options;
-    private ISortingAlgorithm algorithm;
+    private final transient SortOptions options;
+    private final transient ISortingAlgorithm algorithm;
 
     public StatisticsPanel(SortOptions options, ISortingAlgorithm algorithm) {
         this.options = options;
@@ -33,7 +33,7 @@ public class StatisticsPanel extends JPanel {
 
         setLayout(new GridLayout(4, 6));
         add(new JLabel("Algorithm:"));
-        add(createValueLabel(options.algorithm().name()));
+        add(createValueLabel(options.algorithm().toString()));
 
         add(new JLabel("Status:"));
         add(createValueLabel("Done"));

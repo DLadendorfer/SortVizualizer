@@ -10,5 +10,16 @@ package aero.sort.vizualizer.data.options;
  * @author Daniel Ladendorfer
  */
 public enum Visualization {
-    Bars
+    BARS("Bars");
+
+    private final String displayText;
+
+    Visualization(String displayText) {
+        this.displayText = displayText;
+    }
+
+    @Override
+    public String toString() {
+        return displayText;
+    }
 }
