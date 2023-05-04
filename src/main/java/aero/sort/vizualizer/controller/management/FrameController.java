@@ -4,7 +4,6 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.controller.management;
 
-import aero.sort.vizualizer.annotation.meta.Justification;
 import aero.sort.vizualizer.controller.IController;
 import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.data.options.SortSetOptions;
@@ -28,10 +27,6 @@ import java.util.stream.IntStream;
 public class FrameController implements IController {
     private static final String TOO_MANY_MESSAGE = "Only up to 9 frames can be arranged smartly";
     private static final String TOO_MANY_TITLE = "Too many frames to smart arrange";
-
-    @Justification("Unit tests need to inject a desktop instance because github CI is in headless gfx mode")
-    private static JDesktopPane injectedDesktop;
-
     private static final Logger logger = LoggerFactory.getLogger(FrameController.class);
     private boolean autoSmartArrange = true;
     private final JDesktopPane desktop;
@@ -40,15 +35,6 @@ public class FrameController implements IController {
         this.desktop = desktop;
     }
 
-    /**
-     * Internal static API to enable unit testing.
-     *
-     * @param desktop the desktop to statically inject
-     */
-    @Justification("Unit tests need to inject a desktop instance because github CI is in headless gfx mode")
-    public static void injectDesktop(JDesktopPane desktop) {
-        injectedDesktop = desktop;
-    }
 
     /**
      * Closes all frames.
@@ -65,7 +51,7 @@ public class FrameController implements IController {
      */
     public void createInternalFrame(SortOptions options) {
         var frame = new SortingFrame(options);
-        getDesktop().add(frame);
+        desktop.add(frame);
         frame.toFront();
         if (autoSmartArrange) {
             smartArrange();
@@ -160,7 +146,7 @@ public class FrameController implements IController {
 
         for (int i = 9; i < frames.length; i++) {
             var frame = frames[i];
-            getDesktop().getDesktopManager().openFrame(frame);
+            desktop.getDesktopManager().openFrame(frame);
             frame.toFront();
         }
 
@@ -239,19 +225,14 @@ public class FrameController implements IController {
 
 
     private Dimension getDesktopDimension() {
-        return new Dimension(getDesktop().getWidth(), getDesktop().getHeight());
-    }
-
-    /**
-     * Returns the {@link JDesktopPane} instance of the application.
-     *
-     * @return the desktop
-     */
-    public JDesktopPane getDesktop() {
-        return injectedDesktop == null ? desktop : injectedDesktop;
+        return new Dimension(desktop.getWidth(), desktop.getHeight());
     }
 
     private JInternalFrame[] getAllFrames() {
-        return getDesktop().getAllFrames();
+        return desktop.getAllFrames();
+    }
+
+    public JDesktopPane getDesktop() {
+        return desktop;
     }
 }

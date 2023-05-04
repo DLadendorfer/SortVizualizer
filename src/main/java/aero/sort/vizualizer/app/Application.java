@@ -36,8 +36,8 @@ public class Application {
     public static void launch() {
         logger.info("Launching application...");
 
-        new MainFrame();
         if (!GraphicsEnvironment.isHeadless()) {
+            new MainFrame();
             createDefaultSortFrame();
         }
 

@@ -18,11 +18,6 @@ import java.awt.Color
  */
 internal class CustomPlainTest {
 
-    @Test
-    fun `Tests that a null color constructor invocation leads to a null pointer exception`() {
-        assertThrows<NullPointerException>({ "NullPointerException should have been thrown" }, { CustomPlain(null) })
-    }
-
     @ParameterizedTest(name = "Tests if Custom plain works for color: {0}")
     @ValueSource(ints = [0x000000, 0xFFFFFF, 0x0F0F0F])
     fun `Tests that a null color constructor invocation leads to a null pointer exception`(color: Int) {

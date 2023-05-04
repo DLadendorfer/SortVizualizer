@@ -31,8 +31,7 @@ internal class FrameManagementControllerTest {
     @BeforeEach
     fun setup() {
         desktop = JDesktopPane()
-        controller = FrameController()
-        FrameController.injectDesktop(desktop)
+        controller = FrameController(desktop)
     }
 
     @ParameterizedTest
