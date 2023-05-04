@@ -12,6 +12,7 @@ package aero.sort.vizualizer.data.options;
 public enum Visualization {
     BARS("Bars"),
     PYRAMID("Pyramid"),
+    SCATTER_PLOT("Scatter Plot"),
     BUBBLES("Bubbles"),
     SQUARES("Squares");
 
