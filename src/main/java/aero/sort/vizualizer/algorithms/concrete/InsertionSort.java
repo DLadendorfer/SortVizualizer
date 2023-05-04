@@ -33,14 +33,14 @@ public class InsertionSort extends AbstractSortingAlgorithm {
         for (int j = 1; j < n; j++) {
             int key = ints[j];
             int i = j - 1;
-            stepResults.add(new StepResult(new Integer[]{i, j}, copyArr()));
+            stepResults.add(createStep(new Integer[]{i, j}));
             while ((i > -1) && (ints[i] > key)) {
                 ints[i + 1] = ints[i];
                 i--;
-                stepResults.add(new StepResult(new Integer[]{i}, copyArr()));
+                stepResults.add(createStep(new Integer[]{i}));
             }
             ints[i + 1] = key;
-            stepResults.add(new StepResult(new Integer[0], copyArr()));
+            stepResults.add(createEmptyStep());
         }
 
         return stepResults;
