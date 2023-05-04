@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Disabled
  *
  * @author Daniel Ladendorfer
  */
-@Disabled
 internal class QuickSortTest : AbstractSortingAlgorithmTest() {
     override fun getAlgorithm(): ISortingAlgorithm = QuickSort()
 }
