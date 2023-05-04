@@ -20,20 +20,19 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 /**
- * Bars visualizer.
+ * Pyramid visualizer.
  *
  * @author Daniel Ladendorfer
  */
-public class Bars extends AbstractVisualizer {
+public class Pyramid extends AbstractVisualizer {
     public static final int ARC = 10;
     private static final int MARGIN = 7;
     private static final int BAR_OFFSET = 3;
 
-    public Bars(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
+    public Pyramid(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
         super(renderPanel, style, steps);
     }
 
-    @Override
     public JPanel renderInternal(StepResult step) {
         int maxValue = Arrays.stream(step.ints()).max(Comparator.naturalOrder()).orElse(1);
         int minValue = Arrays.stream(step.ints()).min(Comparator.naturalOrder()).orElse(1);
@@ -44,29 +43,29 @@ public class Bars extends AbstractVisualizer {
                 super.paintComponent(g);
 
                 if (g instanceof Graphics2D g2) {
-                    int heightRatio = getPanelDimension().height / maxValue;
-                    int barWidth = getPanelDimension().width / (step.ints().length) - BAR_OFFSET;
+                    int widthRatio = getPanelDimension().width / maxValue;
+                    int barHeight = getPanelDimension().height / (step.ints().length) - BAR_OFFSET;
                     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
                     for (int index = 0; index < step.ints().length; index++) {
                         var context = new StyleContext(g2, step.ints().length, index, step.ints()[index], maxValue, minValue);
-                        drawBar(context, heightRatio, barWidth, step);
+                        drawBar(context, widthRatio, barHeight, step);
                     }
                 }
             }
         };
     }
 
-    private void drawBar(StyleContext context, int heightRatio, int barWidth, StepResult step) {
+    private void drawBar(StyleContext context, int widthRatio, int barHeight, StepResult step) {
         boolean markedIndex = Arrays.stream(step.marked()).anyMatch(m -> m == context.index());
         context.g2().setColor(style.getColor(context));
-        int x = MARGIN + context.index() * BAR_OFFSET + (context.index() * barWidth);
-        int y = getPanelDimension().height - context.value() * heightRatio;
-        int height = context.value() * heightRatio;
-        context.g2().fillRoundRect(x, y, barWidth, height, ARC, ARC);
+        int x = (getPanelDimension().width - context.value() * widthRatio) / 2;
+        int y = MARGIN + context.index() * BAR_OFFSET + (context.index() * barHeight);
+        int width = context.value() * widthRatio;
+        context.g2().fillRoundRect(x, y, width, barHeight, ARC, ARC);
 
         if (markedIndex) {
-            drawMarker(context, barWidth, x, y, height);
+            drawMarker(context, width, x, y, barHeight);
         }
     }
 

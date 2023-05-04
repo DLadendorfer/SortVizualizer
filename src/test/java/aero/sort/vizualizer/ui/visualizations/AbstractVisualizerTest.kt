@@ -6,6 +6,10 @@
 package aero.sort.vizualizer.ui.visualizations
 
 import aero.sort.vizualizer.algorithms.StepResult
+import aero.sort.vizualizer.data.options.MarkType
+import aero.sort.vizualizer.data.options.VisualizationOptions
+import aero.sort.vizualizer.data.registry.DataRegistry
+import aero.sort.vizualizer.ui.constants.Theme
 import aero.sort.vizualizer.utilities.Async
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
@@ -29,14 +33,21 @@ internal abstract class AbstractVisualizerTest {
     fun `Tests if the rendering does not throw any exception`() {
         val list = LinkedList<StepResult>()
         val arr = arrayOf(1, 2, 3)
+        val options = VisualizationOptions(
+            true, true, 0L, VisualizationOptions.Marker(MarkType.OFF, Theme.WHITE)
+        )
+
         list.add(StepResult(emptyArray(), arr))
         list.add(StepResult(arrayOf(1, 2), arr))
         list.add(StepResult(emptyArray(), arr))
 
-        val asyncMock = Mockito.mockStatic(Async::class.java)
-        asyncMock.use {
-            asyncMock.`when`<Async> { Async.sleep(anyLong()) }.then { }
+        val async = Mockito.mockStatic(Async::class.java)
+        async.use {
+            async.`when`<Async> { Async.sleep(anyLong()) }.then { }
         }
+
+        DataRegistry.registerOptionsSupplier(VisualizationOptions::class.java) { options }
+
         val visualizer = getVisualizer(list)
         assertDoesNotThrow { visualizer.render() }
     }

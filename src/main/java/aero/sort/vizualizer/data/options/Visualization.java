@@ -10,7 +10,8 @@ package aero.sort.vizualizer.data.options;
  * @author Daniel Ladendorfer
  */
 public enum Visualization {
-    BARS("Bars");
+    BARS("Bars"),
+    PYRAMID("Pyramid");
 
     private final String displayText;
 

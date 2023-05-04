@@ -21,6 +21,7 @@ import aero.sort.vizualizer.ui.components.statistics.StatisticsPanel;
 import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.ui.visualizations.IVisualizer;
 import aero.sort.vizualizer.ui.visualizations.concrete.Bars;
+import aero.sort.vizualizer.ui.visualizations.concrete.Pyramid;
 import aero.sort.vizualizer.utilities.Async;
 import aero.sort.vizualizer.utilities.ui.Ui;
 import org.slf4j.Logger;
@@ -152,6 +153,7 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
         };
         IVisualizer visualizer = switch (options.visualization()) {
             case BARS -> new Bars(renderPanel, style, steps);
+            case PYRAMID -> new Pyramid(renderPanel, style, steps);
         };
 
         visualizer.render();
