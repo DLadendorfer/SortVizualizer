@@ -13,7 +13,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
- * Abstract implementation for all sorting algorithms.
+ * Abstract implementation for all sorting algorithms. Does a lot of heavy lifting which reoccur in
+ * every algorithm. Mostly it should abstract the population of the step-result-list.
  *
  * @author Daniel Ladendorfer
  */
@@ -21,6 +22,8 @@ public abstract class AbstractSortingAlgorithm implements ISortingAlgorithm {
     private static final Integer[] EMPTY_ARRAY = {};
     private final @NotNull LinkedList<StepResult> stepResults;
     private final Logger logger;
+
+    // the concrete array to sort. This is a mutating array!
     protected Integer[] ints;
 
     protected AbstractSortingAlgorithm() {
@@ -30,8 +33,10 @@ public abstract class AbstractSortingAlgorithm implements ISortingAlgorithm {
 
     @Override
     public @NotNull LinkedList<StepResult> sort(Integer @NotNull [] ints) {
-        logger.debug("Starting to sort {}", Arrays.stream(ints).toList());
         this.ints = ints;
+
+        logger.debug("Starting to sort {}", Arrays.stream(ints)
+                                                  .toList());
         stepResults.add(createEmptyStep());
         stepResults.addAll(sortInternal());
         return stepResults;
@@ -55,10 +60,7 @@ public abstract class AbstractSortingAlgorithm implements ISortingAlgorithm {
     protected final @NotNull StepResult createStep(final Integer @Nullable [] marked) {
         // null safety just to be sure
         var markedIndices = marked == null ? EMPTY_ARRAY : marked;
-
-        logger.trace("Creating step result with marked {}", Arrays.stream(markedIndices).toList());
-
-        return new StepResult(markedIndices, copyArr());
+        return new StepResult(markedIndices, copyInternalArray());
     }
 
     /**
@@ -66,12 +68,13 @@ public abstract class AbstractSortingAlgorithm implements ISortingAlgorithm {
      *
      * @return a copy of the current array state
      */
-    protected Integer @NotNull [] copyArr() {
+    protected Integer @NotNull [] copyInternalArray() {
         return Arrays.copyOf(ints, ints.length);
     }
 
     /**
-     * The concrete implementation of the sort.
+     * The concrete implementation of the sort. This is the method that the concrete implementations
+     * should implement (without the boilerplate code of this abstract class).
      *
      * @return the steps to sort the initial input
      */

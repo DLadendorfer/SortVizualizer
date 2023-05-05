@@ -5,7 +5,7 @@
 package aero.sort.vizualizer;
 
 import aero.sort.vizualizer.app.Application;
-import aero.sort.vizualizer.app.PreLaunchHook;
+import aero.sort.vizualizer.app.PreLaunchValidator;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 public class VizualizerApplication {
 
     public static void main(String @NotNull [] args) {
-        PreLaunchHook.validateArguments(args);
+        PreLaunchValidator.validateArguments(args);
         Application.launch();
     }
 }

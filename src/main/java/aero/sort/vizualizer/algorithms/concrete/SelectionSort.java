@@ -35,6 +35,16 @@ public class SelectionSort extends AbstractSortingAlgorithm {
     @Override
     protected @NotNull LinkedList<StepResult> sortInternal() {
         var stepResults = new LinkedList<StepResult>();
+        selectionSort(stepResults);
+        return stepResults;
+    }
+
+    private void selectionSort(LinkedList<StepResult> stepResults) {
+    /*
+        Classic implementation of this well-known algorithm.
+        Hence, the cryptic variable names because they are declared like this in
+        any available (web-) literature
+     */
         for (int i = 0; i < ints.length - 1; i++) {
             int index = i;
             for (int j = i + 1; j < ints.length; j++) {
@@ -48,8 +58,6 @@ public class SelectionSort extends AbstractSortingAlgorithm {
             ints[i] = smallerNumber;
             stepResults.add(createEmptyStep());
         }
-
-        return stepResults;
     }
 
     @Override

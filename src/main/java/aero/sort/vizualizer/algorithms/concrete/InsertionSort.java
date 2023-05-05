@@ -29,7 +29,17 @@ public class InsertionSort extends AbstractSortingAlgorithm {
     @Override
     protected @NotNull LinkedList<StepResult> sortInternal() {
         var stepResults = new LinkedList<StepResult>();
+        insertionSort(stepResults);
 
+        return stepResults;
+    }
+
+    private void insertionSort(LinkedList<StepResult> stepResults) {
+    /*
+        Classic implementation of this well-known algorithm.
+        Hence, the cryptic variable names because they are declared like this in
+        any available (web-) literature
+     */
         int n = ints.length;
         for (int j = 1; j < n; j++) {
             int key = ints[j];
@@ -43,8 +53,6 @@ public class InsertionSort extends AbstractSortingAlgorithm {
             ints[i + 1] = key;
             stepResults.add(createEmptyStep());
         }
-
-        return stepResults;
     }
 
     @Override

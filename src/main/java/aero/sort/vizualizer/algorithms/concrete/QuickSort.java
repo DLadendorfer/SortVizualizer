@@ -34,6 +34,19 @@ import java.util.List;
  */
 public class QuickSort extends AbstractSortingAlgorithm {
 
+    private void quickSort(@NotNull List<StepResult> stepResults, Integer @NotNull [] arr, int start, int end) {
+        /*
+            Classic implementation of this well-known algorithm.
+            Hence, the cryptic variable names because they are declared like this in
+            any available (web-) literature
+         */
+        if (start < end) {
+            int partitionIndex = partition(stepResults, arr, start, end);
+            quickSort(stepResults, arr, start, partitionIndex - 1);
+            quickSort(stepResults, arr, partitionIndex + 1, end);
+        }
+    }
+
     /**
      * Function that considers last element as pivot, places the pivot at its exact position and
      * place smaller elements to left of pivot and greater elements to right of pivot.
@@ -64,14 +77,6 @@ public class QuickSort extends AbstractSortingAlgorithm {
         arr[end] = temp;
         stepResults.add(createEmptyStep());
         return (i + 1);
-    }
-
-    private void quickSort(@NotNull List<StepResult> stepResults, Integer @NotNull [] arr, int start, int end) {
-        if (start < end) {
-            int partitionIndex = partition(stepResults, arr, start, end);
-            quickSort(stepResults, arr, start, partitionIndex - 1);
-            quickSort(stepResults, arr, partitionIndex + 1, end);
-        }
     }
 
     @Override

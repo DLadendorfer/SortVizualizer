@@ -4,6 +4,7 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.controller.management;
 
+import aero.sort.vizualizer.annotation.meta.Approval;
 import aero.sort.vizualizer.controller.IController;
 import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.data.options.SortSetOptions;
@@ -42,7 +43,8 @@ public class FrameController implements IController {
      */
     public void closeAll() {
         logger.debug("Disposing all frames.");
-        Arrays.stream(getAllFrames()).forEach(JInternalFrame::dispose);
+        Arrays.stream(getAllFrames())
+              .forEach(JInternalFrame::dispose);
     }
 
     /**
@@ -57,8 +59,15 @@ public class FrameController implements IController {
         if (autoSmartArrange) {
             smartArrange();
         }
-        int elementCount = DataRegistry.fetch(SortSetOptions.class).size();
-        Async.invoke(() -> frame.render(IntStream.rangeClosed(1, elementCount).boxed().toArray(Integer[]::new)));
+        renderSortedSet(frame);
+    }
+
+    private static void renderSortedSet(SortingFrame frame) {
+        var options = DataRegistry.fetch(SortSetOptions.class);
+
+        Async.invoke(() -> frame.render(IntStream.rangeClosed(1, options.size())
+                                                 .boxed()
+                                                 .toArray(Integer[]::new)));
     }
 
 
@@ -73,13 +82,11 @@ public class FrameController implements IController {
             return;
         }
 
-
         var dimension = getDesktopDimension();
         var width = dimension.width / frames.length;
         for (int i = 0; i < frames.length; i++) {
             var frame = frames[i];
-            frame.setPreferredSize(new Dimension(width, dimension.height));
-            frame.setSize(new Dimension(width, dimension.height));
+            setFrameDimension(dimension.height, width, frame);
             frame.setLocation(i + (i * width), 0);
         }
     }
@@ -95,12 +102,11 @@ public class FrameController implements IController {
             return;
         }
 
-        var dimensions = getDesktopDimension();
-        var height = dimensions.height / frames.length;
+        var dimension = getDesktopDimension();
+        var height = dimension.height / frames.length;
         for (int i = 0; i < frames.length; i++) {
             var frame = frames[i];
-            frame.setPreferredSize(new Dimension(dimensions.width, height));
-            frame.setSize(new Dimension(dimensions.width, height));
+            setFrameDimension(height, dimension.width, frame);
             frame.setLocation(0, i + (i * height));
         }
     }
@@ -108,6 +114,7 @@ public class FrameController implements IController {
     /**
      * Smart arranges all internal frames.
      */
+    @Approval(releaseWorthy = false, comment = "Not really as smart as it could be")
     public void smartArrange() {
         logger.debug("Smart arranging frames");
         var frames = getAllFrames();
@@ -143,11 +150,14 @@ public class FrameController implements IController {
             return;
         }
 
+        // arrange the first 9 frames
         arrangeTripleTriplets();
 
+        // bring others to front
         for (int i = 9; i < frames.length; i++) {
             var frame = frames[i];
-            desktop.getDesktopManager().openFrame(frame);
+            desktop.getDesktopManager()
+                   .openFrame(frame);
             frame.toFront();
         }
 
@@ -169,11 +179,11 @@ public class FrameController implements IController {
             var frame = frames[i];
 
             if (i >= 9) {
+                // only works for up to 9 frames
                 break;
             }
 
-            frame.setPreferredSize(new Dimension(width, height));
-            frame.setSize(new Dimension(width, height));
+            setFrameDimension(height, width, frame);
 
             if (i < 3) {
                 frame.setLocation(width * i, 0);
@@ -218,10 +228,15 @@ public class FrameController implements IController {
         var width = dimension.width / 2;
         for (int i = 0; i < frames.length; i++) {
             var frame = frames[i];
-            frame.setPreferredSize(new Dimension(width, height));
-            frame.setSize(new Dimension(width, height));
+            setFrameDimension(height, width, frame);
             frame.setLocation(i == 0 || i == 2 ? 0 : width, i < 2 ? 0 : height);
         }
+    }
+
+    private static void setFrameDimension(int height, int width, JInternalFrame frame) {
+        var preferredSize = new Dimension(width, height);
+        frame.setPreferredSize(preferredSize);
+        frame.setSize(preferredSize);
     }
 
 

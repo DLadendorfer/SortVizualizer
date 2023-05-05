@@ -30,6 +30,17 @@ public class BubbleSort extends AbstractSortingAlgorithm {
     @Override
     protected @NotNull LinkedList<StepResult> sortInternal() {
         var stepResults = new LinkedList<StepResult>();
+        bubbleSort(stepResults);
+        stepResults.add(createEmptyStep());
+        return stepResults;
+    }
+
+    private void bubbleSort(LinkedList<StepResult> stepResults) {
+         /*
+            Classic implementation of this well-known algorithm.
+            Hence, the cryptic variable names because they are declared like this in
+            any available (web-) literature
+         */
         int n = ints.length;
         int temp;
         for (int i = 0; i < n; i++) {
@@ -43,8 +54,6 @@ public class BubbleSort extends AbstractSortingAlgorithm {
                 stepResults.add(createStep(marked));
             }
         }
-        stepResults.add(createEmptyStep());
-        return stepResults;
     }
 
     @Override

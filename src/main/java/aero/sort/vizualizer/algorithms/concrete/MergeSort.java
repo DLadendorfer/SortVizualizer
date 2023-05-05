@@ -29,7 +29,20 @@ import java.util.List;
  */
 public class MergeSort extends AbstractSortingAlgorithm {
 
+    @Override
+    protected @NotNull LinkedList<StepResult> sortInternal() {
+        var stepResults = new LinkedList<StepResult>();
+        mergeSort(stepResults, ints, ints.length);
+        stepResults.add(createEmptyStep());
+        return stepResults;
+    }
+
     private void mergeSort(@NotNull List<StepResult> stepResults, Integer @NotNull [] arr, int n) {
+        /*
+            Classic implementation of this well-known algorithm.
+            Hence, the cryptic variable names because they are declared like this in
+            any available (web-) literature
+         */
         if (n < 2) {
             return;
         }
@@ -72,14 +85,6 @@ public class MergeSort extends AbstractSortingAlgorithm {
         }
 
         stepResults.add(createStep(new Integer[] {left, right}));
-    }
-
-    @Override
-    protected @NotNull LinkedList<StepResult> sortInternal() {
-        var stepResults = new LinkedList<StepResult>();
-        mergeSort(stepResults, ints, ints.length);
-        stepResults.add(createEmptyStep());
-        return stepResults;
     }
 
     @Override

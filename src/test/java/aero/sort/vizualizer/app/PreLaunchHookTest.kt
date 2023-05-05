@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 import java.util.stream.Stream
 
 /**
- * Tests [PreLaunchHook].
+ * Tests [PreLaunchValidator].
  *
  * @author Daniel Ladendorfer
  */
@@ -26,7 +26,7 @@ internal class PreLaunchHookTest {
     @Test
     fun `Passing zero-length array passes validate`() {
         assertDoesNotThrow({ "Empty array should not throw exception" },
-            { PreLaunchHook.validateArguments(emptyArray()) })
+            { PreLaunchValidator.validateArguments(emptyArray()) })
     }
 
     @ParameterizedTest
@@ -34,7 +34,7 @@ internal class PreLaunchHookTest {
     @MethodSource("argsProvider")
     fun `Passing null or multiple arguments results in ApplicationStartException`(args: Array<String>?) {
         val e = assertThrows<RuntimeException> {
-            PreLaunchHook.validateArguments(args)
+            PreLaunchValidator.validateArguments(args)
         }
         assertInstanceOf(ApplicationStartException::class.java, e.cause) {
             "Inner exception should be of type ApplicationStartException"

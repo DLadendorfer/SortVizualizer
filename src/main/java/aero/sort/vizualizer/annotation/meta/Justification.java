@@ -8,7 +8,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Justification for strange code artifacts.
+ * Justification for strange code artifacts which may look nonsensical at first glance.
+ * e.g.: This is a Java-SWING application. It has many unit tests but some of them won't run
+ * on GitHub's CI toolchain without injecting or mocking certain instances.
  *
  * @author Daniel Ladendorfer
  */
