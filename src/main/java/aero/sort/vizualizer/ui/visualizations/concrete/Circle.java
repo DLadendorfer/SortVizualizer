@@ -60,7 +60,7 @@ public class Circle extends AbstractVisualizer {
         int startX = getPanelDimension().width / 2 - length / 2;
         int startY = getPanelDimension().height / 2 - length / 2;
         int arcAngle = Math.round(360.0f / step.ints().length);
-        int startAngle = (context.index() + 1) * arcAngle + 90 - arcAngle;
+        int startAngle = Math.round((context.index()) * 360.0f / step.ints().length) + 90;
 
         context.g2().fillArc(startX, startY, length, length, startAngle, arcAngle);
 

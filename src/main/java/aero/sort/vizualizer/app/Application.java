@@ -45,7 +45,7 @@ public class Application {
     }
 
     private static void createDefaultSortFrame() {
-        var options = new SortOptions(Algorithm.BUBBLE, Visualization.BARS, Style.APP, false);
+        var options = new SortOptions(Algorithm.INSERTION, Visualization.DISPARITY_CIRCLE, Style.RAINBOW, false);
         Controllers.fetch(FrameController.class).createInternalFrame(options);
     }
 }

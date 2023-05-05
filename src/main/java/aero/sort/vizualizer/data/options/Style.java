@@ -10,8 +10,8 @@ package aero.sort.vizualizer.data.options;
  * @author Daniel Ladendorfer
  */
 public enum Style {
-    APP("Application Theme"),
     RAINBOW("Rainbow"),
+    APP("Application Theme"),
     CUSTOM_GRADIENT("Custom 2-Color Gradient"),
     GRAY("Grayscale"),
     SUNSET("Sunset-Red"),
