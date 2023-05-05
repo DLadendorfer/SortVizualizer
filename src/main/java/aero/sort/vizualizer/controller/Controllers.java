@@ -12,11 +12,10 @@ import java.util.function.Supplier;
 
 /**
  * Manages access to the UI controllers.
- *
  */
 public class Controllers {
 
-    private static final Map<Class<? extends IController>, Supplier<IController>> registerdControllers = new ConcurrentHashMap<>();
+    private static final Map<Class<? extends IController>, Supplier<IController>> registeredControllers = new ConcurrentHashMap<>();
 
     private Controllers() {
         // static utility class - no instance needed
@@ -28,8 +27,9 @@ public class Controllers {
      * @param clazz    the concrete controller class
      * @param supplier the supplier
      */
-    public static <T extends IController> void registerControllerSupplier(Class<T> clazz, Supplier<IController> supplier) {
-        registerdControllers.put(clazz, supplier);
+    public static <T extends IController> void registerControllerSupplier(Class<T> clazz,
+                                                                          Supplier<IController> supplier) {
+        registeredControllers.put(clazz, supplier);
     }
 
 
@@ -43,7 +43,8 @@ public class Controllers {
     @SuppressWarnings("unchecked")
     @Justification("This cast cannot fail")
     public static <T extends IController> T fetch(Class<T> clazz) {
-        return (T) registerdControllers.get(clazz).get();
+        return (T) registeredControllers.get(clazz)
+                                        .get();
     }
 
 }

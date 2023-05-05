@@ -69,22 +69,22 @@ public class MergeSort extends AbstractSortingAlgorithm {
         while (i < left && j < right) {
             if (lArr[i] <= rArr[j]) {
                 arr[k++] = lArr[i++];
-                stepResults.add(createStep(new Integer[] {left, k}));
+                stepResults.add(createStep(new Integer[]{left, k}));
             } else {
                 arr[k++] = rArr[j++];
-                stepResults.add(createStep(new Integer[] {right, k}));
+                stepResults.add(createStep(new Integer[]{right, k}));
             }
         }
         while (i < left) {
             arr[k++] = lArr[i++];
-            stepResults.add(createStep(new Integer[] {left, k}));
+            stepResults.add(createStep(new Integer[]{left, k}));
         }
         while (j < right) {
             arr[k++] = rArr[j++];
-            stepResults.add(createStep(new Integer[] {right, k}));
+            stepResults.add(createStep(new Integer[]{right, k}));
         }
 
-        stepResults.add(createStep(new Integer[] {left, right}));
+        stepResults.add(createStep(new Integer[]{left, right}));
     }
 
     @Override

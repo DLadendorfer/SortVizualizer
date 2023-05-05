@@ -32,8 +32,12 @@ public class ScatterPlot extends AbstractVisualizer {
     }
 
     public @NotNull JPanel renderInternal(@NotNull StepResult step) {
-        int maxValue = Arrays.stream(step.ints()).max(Comparator.naturalOrder()).orElse(1);
-        int minValue = Arrays.stream(step.ints()).min(Comparator.naturalOrder()).orElse(1);
+        int maxValue = Arrays.stream(step.ints())
+                             .max(Comparator.naturalOrder())
+                             .orElse(1);
+        int minValue = Arrays.stream(step.ints())
+                             .min(Comparator.naturalOrder())
+                             .orElse(1);
 
         return new JPanel() {
             @Override
@@ -55,13 +59,16 @@ public class ScatterPlot extends AbstractVisualizer {
     }
 
     private void drawCircle(@NotNull StyleContext context, int width, int height, @NotNull StepResult step) {
-        boolean markedIndex = Arrays.stream(step.marked()).anyMatch(m -> m == context.index());
-        context.g2().setColor(style.getColor(context));
+        boolean markedIndex = Arrays.stream(step.marked())
+                                    .anyMatch(m -> m == context.index());
+        context.g2()
+               .setColor(style.getColor(context));
 
         int x = width * context.value() - width;
         int y = getPanelDimension().height - height * (context.index() + 1) - 10;
 
-        context.g2().fillOval(x, y, width, height);
+        context.g2()
+               .fillOval(x, y, width, height);
 
         if (markedIndex) {
             drawMarker(context, width, height, x, y);
@@ -69,15 +76,20 @@ public class ScatterPlot extends AbstractVisualizer {
     }
 
     private static void drawMarker(@NotNull StyleContext context, int width, int height, int x, int y) {
-        var markOptions = DataRegistry.fetch(VisualizationOptions.class).marker();
+        var markOptions = DataRegistry.fetch(VisualizationOptions.class)
+                                      .marker();
 
-        context.g2().setColor(markOptions.markColor());
-        context.g2().setStroke(new BasicStroke(3));
+        context.g2()
+               .setColor(markOptions.markColor());
+        context.g2()
+               .setStroke(new BasicStroke(3));
         var markType = markOptions.markType();
         if (Objects.requireNonNull(markType) == MarkType.FILL) {
-            context.g2().fillOval(x, y, width, height);
+            context.g2()
+                   .fillOval(x, y, width, height);
         } else if (markType == MarkType.OUTLINE) {
-            context.g2().drawOval(x, y, width, height);
+            context.g2()
+                   .drawOval(x, y, width, height);
         }
     }
 }

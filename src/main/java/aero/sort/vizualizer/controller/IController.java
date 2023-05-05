@@ -10,4 +10,5 @@ package aero.sort.vizualizer.controller;
  * @author Daniel Ladendorfer
  */
 public interface IController {
+    // marker interface
 }

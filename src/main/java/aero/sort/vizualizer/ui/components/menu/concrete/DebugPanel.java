@@ -46,14 +46,22 @@ public class DebugPanel extends AbstractMenuPanel<DebugOptions> {
 
     @Override
     protected void initializePanel() {
-        add(new JLabel("Log Level: "), constraints.width(1).incrementY().resetX().get());
-        add(logLevelComboBox, constraints.incrementX().get());
+        add(new JLabel("Log Level: "), constraints.width(1)
+                                                  .incrementY()
+                                                  .resetX()
+                                                  .get());
+        add(logLevelComboBox, constraints.incrementX()
+                                         .get());
         logLevelComboBox.setSelectedItem(Level.DEBUG);
         add(UiFactory.createButton("Add Log Frame", () -> {
             var logFrame = new LogFrame(getData());
-            var desktop = Controllers.fetch(FrameController.class).getDesktop();
+            var desktop = Controllers.fetch(FrameController.class)
+                                     .getDesktop();
             desktop.add(logFrame);
             logFrame.toFront();
-        }), constraints.resetX().incrementY().width(2).get());
+        }), constraints.resetX()
+                       .incrementY()
+                       .width(2)
+                       .get());
     }
 }

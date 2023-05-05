@@ -43,11 +43,16 @@ public class JLabelAppender extends AbstractAppender {
     @Override
     public void append(@NotNull LogEvent event) {
         logLevelLabel.setForeground(getColor(event));
-        logLevelLabel.setText(LEVEL_FORMAT.formatted(event.getLevel().getStandardLevel().name()));
-        logLevelLabel.setFont(logLevelLabel.getFont().deriveFont(Font.BOLD));
-        messageLabel.setText(event.getMessage().getFormattedMessage());
+        logLevelLabel.setText(LEVEL_FORMAT.formatted(event.getLevel()
+                                                          .getStandardLevel()
+                                                          .name()));
+        logLevelLabel.setFont(logLevelLabel.getFont()
+                                           .deriveFont(Font.BOLD));
+        messageLabel.setText(event.getMessage()
+                                  .getFormattedMessage());
 
-        Optional.ofNullable(eventCallback).ifPresent(this::invokeCallback);
+        Optional.ofNullable(eventCallback)
+                .ifPresent(this::invokeCallback);
     }
 
     private void invokeCallback(@NotNull BiConsumer<JLabel, JLabel> callBack) {
@@ -58,7 +63,8 @@ public class JLabelAppender extends AbstractAppender {
     }
 
     private static @NotNull Color getColor(@NotNull LogEvent event) {
-        return switch (event.getLevel().getStandardLevel()) {
+        return switch (event.getLevel()
+                            .getStandardLevel()) {
             case FATAL, ERROR -> Theme.RED;
             case WARN -> Theme.YELLOW;
             case INFO -> Theme.BLUE;
@@ -67,7 +73,9 @@ public class JLabelAppender extends AbstractAppender {
     }
 
     private static PatternLayout createPatternLayout() {
-        return PatternLayout.newBuilder().withPattern(LOG_PATTERN).build();
+        return PatternLayout.newBuilder()
+                            .withPattern(LOG_PATTERN)
+                            .build();
     }
 
     public void setEventCallback(BiConsumer<JLabel, JLabel> eventCallback) {

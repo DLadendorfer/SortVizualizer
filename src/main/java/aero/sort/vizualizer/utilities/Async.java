@@ -79,7 +79,8 @@ public class Async {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+            Thread.currentThread()
+                  .interrupt();
         }
     }
 }

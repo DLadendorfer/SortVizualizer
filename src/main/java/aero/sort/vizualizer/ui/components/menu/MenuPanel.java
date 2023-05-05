@@ -52,16 +52,29 @@ public class MenuPanel extends JPanel {
         panel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.setAlignmentY(Component.TOP_ALIGNMENT);
         createSidebarPanel(panel, constraints);
-        panel.add(new JPanel(), constraints.incrementY().weightY(420.69f).get());// do not delete this or else the ui will break
+        panel.add(new JPanel(), constraints.incrementY()
+                                           .weightY(420.69f)
+                                           .get());// do not delete this or else the ui will break
 
         return panel;
     }
 
     private static void createSidebarPanel(@NotNull JPanel panel, @NotNull FluentConstraints constraints) {
-        panel.add(new AddSorterPanel(constraints), constraints.width(1).get());
-        panel.add(new VisualizationPanel(constraints), constraints.resetX().incrementY().width(1).get());
-        panel.add(new SortSetPanel(constraints), constraints.resetX().incrementY().padY(0).width(1).get());
-        panel.add(new DebugPanel(constraints), constraints.resetX().incrementY().width(1).get());
+        panel.add(new AddSorterPanel(constraints), constraints.width(1)
+                                                              .get());
+        panel.add(new VisualizationPanel(constraints), constraints.resetX()
+                                                                  .incrementY()
+                                                                  .width(1)
+                                                                  .get());
+        panel.add(new SortSetPanel(constraints), constraints.resetX()
+                                                            .incrementY()
+                                                            .padY(0)
+                                                            .width(1)
+                                                            .get());
+        panel.add(new DebugPanel(constraints), constraints.resetX()
+                                                          .incrementY()
+                                                          .width(1)
+                                                          .get());
     }
 
     private @NotNull GridBagConstraints createGridBagConstraints() {

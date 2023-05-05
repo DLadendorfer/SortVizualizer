@@ -51,9 +51,9 @@ public class MainFrame extends JFrame {
 
     private JDesktopPane createDesktop() {
         return Ui.using(new JDesktopPane())
-                .execute(d -> d.setBackground(Theme.BLACK))
-                .execute(d -> d.setVisible(true))
-                .get();
+                 .execute(d -> d.setBackground(Theme.BLACK))
+                 .execute(d -> d.setVisible(true))
+                 .get();
     }
 
     private void initializeFrame() {

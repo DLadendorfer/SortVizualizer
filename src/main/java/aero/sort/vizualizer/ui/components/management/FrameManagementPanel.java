@@ -25,13 +25,8 @@ public class FrameManagementPanel extends JPanel {
         setLayout(new FlowLayout(FlowLayout.RIGHT));
         var checkBox = new JCheckBox("Smart Arrange automatically", true);
         checkBox.addChangeListener(e -> fetchController().autoSmartArrange(checkBox.isSelected()));
-        Ui.using(this).add(
-                checkBox,
-                UiFactory.createButton("Smart Arrange", () -> fetchController().smartArrange()),
-                UiFactory.createButton("Arrange Stacking", () -> fetchController().arrangeStacking()),
-                UiFactory.createButton("Arrange Side-by-Side", () -> fetchController().arrangeSideBySide()),
-                UiFactory.createButton("Close All", () -> fetchController().closeAll())
-        );
+        Ui.using(this)
+          .add(checkBox, UiFactory.createButton("Smart Arrange", () -> fetchController().smartArrange()), UiFactory.createButton("Arrange Stacking", () -> fetchController().arrangeStacking()), UiFactory.createButton("Arrange Side-by-Side", () -> fetchController().arrangeSideBySide()), UiFactory.createButton("Close All", () -> fetchController().closeAll()));
     }
 
     private static FrameController fetchController() {

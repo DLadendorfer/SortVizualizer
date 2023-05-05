@@ -14,7 +14,6 @@ import aero.sort.vizualizer.annotation.meta.Justification;
 @SuppressWarnings("UnnecessaryUnicodeEscape")
 @Justification("We can't use the ² character (or other unicode literals) because swing won't render it correctly")
 public enum Notation {
-
     ONE("1"),
     LOG_N("log(n)"),
     N("n"),

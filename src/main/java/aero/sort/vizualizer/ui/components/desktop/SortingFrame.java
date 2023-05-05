@@ -54,7 +54,9 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
     public SortingFrame(@NotNull SortOptions options) {
         this.options = options;
         this.logger = LoggerFactory.getLogger("%s:%s:%s:%s".formatted(options.algorithm(), options.visualization(), options.style(), UUID.randomUUID()));
-        this.renderPanel = Ui.using(new JPanel()).execute(panel -> panel.setBackground(Theme.BACKGROUND)).get();
+        this.renderPanel = Ui.using(new JPanel())
+                             .execute(panel -> panel.setBackground(Theme.BACKGROUND))
+                             .get();
         this.algorithm = getSortingAlgorithm();
         this.statsPanel = new StatisticsPanel(options, algorithm);
         initializeFrame(options);
@@ -72,7 +74,8 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
         setTitle("%s - %s - %s".formatted(options.algorithm(), options.visualization(), options.style()));
 
         if (!GraphicsEnvironment.isHeadless()) {
-            var desktop = Controllers.fetch(FrameController.class).getDesktop();
+            var desktop = Controllers.fetch(FrameController.class)
+                                     .getDesktop();
             setBounds(10 + createOffset, 10 + createOffset, desktop.getWidth() / 2, desktop.getHeight() / 3 * 2);
         }
 
@@ -91,7 +94,8 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
 
     private void setIcon() {
         try {
-            var resource = Objects.requireNonNull(MainFrame.class.getClassLoader().getResourceAsStream(ICONS_SORT_PNG));
+            var resource = Objects.requireNonNull(MainFrame.class.getClassLoader()
+                                                                 .getResourceAsStream(ICONS_SORT_PNG));
             var icon = new ImageIcon(ImageIO.read(resource));
             setFrameIcon(icon);
         } catch (NullPointerException | IOException e) {
@@ -133,7 +137,9 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
 
     private void render(@NotNull LinkedList<StepResult> steps) {
         previousRenderData = new LinkedList<>();
-        previousRenderData.add(new StepResult(steps.getFirst().marked(), steps.getFirst().ints()));
+        previousRenderData.add(new StepResult(steps.getFirst()
+                                                   .marked(), steps.getFirst()
+                                                                   .ints()));
         IStyle style = switch (options.style()) {
             case APP -> new App();
             case RAINBOW -> new Rainbow();
@@ -142,7 +148,8 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
             case AQUA -> new Aqua();
             case SUNRISE -> new Sunrise();
             case SUNSET -> new Sunset();
-            case CUSTOM_PLAIN -> new CustomPlain(options.colors().primary());
+            case CUSTOM_PLAIN -> new CustomPlain(options.colors()
+                                                        .primary());
             case WHITE -> new White();
             case CYAN -> new Cyan();
             case GREEN -> new Green();

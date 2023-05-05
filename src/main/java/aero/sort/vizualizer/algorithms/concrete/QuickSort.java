@@ -52,9 +52,9 @@ public class QuickSort extends AbstractSortingAlgorithm {
      * place smaller elements to left of pivot and greater elements to right of pivot.
      *
      * @param stepResults stepResult list
-     * @param arr array
-     * @param start start index
-     * @param end end index
+     * @param arr         array
+     * @param start       start index
+     * @param end         end index
      * @return the partition index
      */
     private int partition(@NotNull List<StepResult> stepResults, Integer @NotNull [] arr, int start, int end) {
@@ -62,14 +62,14 @@ public class QuickSort extends AbstractSortingAlgorithm {
         int i = (start - 1);
 
         for (int j = start; j <= end - 1; j++) {
-            stepResults.add(createStep(new Integer[] {pivotElement, i + 1, j}));
+            stepResults.add(createStep(new Integer[]{pivotElement, i + 1, j}));
             if (arr[j] < pivotElement) {
                 i++;
                 int temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;
             }
-            stepResults.add(createStep(new Integer[] {pivotElement}));
+            stepResults.add(createStep(new Integer[]{pivotElement}));
         }
 
         int temp = arr[i + 1];

@@ -33,8 +33,12 @@ public class DisparityCircle extends AbstractVisualizer {
 
     @Override
     public @NotNull JPanel renderInternal(@NotNull StepResult step) {
-        int maxValue = Arrays.stream(step.ints()).max(Comparator.naturalOrder()).orElse(1);
-        int minValue = Arrays.stream(step.ints()).min(Comparator.naturalOrder()).orElse(1);
+        int maxValue = Arrays.stream(step.ints())
+                             .max(Comparator.naturalOrder())
+                             .orElse(1);
+        int minValue = Arrays.stream(step.ints())
+                             .min(Comparator.naturalOrder())
+                             .orElse(1);
 
         return new JPanel() {
             @Override
@@ -57,30 +61,39 @@ public class DisparityCircle extends AbstractVisualizer {
     }
 
     private void drawArc(@NotNull StyleContext context, int length, @NotNull StepResult step) {
-        boolean markedIndex = Arrays.stream(step.marked()).anyMatch(m -> m == context.index());
-        context.g2().setColor(style.getColor(context));
+        boolean markedIndex = Arrays.stream(step.marked())
+                                    .anyMatch(m -> m == context.index());
+        context.g2()
+               .setColor(style.getColor(context));
         int startX = getPanelDimension().width / 2 - length / 2;
         int startY = getPanelDimension().height / 2 - length / 2;
         int arcAngle = Math.round(360.0f / step.ints().length);
         int startAngle = Math.round((context.index()) * 360.0f / step.ints().length) + 90;
 
-        context.g2().fillArc(startX, startY, length, length, startAngle, arcAngle);
+        context.g2()
+               .fillArc(startX, startY, length, length, startAngle, arcAngle);
 
         if (markedIndex) {
             drawMarker(context, startX, startY, length, startAngle, arcAngle);
         }
     }
 
-    private void drawMarker(@NotNull StyleContext context, int startX, int startY, int length, int startAngle, int arcAngle) {
-        var markOptions = DataRegistry.fetch(VisualizationOptions.class).marker();
+    private void drawMarker(@NotNull StyleContext context, int startX, int startY, int length, int startAngle,
+                            int arcAngle) {
+        var markOptions = DataRegistry.fetch(VisualizationOptions.class)
+                                      .marker();
 
-        context.g2().setColor(markOptions.markColor());
-        context.g2().setStroke(new BasicStroke(3));
+        context.g2()
+               .setColor(markOptions.markColor());
+        context.g2()
+               .setStroke(new BasicStroke(3));
         var markType = markOptions.markType();
         if (Objects.requireNonNull(markType) == MarkType.FILL) {
-            context.g2().fillArc(startX, startY, length, length, startAngle, arcAngle);
+            context.g2()
+                   .fillArc(startX, startY, length, length, startAngle, arcAngle);
         } else if (markType == MarkType.OUTLINE) {
-            context.g2().drawArc(startX, startY, length, length, startAngle, arcAngle);
+            context.g2()
+                   .drawArc(startX, startY, length, length, startAngle, arcAngle);
         }
     }
 }

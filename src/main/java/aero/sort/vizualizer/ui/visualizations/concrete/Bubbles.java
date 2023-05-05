@@ -35,8 +35,12 @@ public class Bubbles extends AbstractVisualizer {
     }
 
     public @NotNull JPanel renderInternal(@NotNull StepResult step) {
-        int maxValue = Arrays.stream(step.ints()).max(Comparator.naturalOrder()).orElse(1);
-        int minValue = Arrays.stream(step.ints()).min(Comparator.naturalOrder()).orElse(1);
+        int maxValue = Arrays.stream(step.ints())
+                             .max(Comparator.naturalOrder())
+                             .orElse(1);
+        int minValue = Arrays.stream(step.ints())
+                             .min(Comparator.naturalOrder())
+                             .orElse(1);
 
         return new JPanel() {
             @Override
@@ -57,8 +61,10 @@ public class Bubbles extends AbstractVisualizer {
     }
 
     private void drawCircle(@NotNull StyleContext context, int diameter, @NotNull StepResult step) {
-        boolean markedIndex = Arrays.stream(step.marked()).anyMatch(m -> m == context.index());
-        context.g2().setColor(style.getColor(context));
+        boolean markedIndex = Arrays.stream(step.marked())
+                                    .anyMatch(m -> m == context.index());
+        context.g2()
+               .setColor(style.getColor(context));
 
         int x;
         int y;
@@ -71,7 +77,8 @@ public class Bubbles extends AbstractVisualizer {
             x = getPanelDimension().width / 2 - diameter / 2;
         }
 
-        context.g2().fillOval(x, y, diameter, diameter);
+        context.g2()
+               .fillOval(x, y, diameter, diameter);
 
         if (markedIndex) {
             drawMarker(context, diameter, x, y);
@@ -84,7 +91,8 @@ public class Bubbles extends AbstractVisualizer {
 
     private void drawValue(@NotNull StyleContext context, int squareWidth, int x, int y) {
         var text = String.valueOf(context.value());
-        Font font = renderPanel.getFont().deriveFont(Font.BOLD, 12f);
+        Font font = renderPanel.getFont()
+                               .deriveFont(Font.BOLD, 12f);
         Graphics2D g2 = context.g2();
         g2.setColor(Theme.BACKGROUND);
 
@@ -99,15 +107,20 @@ public class Bubbles extends AbstractVisualizer {
     }
 
     private static void drawMarker(@NotNull StyleContext context, int diameter, int x, int y) {
-        var markOptions = DataRegistry.fetch(VisualizationOptions.class).marker();
+        var markOptions = DataRegistry.fetch(VisualizationOptions.class)
+                                      .marker();
 
-        context.g2().setColor(markOptions.markColor());
-        context.g2().setStroke(new BasicStroke(3));
+        context.g2()
+               .setColor(markOptions.markColor());
+        context.g2()
+               .setStroke(new BasicStroke(3));
         var markType = markOptions.markType();
         if (Objects.requireNonNull(markType) == MarkType.FILL) {
-            context.g2().fillOval(x, y, diameter, diameter);
+            context.g2()
+                   .fillOval(x, y, diameter, diameter);
         } else if (markType == MarkType.OUTLINE) {
-            context.g2().drawOval(x, y, diameter, diameter);
+            context.g2()
+                   .drawOval(x, y, diameter, diameter);
         }
     }
 }

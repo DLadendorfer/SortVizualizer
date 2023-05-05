@@ -21,7 +21,6 @@ import javax.swing.*;
  * @author Daniel Ladendorfer
  */
 public class VisualizationPanel extends AbstractMenuPanel<VisualizationOptions> {
-
     private JCheckBox showShuffle;
     private JCheckBox showSteps;
     private JSlider stepTime;
@@ -65,18 +64,37 @@ public class VisualizationPanel extends AbstractMenuPanel<VisualizationOptions> 
 
     @Override
     protected void initializePanel() {
-        add(new JLabel("Show shuffle: "), constraints.resetX().incrementY().get());
-        add(showShuffle, constraints.incrementX().get());
-        add(new JLabel("Show steps: "), constraints.resetX().incrementY().get());
-        add(showSteps, constraints.incrementX().get());
-        add(new JLabel("Step duration (ms): "), constraints.resetX().incrementY().get());
-        add(stepTime, constraints.incrementX().get());
-        add(new JLabel("Mark Type: "), constraints.resetX().incrementY().get());
-        add(fill, constraints.incrementX().padY(-10).get());
-        add(outline, constraints.incrementY().get());
-        add(off, constraints.incrementY().get());
-        add(new JLabel("Marker Color: "), constraints.resetX().padY(0).incrementY().get());
-        add(UiFactory.createColorButton(markerColor::getColor, () -> Ui.showInfo("Choose a primary color", markerColor.getChooserPanels()[1])), constraints.incrementX().get());
+        add(new JLabel("Show shuffle: "), constraints.resetX()
+                                                     .incrementY()
+                                                     .get());
+        add(showShuffle, constraints.incrementX()
+                                    .get());
+        add(new JLabel("Show steps: "), constraints.resetX()
+                                                   .incrementY()
+                                                   .get());
+        add(showSteps, constraints.incrementX()
+                                  .get());
+        add(new JLabel("Step duration (ms): "), constraints.resetX()
+                                                           .incrementY()
+                                                           .get());
+        add(stepTime, constraints.incrementX()
+                                 .get());
+        add(new JLabel("Mark Type: "), constraints.resetX()
+                                                  .incrementY()
+                                                  .get());
+        add(fill, constraints.incrementX()
+                             .padY(-10)
+                             .get());
+        add(outline, constraints.incrementY()
+                                .get());
+        add(off, constraints.incrementY()
+                            .get());
+        add(new JLabel("Marker Color: "), constraints.resetX()
+                                                     .padY(0)
+                                                     .incrementY()
+                                                     .get());
+        add(UiFactory.createColorButton(markerColor::getColor, () -> Ui.showInfo("Choose a primary color", markerColor.getChooserPanels()[1])), constraints.incrementX()
+                                                                                                                                                           .get());
 
     }
 

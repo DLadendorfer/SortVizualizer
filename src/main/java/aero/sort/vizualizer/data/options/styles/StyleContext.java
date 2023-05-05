@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * The style context contains all info of a specific index to style.
  * The graphics context, the index value and the sort element count are included.
- *
+ * <p>
  * Additionally, the max value of the set and the min value are
  * specified.
  *
@@ -19,8 +19,14 @@ import java.awt.*;
  * @param value  the value of the sort-set-entry
  * @param max    the max value of the sort-set-entry
  * @param min    the min value of the sort-set-entry
- *
  * @author Daniel Ladendorfer
  */
-public record StyleContext(Graphics2D g2, int length, int index, int value, int max, int min) {
+public record StyleContext(
+        Graphics2D g2,
+        int length,
+        int index,
+        int value,
+        int max,
+        int min
+) {
 }

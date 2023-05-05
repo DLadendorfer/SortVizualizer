@@ -15,8 +15,12 @@ import java.awt.*;
  * @param marker       the marker options
  * @author Daniel Ladendorfer
  */
-public record VisualizationOptions(boolean showShuffle, boolean showSteps, long stepDuration,
-                                   Marker marker) implements IOptions {
+public record VisualizationOptions(
+        boolean showShuffle,
+        boolean showSteps,
+        long stepDuration,
+        Marker marker
+) implements IOptions {
 
     /**
      * The marker options.
@@ -25,7 +29,9 @@ public record VisualizationOptions(boolean showShuffle, boolean showSteps, long 
      * @param markColor the color of the marker
      * @author Daniel Ladendorfer
      */
-    public record Marker(MarkType markType, Color markColor) {
-
+    public record Marker(
+            MarkType markType,
+            Color markColor
+    ) {
     }
 }

@@ -19,8 +19,13 @@ import java.awt.*;
  * @param showStatistics whether the statistics panel should be added
  * @author Daniel Ladendorfer
  */
-public record SortOptions(Algorithm algorithm, Visualization visualization, Style style, Colors colors,
-                          boolean showStatistics) implements IOptions {
+public record SortOptions(
+        Algorithm algorithm,
+        Visualization visualization,
+        Style style,
+        Colors colors,
+        boolean showStatistics
+) implements IOptions {
     @Justification("Some visualization styles have locked colors, thus making the colors parameter insignificant for them")
     private static final Colors DEFAULT_COLORS = new Colors(Theme.DEEP_BLUE, Theme.CYAN);
 
@@ -43,6 +48,9 @@ public record SortOptions(Algorithm algorithm, Visualization visualization, Styl
      * @param primary   the primary color
      * @param secondary the secondary color
      */
-    public record Colors(Color primary, Color secondary) {
+    public record Colors(
+            Color primary,
+            Color secondary
+    ) {
     }
 }

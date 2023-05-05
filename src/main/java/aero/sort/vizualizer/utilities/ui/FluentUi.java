@@ -33,7 +33,8 @@ public class FluentUi<T extends JComponent> {
      */
     public @NotNull FluentUi<T> add(JComponent @NotNull ... components) {
         Objects.requireNonNull(components, "Components must not be null");
-        Arrays.stream(components).forEach(component::add);
+        Arrays.stream(components)
+              .forEach(component::add);
         return this;
     }
 

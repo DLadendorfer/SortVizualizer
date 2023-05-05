@@ -40,7 +40,9 @@ public class LogFrame extends JInternalFrame {
 
     public LogFrame(@NotNull DebugOptions options) {
         this.options = options;
-        this.logPanel = Ui.using(new JPanel(new GridBagLayout())).execute(panel -> panel.setBackground(Theme.BACKGROUND)).get();
+        this.logPanel = Ui.using(new JPanel(new GridBagLayout()))
+                          .execute(panel -> panel.setBackground(Theme.BACKGROUND))
+                          .get();
         this.constraints = FluentConstraints.of(createGridBagConstraints());
         initializeFrame(options);
     }
@@ -50,7 +52,8 @@ public class LogFrame extends JInternalFrame {
         setTitle("Log - Level=%s".formatted(options.logLevel()));
 
         if (!GraphicsEnvironment.isHeadless()) {
-            var desktop = Controllers.fetch(FrameController.class).getDesktop();
+            var desktop = Controllers.fetch(FrameController.class)
+                                     .getDesktop();
             setBounds(10, 10, desktop.getWidth() / 2, desktop.getHeight() / 3 * 2);
         }
 
@@ -59,7 +62,8 @@ public class LogFrame extends JInternalFrame {
         var appender = new JLabelAppender(levelLabel, messageLabel);
         appender.setEventCallback(this::onLogEvent);
         var loggerContext = (LoggerContext) LogManager.getContext(false);
-        var rootLoggerConfig = loggerContext.getConfiguration().getLoggerConfig("");
+        var rootLoggerConfig = loggerContext.getConfiguration()
+                                            .getLoggerConfig("");
 
         rootLoggerConfig.addAppender(appender, getLogLevel(), null);
         setResizable(true);
@@ -69,13 +73,21 @@ public class LogFrame extends JInternalFrame {
         setVisible(true);
         setIcon();
         var scrollPane = new JScrollPane(logPanel);
-        scrollPane.getVerticalScrollBar().addAdjustmentListener(e -> e.getAdjustable().setValue(e.getAdjustable().getMaximum()));
+        scrollPane.getVerticalScrollBar()
+                  .addAdjustmentListener(e -> e.getAdjustable()
+                                               .setValue(e.getAdjustable()
+                                                          .getMaximum()));
         add(scrollPane);
     }
 
     private void onLogEvent(@NotNull JLabel levelLabel, @NotNull JLabel messageLabel) {
-        logPanel.add(levelLabel, constraints.weightX(0.1f).resetX().incrementY().get());
-        logPanel.add(messageLabel, constraints.weightX(0.9f).incrementX().get());
+        logPanel.add(levelLabel, constraints.weightX(0.1f)
+                                            .resetX()
+                                            .incrementY()
+                                            .get());
+        logPanel.add(messageLabel, constraints.weightX(0.9f)
+                                              .incrementX()
+                                              .get());
     }
 
     private @NotNull Level getLogLevel() {
@@ -90,7 +102,8 @@ public class LogFrame extends JInternalFrame {
 
     private void setIcon() {
         try {
-            var resource = Objects.requireNonNull(MainFrame.class.getClassLoader().getResourceAsStream(ICONS_SORT_PNG));
+            var resource = Objects.requireNonNull(MainFrame.class.getClassLoader()
+                                                                 .getResourceAsStream(ICONS_SORT_PNG));
             var icon = new ImageIcon(ImageIO.read(resource));
             setFrameIcon(icon);
         } catch (NullPointerException | IOException e) {

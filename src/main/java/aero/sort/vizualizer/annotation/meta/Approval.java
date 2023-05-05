@@ -20,12 +20,14 @@ public @interface Approval {
 
     /**
      * Whether the state of the annotated element is release worthy.
+     *
      * @return true if the state of the annotated element can be released
      */
     boolean releaseWorthy();
 
     /**
      * Optional comment to justify the {@link #releaseWorthy()} value.
+     *
      * @return the comment
      */
     String comment() default "";

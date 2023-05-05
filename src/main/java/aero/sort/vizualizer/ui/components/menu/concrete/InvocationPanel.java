@@ -26,12 +26,16 @@ public class InvocationPanel extends JPanel {
     }
 
     private void initialize() {
-        var sort = UiFactory.createButton("Sort", () -> Controllers.fetch(SortController.class).sort());
+        var sort = UiFactory.createButton("Sort", () -> Controllers.fetch(SortController.class)
+                                                                   .sort());
         var step = UiFactory.createButton("Step", () -> logger.info("Step pressed, lmao."));
         var resume = UiFactory.createButton("Resume", () -> logger.info("Resume pressed, lmao."));
-        var stop = UiFactory.createButton("Stop", () -> Controllers.fetch(SortController.class).stop());
+        var stop = UiFactory.createButton("Stop", () -> Controllers.fetch(SortController.class)
+                                                                   .stop());
         sort.setSelected(true);
 
-        Ui.using(this).add(sort, step, resume, stop).get();
+        Ui.using(this)
+          .add(sort, step, resume, stop)
+          .get();
     }
 }

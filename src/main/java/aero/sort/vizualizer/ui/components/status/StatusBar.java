@@ -48,7 +48,8 @@ public class StatusBar extends JPanel {
 
     private static void createAndRegisterLogAppender(@NotNull JLabel logLevelLabel, @NotNull JLabel messageLabel) {
         var loggerContext = (LoggerContext) LogManager.getContext(false);
-        var rootLoggerConfig = loggerContext.getConfiguration().getLoggerConfig("");
+        var rootLoggerConfig = loggerContext.getConfiguration()
+                                            .getLoggerConfig("");
         var appender = new JLabelAppender(logLevelLabel, messageLabel);
 
         rootLoggerConfig.addAppender(appender, Level.INFO, null);

@@ -36,8 +36,12 @@ public class Bars extends AbstractVisualizer {
 
     @Override
     public @NotNull JPanel renderInternal(@NotNull StepResult step) {
-        int maxValue = Arrays.stream(step.ints()).max(Comparator.naturalOrder()).orElse(1);
-        int minValue = Arrays.stream(step.ints()).min(Comparator.naturalOrder()).orElse(1);
+        int maxValue = Arrays.stream(step.ints())
+                             .max(Comparator.naturalOrder())
+                             .orElse(1);
+        int minValue = Arrays.stream(step.ints())
+                             .min(Comparator.naturalOrder())
+                             .orElse(1);
 
         return new JPanel() {
             @Override
@@ -59,12 +63,15 @@ public class Bars extends AbstractVisualizer {
     }
 
     private void drawBar(@NotNull StyleContext context, int heightRatio, int barWidth, @NotNull StepResult step) {
-        boolean markedIndex = Arrays.stream(step.marked()).anyMatch(m -> m == context.index());
-        context.g2().setColor(style.getColor(context));
+        boolean markedIndex = Arrays.stream(step.marked())
+                                    .anyMatch(m -> m == context.index());
+        context.g2()
+               .setColor(style.getColor(context));
         int x = MARGIN + context.index() * BAR_OFFSET + (context.index() * barWidth);
         int y = getPanelDimension().height - context.value() * heightRatio;
         int height = context.value() * heightRatio;
-        context.g2().fillRoundRect(x, y, barWidth, height, ARC, ARC);
+        context.g2()
+               .fillRoundRect(x, y, barWidth, height, ARC, ARC);
 
         if (markedIndex) {
             drawMarker(context, barWidth, x, y, height);
@@ -72,15 +79,20 @@ public class Bars extends AbstractVisualizer {
     }
 
     private static void drawMarker(@NotNull StyleContext context, int barWidth, int x, int y, int height) {
-        var markOptions = DataRegistry.fetch(VisualizationOptions.class).marker();
+        var markOptions = DataRegistry.fetch(VisualizationOptions.class)
+                                      .marker();
 
-        context.g2().setColor(markOptions.markColor());
-        context.g2().setStroke(new BasicStroke(3));
+        context.g2()
+               .setColor(markOptions.markColor());
+        context.g2()
+               .setStroke(new BasicStroke(3));
         var markType = markOptions.markType();
         if (Objects.requireNonNull(markType) == MarkType.FILL) {
-            context.g2().fillRoundRect(x, y, barWidth, height, ARC, ARC);
+            context.g2()
+                   .fillRoundRect(x, y, barWidth, height, ARC, ARC);
         } else if (markType == MarkType.OUTLINE) {
-            context.g2().drawRoundRect(x, y, barWidth, height, ARC, ARC);
+            context.g2()
+                   .drawRoundRect(x, y, barWidth, height, ARC, ARC);
         }
     }
 }

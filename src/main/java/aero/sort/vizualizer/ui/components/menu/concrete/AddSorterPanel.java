@@ -68,36 +68,64 @@ public class AddSorterPanel extends AbstractMenuPanel<SortOptions> {
     @Override
     protected void initializePanel() {
         // -- padding label
-        add(new JLabel(), constraints.incrementY().padY(0).get());
+        add(new JLabel(), constraints.incrementY()
+                                     .padY(0)
+                                     .get());
 
         // -- algorithm selection section
-        add(new JLabel("Algorithm: "), constraints.width(1).incrementY().resetX().get());
-        add(algorithmComboBox, constraints.incrementX().get());
+        add(new JLabel("Algorithm: "), constraints.width(1)
+                                                  .incrementY()
+                                                  .resetX()
+                                                  .get());
+        add(algorithmComboBox, constraints.incrementX()
+                                          .get());
 
         // -- visualization selection section
-        add(new JLabel("Visualization: "), constraints.resetX().incrementY().get());
-        add(visualizationComboBox, constraints.incrementX().get());
+        add(new JLabel("Visualization: "), constraints.resetX()
+                                                      .incrementY()
+                                                      .get());
+        add(visualizationComboBox, constraints.incrementX()
+                                              .get());
 
         // -- style type selection section
-        add(new JLabel("Style Type: "), constraints.resetX().incrementY().get());
-        add(styleTypeComboBox, constraints.incrementX().get());
+        add(new JLabel("Style Type: "), constraints.resetX()
+                                                   .incrementY()
+                                                   .get());
+        add(styleTypeComboBox, constraints.incrementX()
+                                          .get());
 
         // -- style selection section
-        add(new JLabel("Style: "), constraints.resetX().incrementY().get());
-        add(styleComboBox, constraints.incrementX().get());
+        add(new JLabel("Style: "), constraints.resetX()
+                                              .incrementY()
+                                              .get());
+        add(styleComboBox, constraints.incrementX()
+                                      .get());
 
         // -- show statistics selection section
-        add(new JLabel("Show statistics: "), constraints.resetX().incrementY().get());
-        add(showStats, constraints.incrementX().get());
+        add(new JLabel("Show statistics: "), constraints.resetX()
+                                                        .incrementY()
+                                                        .get());
+        add(showStats, constraints.incrementX()
+                                  .get());
 
         // -- color selection section
-        add(new JLabel("Primary Color: "), constraints.resetX().incrementY().get());
-        add(UiFactory.createColorButton(primaryColor::getColor, () -> Ui.showInfo("Choose a primary color", primaryColor.getChooserPanels()[1])), constraints.incrementX().get());
+        add(new JLabel("Primary Color: "), constraints.resetX()
+                                                      .incrementY()
+                                                      .get());
+        add(UiFactory.createColorButton(primaryColor::getColor, () -> Ui.showInfo("Choose a primary color", primaryColor.getChooserPanels()[1])), constraints.incrementX()
+                                                                                                                                                             .get());
 
-        add(new JLabel("Secondary Color: "), constraints.resetX().incrementY().get());
-        add(UiFactory.createColorButton(secondaryColor::getColor, () -> Ui.showInfo("Choose a secondary color", secondaryColor.getChooserPanels()[1])), constraints.incrementX().get());
+        add(new JLabel("Secondary Color: "), constraints.resetX()
+                                                        .incrementY()
+                                                        .get());
+        add(UiFactory.createColorButton(secondaryColor::getColor, () -> Ui.showInfo("Choose a secondary color", secondaryColor.getChooserPanels()[1])), constraints.incrementX()
+                                                                                                                                                                   .get());
 
         // -- add sorter button
-        add(UiFactory.createButton("Add Sorter", () -> Controllers.fetch(FrameController.class).createInternalFrame(getData())), constraints.resetX().incrementY().width(2).get());
+        add(UiFactory.createButton("Add Sorter", () -> Controllers.fetch(FrameController.class)
+                                                                  .createInternalFrame(getData())), constraints.resetX()
+                                                                                                               .incrementY()
+                                                                                                               .width(2)
+                                                                                                               .get());
     }
 }

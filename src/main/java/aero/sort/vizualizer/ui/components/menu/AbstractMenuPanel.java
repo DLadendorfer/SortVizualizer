@@ -44,7 +44,8 @@ public abstract class AbstractMenuPanel<T extends IOptions> extends JPanel {
     private void createHeader() {
         var matteBorder = new MatteBorder(1, 0, 0, 0, Theme.UI_ACCENT);
         var border = new TitledBorder(matteBorder, getTitle(), TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION);
-        border.setTitleFont(border.getTitleFont().deriveFont(15.0f));
+        border.setTitleFont(border.getTitleFont()
+                                  .deriveFont(15.0f));
         border.setTitleColor(Theme.UI_ACCENT);
         setBorder(border);
     }

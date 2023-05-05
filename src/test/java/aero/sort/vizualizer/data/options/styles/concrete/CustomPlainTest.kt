@@ -6,8 +6,6 @@ package aero.sort.vizualizer.data.options.styles.concrete
 
 import aero.sort.vizualizer.data.options.styles.StyleContext
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import java.awt.Color

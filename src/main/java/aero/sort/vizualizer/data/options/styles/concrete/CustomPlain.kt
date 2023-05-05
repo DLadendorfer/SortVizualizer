@@ -20,5 +20,6 @@ class CustomPlain(color: Color) : AbstractPlainStyle() {
         Objects.requireNonNull(color, "The specified color must not be null")
         this.color = color
     }
+
     override fun getPlainColor(): Color = color
 }

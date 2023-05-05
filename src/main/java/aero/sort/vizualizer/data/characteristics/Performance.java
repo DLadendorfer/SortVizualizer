@@ -15,5 +15,10 @@ import aero.sort.vizualizer.data.maths.Notation;
  * @param memory  the memory usage of the algorithm
  * @author Daniel Ladendorfer
  */
-public record Performance(Notation best, Notation average, Notation worst, Notation memory) {
+public record Performance(
+        Notation best,
+        Notation average,
+        Notation worst,
+        Notation memory
+) {
 }

@@ -12,5 +12,10 @@ package aero.sort.vizualizer.data.options;
  * @param duplicates the duplicates option
  * @param setType    the set type
  */
-public record SortSetOptions(boolean identical, int size, Duplicates duplicates, SetType setType) implements IOptions {
+public record SortSetOptions(
+        boolean identical,
+        int size,
+        Duplicates duplicates,
+        SetType setType
+) implements IOptions {
 }

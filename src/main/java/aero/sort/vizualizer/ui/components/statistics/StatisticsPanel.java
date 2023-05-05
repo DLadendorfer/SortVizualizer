@@ -34,7 +34,8 @@ public class StatisticsPanel extends JPanel {
 
         setLayout(new GridLayout(4, 6));
         add(new JLabel("Algorithm:"));
-        add(createValueLabel(options.algorithm().toString()));
+        add(createValueLabel(options.algorithm()
+                                    .toString()));
 
         add(new JLabel("Status:"));
         add(createValueLabel("Done"));
@@ -43,34 +44,51 @@ public class StatisticsPanel extends JPanel {
         add(createValueLabel(toText(algorithm.isComparisonSort())));
 
         add(new JLabel("Method: "));
-        add(createValueLabel(algorithm.getMethod().getText()));
+        add(createValueLabel(algorithm.getMethod()
+                                      .getText()));
 
         add(new JLabel("Memory:"));
-        add(createValueLabel(algorithm.getPerformance().memory().getText()));
+        add(createValueLabel(algorithm.getPerformance()
+                                      .memory()
+                                      .getText()));
 
         add(new JLabel(""));
         add(createValueLabel(""));
 
         add(new JLabel("Best:"));
-        add(createValueLabel(algorithm.getPerformance().best().getText()));
+        add(createValueLabel(algorithm.getPerformance()
+                                      .best()
+                                      .getText()));
 
         add(new JLabel("Average:"));
-        add(createValueLabel(algorithm.getPerformance().average().getText()));
+        add(createValueLabel(algorithm.getPerformance()
+                                      .average()
+                                      .getText()));
 
         add(new JLabel("Worst:"));
-        add(createValueLabel(algorithm.getPerformance().worst().getText()));
+        add(createValueLabel(algorithm.getPerformance()
+                                      .worst()
+                                      .getText()));
 
         add(new JLabel("Swaps:"));
-        add(Ui.using(new JLabel("78")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+        add(Ui.using(new JLabel("78"))
+              .execute(l -> l.setForeground(Theme.UI_ACCENT))
+              .get());
 
         add(new JLabel("Array-Access:"));
-        add(Ui.using(new JLabel("2994")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+        add(Ui.using(new JLabel("2994"))
+              .execute(l -> l.setForeground(Theme.UI_ACCENT))
+              .get());
 
         add(new JLabel("Temp-Vars:"));
-        add(Ui.using(new JLabel("50")).execute(l -> l.setForeground(Theme.UI_ACCENT)).get());
+        add(Ui.using(new JLabel("50"))
+              .execute(l -> l.setForeground(Theme.UI_ACCENT))
+              .get());
 
-        var font = new JLabel().getFont().deriveFont(10f);
-        Arrays.stream(getComponents()).forEach(c -> c.setFont(font));
+        var font = new JLabel().getFont()
+                               .deriveFont(10f);
+        Arrays.stream(getComponents())
+              .forEach(c -> c.setFont(font));
     }
 
     private @NotNull String toText(boolean flag) {
@@ -78,6 +96,8 @@ public class StatisticsPanel extends JPanel {
     }
 
     private JLabel createValueLabel(String text) {
-        return Ui.using(new JLabel(text)).execute(l -> l.setForeground(Theme.UI_ACCENT)).get();
+        return Ui.using(new JLabel(text))
+                 .execute(l -> l.setForeground(Theme.UI_ACCENT))
+                 .get();
     }
 }

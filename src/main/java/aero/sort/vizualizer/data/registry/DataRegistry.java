@@ -45,6 +45,7 @@ public class DataRegistry {
     @SuppressWarnings("unchecked")
     @Justification("This cast cannot fail")
     public static <T extends IOptions> T fetch(Class<T> clazz) {
-        return (T) registry.get(clazz).get();
+        return (T) registry.get(clazz)
+                           .get();
     }
 }

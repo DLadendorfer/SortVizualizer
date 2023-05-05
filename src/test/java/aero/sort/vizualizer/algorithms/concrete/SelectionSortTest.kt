@@ -6,7 +6,6 @@ package aero.sort.vizualizer.algorithms.concrete
 
 import aero.sort.vizualizer.algorithms.AbstractSortingAlgorithmTest
 import aero.sort.vizualizer.algorithms.ISortingAlgorithm
-import org.junit.jupiter.api.Disabled
 
 /**
  * Tests [SelectionSort].

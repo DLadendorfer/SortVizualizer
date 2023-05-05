@@ -4,6 +4,7 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.controller.sort;
 
+import aero.sort.vizualizer.annotation.meta.Approval;
 import aero.sort.vizualizer.controller.Controllers;
 import aero.sort.vizualizer.controller.IController;
 import aero.sort.vizualizer.controller.management.FrameController;
@@ -73,14 +74,15 @@ public class SortController implements IController {
         }
 
         Async.invoke(() -> {
-            boolean useIdenticalSet = DataRegistry.fetch(SortSetOptions.class)
-                                                  .identical();
-            var ints = useIdenticalSet ? createList() : List.<Integer>of();
-            for (var frame : Controllers.fetch(FrameController.class)
-                                        .getDesktop()
-                                        .getAllFrames()) {
+            var options = DataRegistry.fetch(SortSetOptions.class);
+            var ints = options.identical() ? createList() : List.<Integer>of();
+            var allFrames = Controllers.fetch(FrameController.class)
+                                       .getDesktop()
+                                       .getAllFrames();
+
+            for (var frame : allFrames) {
                 if (frame instanceof SortingFrame sortingFrame) {
-                    var listToUse = useIdenticalSet ? ints : createList();
+                    var listToUse = options.identical() ? ints : createList();
                     futures.add(Async.submit(() -> sortingFrame.sort(listToUse.toArray(new Integer[0]))));
                 }
             }
@@ -95,13 +97,21 @@ public class SortController implements IController {
         var options = DataRegistry.fetch(SortSetOptions.class);
         var list = CollectionFactory.createFilledList(1, options.size());
 
+        applyDuplicates(options, list);
+        return applyRandomness(options, list);
+    }
+
+    private void applyDuplicates(SortSetOptions options, List<Integer> list) {
         Duplicates duplicates = options.duplicates();
         if (duplicates == Duplicates.SOME) {
             duplicateEntries(5, list);
         } else if (duplicates == Duplicates.MANY) {
             duplicateEntries(2, list);
         }
+    }
 
+    @NotNull
+    private List<Integer> applyRandomness(SortSetOptions options, List<Integer> list) {
         return switch (options.setType()) {
             case RANDOM -> {
                 Collections.shuffle(list);
@@ -122,12 +132,12 @@ public class SortController implements IController {
         };
     }
 
+    @Approval(releaseWorthy = false)
     private void almostSort(@NotNull List<Integer> list) {
         Collections.sort(list);
         int size = DataRegistry.fetch(SortSetOptions.class)
                                .size();
-        var swaps = size / 3;
-        swaps = swaps == 0 ? 1 : swaps;
+        var swaps = Math.min(1, size / 3);
         IntStream.range(0, swaps)
                  .forEach(i -> {
                      var index1 = random.nextInt(size);
@@ -142,8 +152,7 @@ public class SortController implements IController {
     private void duplicateEntries(int divisor, @NotNull List<Integer> list) {
         int size = DataRegistry.fetch(SortSetOptions.class)
                                .size();
-        var duplications = size / divisor;
-        duplications = duplications == 0 ? 1 : duplications;
+        var duplications = Math.min(1, size / divisor);
         IntStream.range(0, duplications)
                  .forEach(i -> {
                      var index1 = random.nextInt(size);

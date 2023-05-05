@@ -44,7 +44,8 @@ public final class Ui {
      */
     public static void showInfo(String title, Object message) {
         logger.debug("Showing message '{}':'{}'", title, message);
-        var desktop = Controllers.fetch(FrameController.class).getDesktop();
+        var desktop = Controllers.fetch(FrameController.class)
+                                 .getDesktop();
         JOptionPane.showMessageDialog(desktop, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 }

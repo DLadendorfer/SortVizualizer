@@ -70,19 +70,39 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
 
     @Override
     protected void initializePanel() {
-        add(new JLabel("Identical set: "), constraints.resetX().incrementY().get());
-        add(identical, constraints.incrementX().get());
-        add(new JLabel("Number of elements: "), constraints.resetX().incrementY().get());
-        add(elements, constraints.incrementX().get());
-        add(new JLabel("Duplicates: "), constraints.resetX().incrementY().get());
-        add(none, constraints.padY(-10).incrementX().get());
-        add(some, constraints.incrementY().get());
-        add(many, constraints.incrementY().get());
-        add(new JLabel("Set Type: "), constraints.padY(0).resetX().incrementY().get());
-        add(random, constraints.incrementX().padY(-10).get());
-        add(reversed, constraints.incrementY().get());
-        add(sorted, constraints.incrementY().get());
-        add(almostSorted, constraints.incrementY().get());
+        add(new JLabel("Identical set: "), constraints.resetX()
+                                                      .incrementY()
+                                                      .get());
+        add(identical, constraints.incrementX()
+                                  .get());
+        add(new JLabel("Number of elements: "), constraints.resetX()
+                                                           .incrementY()
+                                                           .get());
+        add(elements, constraints.incrementX()
+                                 .get());
+        add(new JLabel("Duplicates: "), constraints.resetX()
+                                                   .incrementY()
+                                                   .get());
+        add(none, constraints.padY(-10)
+                             .incrementX()
+                             .get());
+        add(some, constraints.incrementY()
+                             .get());
+        add(many, constraints.incrementY()
+                             .get());
+        add(new JLabel("Set Type: "), constraints.padY(0)
+                                                 .resetX()
+                                                 .incrementY()
+                                                 .get());
+        add(random, constraints.incrementX()
+                               .padY(-10)
+                               .get());
+        add(reversed, constraints.incrementY()
+                                 .get());
+        add(sorted, constraints.incrementY()
+                               .get());
+        add(almostSorted, constraints.incrementY()
+                                     .get());
     }
 
     private @NotNull SetType getSetType() {

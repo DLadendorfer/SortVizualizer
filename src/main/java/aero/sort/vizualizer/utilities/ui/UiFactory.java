@@ -45,7 +45,8 @@ public final class UiFactory {
      * @param runnable      the button action to invoke
      * @return the created button
      */
-    public static @NotNull JButton createColorButton(@NotNull Supplier<Color> colorSupplier, @NotNull Runnable runnable) {
+    public static @NotNull JButton createColorButton(@NotNull Supplier<Color> colorSupplier,
+                                                     @NotNull Runnable runnable) {
         Objects.requireNonNull(colorSupplier, "Color supplier must not be null");
         Objects.requireNonNull(runnable, "Runnable must not be null");
         var button = new JButton(" ") {
