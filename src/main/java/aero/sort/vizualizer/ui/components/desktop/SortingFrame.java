@@ -154,6 +154,7 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
             case BARS -> new Bars(renderPanel, style, steps);
             case PYRAMID -> new Pyramid(renderPanel, style, steps);
             case SCATTER_PLOT -> new ScatterPlot(renderPanel, style, steps);
+            case CIRCLE -> new Circle(renderPanel, style, steps);
             case SQUARES -> new Squares(renderPanel, style, steps);
             case BUBBLES -> new Bubbles(renderPanel, style, steps);
         };
