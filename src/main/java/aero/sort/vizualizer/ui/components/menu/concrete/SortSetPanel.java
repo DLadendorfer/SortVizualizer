@@ -24,6 +24,7 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
     private JRadioButton some;
     private JRadioButton many;
     private JRadioButton random;
+    private JRadioButton reversed;
     private JRadioButton sorted;
     private JRadioButton almostSorted;
 
@@ -54,9 +55,11 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
         duplicates.add(many);
         ButtonGroup setType = new ButtonGroup();
         random = new JRadioButton("Random", true);
+        reversed = new JRadioButton("Reveresed");
         sorted = new JRadioButton("Sorted");
         almostSorted = new JRadioButton("Almost sorted");
         setType.add(random);
+        setType.add(reversed);
         setType.add(sorted);
         setType.add(almostSorted);
         elements.setMajorTickSpacing(10);
@@ -76,6 +79,7 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
         add(many, constraints.incrementY().get());
         add(new JLabel("Set Type: "), constraints.padY(0).resetX().incrementY().get());
         add(random, constraints.incrementX().padY(-10).get());
+        add(reversed, constraints.incrementY().get());
         add(sorted, constraints.incrementY().get());
         add(almostSorted, constraints.incrementY().get());
     }
@@ -83,6 +87,8 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
     private SetType getSetType() {
         if (random.isSelected()) {
             return SetType.RANDOM;
+        } else if (reversed.isSelected()) {
+            return SetType.REVERSED;
         } else if (sorted.isSelected()) {
             return SetType.SORTED;
         }

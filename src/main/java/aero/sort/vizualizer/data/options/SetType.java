@@ -11,6 +11,7 @@ package aero.sort.vizualizer.data.options;
  */
 public enum SetType {
     RANDOM,
+    REVERSED,
     SORTED,
     ALMOST_SORTED,
 }

@@ -9,7 +9,7 @@ package aero.sort.vizualizer.data.options;
  *
  * @param identical  whether the sets of the frames are identical
  * @param size       the size of the sets
- * @param duplicates the duplicates options
+ * @param duplicates the duplicates option
  * @param setType    the set type
  */
 public record SortSetOptions(boolean identical, int size, Duplicates duplicates, SetType setType) implements IOptions {

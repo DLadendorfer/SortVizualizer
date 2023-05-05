@@ -105,6 +105,10 @@ public class SortController implements IController {
                 almostSort(list);
                 yield list;
             }
+            case REVERSED -> {
+                list.sort(Collections.reverseOrder());
+                yield list;
+            }
         };
     }
 
