@@ -48,7 +48,7 @@ public class DisparityCircle extends AbstractVisualizer {
 
                     for (int index = 0; index < step.ints().length; index++) {
                         var context = new StyleContext(g2, step.ints().length, index, step.ints()[index], maxValue, minValue);
-                        drawArc(context, length - (length / context.max() * (context.value() - context.index() + 1)), step);
+                        drawArc(context, length - (length / context.max() * Math.abs((context.value() - context.index()))), step);
                     }
                 }
             }
