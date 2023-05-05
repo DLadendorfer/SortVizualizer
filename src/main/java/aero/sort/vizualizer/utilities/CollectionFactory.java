@@ -49,7 +49,7 @@ public class CollectionFactory {
      */
     public static Integer[] createFilledArray(int lowerValue, int upperValue) {
         if (upperValue < lowerValue) {
-            logger.error("Suspicious filled list creation. Upper < Lower: {} < {}", upperValue, lowerValue);
+            logger.error("Suspicious filled array creation. Upper < Lower: {} < {}", upperValue, lowerValue);
             return new Integer[0];
         }
 
