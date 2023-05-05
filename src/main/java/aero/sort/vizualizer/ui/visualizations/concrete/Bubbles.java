@@ -5,7 +5,6 @@
 package aero.sort.vizualizer.ui.visualizations.concrete;
 
 import aero.sort.vizualizer.algorithms.StepResult;
-import aero.sort.vizualizer.annotation.meta.Justification;
 import aero.sort.vizualizer.data.options.MarkType;
 import aero.sort.vizualizer.data.options.VisualizationOptions;
 import aero.sort.vizualizer.data.options.styles.IStyle;

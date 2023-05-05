@@ -25,7 +25,6 @@ import java.util.Objects;
  * @author Daniel Ladendorfer
  */
 public class ScatterPlot extends AbstractVisualizer {
-    private static final int CIRCLE_OFFSET = 3;
 
     public ScatterPlot(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
         super(renderPanel, style, steps);
