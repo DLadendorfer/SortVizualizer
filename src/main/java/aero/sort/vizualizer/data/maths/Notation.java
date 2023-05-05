@@ -16,10 +16,10 @@ import aero.sort.vizualizer.annotation.meta.Justification;
 public enum Notation {
 
     ONE("1"),
-    LOG_N("log n"),
+    LOG_N("log(n)"),
     N("n"),
     N_SQUARE("n\u00B2"),
-    N_LOG_N("n log n");
+    N_LOG_N("n log(n)");
 
     private final String text;
 

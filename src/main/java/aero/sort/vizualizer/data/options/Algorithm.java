@@ -13,6 +13,7 @@ public enum Algorithm {
     BUBBLE("Bubble-Sort"),
     INSERTION("Insertion-Sort"),
     SELECTION("Selection-Sort"),
+    MERGE("Merge-Sort"),
     QUICK("Quick-Sort");
 
     private final String displayText;

@@ -6,10 +6,7 @@ package aero.sort.vizualizer.ui.components.desktop;
 
 import aero.sort.vizualizer.algorithms.ISortingAlgorithm;
 import aero.sort.vizualizer.algorithms.StepResult;
-import aero.sort.vizualizer.algorithms.concrete.BubbleSort;
-import aero.sort.vizualizer.algorithms.concrete.InsertionSort;
-import aero.sort.vizualizer.algorithms.concrete.QuickSort;
-import aero.sort.vizualizer.algorithms.concrete.SelectionSort;
+import aero.sort.vizualizer.algorithms.concrete.*;
 import aero.sort.vizualizer.annotation.meta.Justification;
 import aero.sort.vizualizer.controller.Controllers;
 import aero.sort.vizualizer.controller.management.FrameController;
@@ -129,6 +126,7 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
             case INSERTION -> new InsertionSort();
             case SELECTION -> new SelectionSort();
             case QUICK -> new QuickSort();
+            case MERGE -> new MergeSort();
         };
     }
 
@@ -155,7 +153,9 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
             case PYRAMID -> new Pyramid(renderPanel, style, steps);
             case SCATTER_PLOT -> new ScatterPlot(renderPanel, style, steps);
             case CIRCLE -> new Circle(renderPanel, style, steps);
+            case RING -> new Ring(renderPanel, style, steps);
             case DISPARITY_CIRCLE -> new DisparityCircle(renderPanel, style, steps);
+            case DISPARITY_RING -> new DisparityRing(renderPanel, style, steps);
             case SQUARES -> new Squares(renderPanel, style, steps);
             case BUBBLES -> new Bubbles(renderPanel, style, steps);
         };
