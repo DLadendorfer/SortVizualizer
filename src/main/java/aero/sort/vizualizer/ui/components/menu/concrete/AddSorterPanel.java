@@ -16,6 +16,7 @@ import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
 import aero.sort.vizualizer.utilities.ui.Ui;
 import aero.sort.vizualizer.utilities.ui.UiFactory;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
@@ -39,12 +40,12 @@ public class AddSorterPanel extends AbstractMenuPanel<SortOptions> {
     }
 
     @Override
-    protected String getTitle() {
+    protected @NotNull String getTitle() {
         return "Add new sorter ";
     }
 
     @Override
-    protected SortOptions getData() {
+    protected @NotNull SortOptions getData() {
         var algorithm = (Algorithm) algorithmComboBox.getSelectedItem();
         var visualization = (Visualization) visualizationComboBox.getSelectedItem();
         var style = (Style) styleComboBox.getSelectedItem();

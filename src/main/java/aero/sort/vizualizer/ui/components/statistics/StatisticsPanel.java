@@ -8,6 +8,7 @@ import aero.sort.vizualizer.algorithms.ISortingAlgorithm;
 import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.utilities.ui.Ui;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -72,7 +73,7 @@ public class StatisticsPanel extends JPanel {
         Arrays.stream(getComponents()).forEach(c -> c.setFont(font));
     }
 
-    private String toText(boolean flag) {
+    private @NotNull String toText(boolean flag) {
         return flag ? "Yes" : "No";
     }
 

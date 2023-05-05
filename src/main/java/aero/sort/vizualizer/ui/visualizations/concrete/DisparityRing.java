@@ -11,6 +11,7 @@ import aero.sort.vizualizer.data.options.styles.IStyle;
 import aero.sort.vizualizer.data.options.styles.StyleContext;
 import aero.sort.vizualizer.data.registry.DataRegistry;
 import aero.sort.vizualizer.ui.visualizations.AbstractVisualizer;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +32,7 @@ public class DisparityRing extends AbstractVisualizer {
     }
 
     @Override
-    public JPanel renderInternal(StepResult step) {
+    public @NotNull JPanel renderInternal(@NotNull StepResult step) {
         int maxValue = Arrays.stream(step.ints()).max(Comparator.naturalOrder()).orElse(1);
         int minValue = Arrays.stream(step.ints()).min(Comparator.naturalOrder()).orElse(1);
 
@@ -55,7 +56,7 @@ public class DisparityRing extends AbstractVisualizer {
         };
     }
 
-    private void drawArc(StyleContext context, int length, StepResult step) {
+    private void drawArc(@NotNull StyleContext context, int length, @NotNull StepResult step) {
         boolean markedIndex = Arrays.stream(step.marked()).anyMatch(m -> m == context.index());
         context.g2().setColor(style.getColor(context));
         int startX = getPanelDimension().width / 2 - length / 2;
@@ -71,7 +72,7 @@ public class DisparityRing extends AbstractVisualizer {
         }
     }
 
-    private void drawMarker(StyleContext context, int startX, int startY, int length, int startAngle, int arcAngle) {
+    private void drawMarker(@NotNull StyleContext context, int startX, int startY, int length, int startAngle, int arcAngle) {
         var markOptions = DataRegistry.fetch(VisualizationOptions.class).marker();
 
         context.g2().setColor(markOptions.markColor());

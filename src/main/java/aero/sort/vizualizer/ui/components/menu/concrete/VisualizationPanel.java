@@ -11,6 +11,7 @@ import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
 import aero.sort.vizualizer.utilities.ui.Ui;
 import aero.sort.vizualizer.utilities.ui.UiFactory;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
@@ -34,12 +35,12 @@ public class VisualizationPanel extends AbstractMenuPanel<VisualizationOptions> 
     }
 
     @Override
-    protected String getTitle() {
+    protected @NotNull String getTitle() {
         return "Visualization Options ";
     }
 
     @Override
-    protected VisualizationOptions getData() {
+    protected @NotNull VisualizationOptions getData() {
         var markerOptions = new VisualizationOptions.Marker(getMarkerType(), markerColor.getColor());
         return new VisualizationOptions(showShuffle.isSelected(), showSteps.isSelected(), stepTime.getValue(), markerOptions);
     }
@@ -79,7 +80,7 @@ public class VisualizationPanel extends AbstractMenuPanel<VisualizationOptions> 
 
     }
 
-    private MarkType getMarkerType() {
+    private @NotNull MarkType getMarkerType() {
         if (fill.isSelected()) {
             return MarkType.FILL;
         } else if (outline.isSelected()) {

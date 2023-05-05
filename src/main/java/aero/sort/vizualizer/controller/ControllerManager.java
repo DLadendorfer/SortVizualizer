@@ -6,6 +6,7 @@ package aero.sort.vizualizer.controller;
 
 import aero.sort.vizualizer.controller.management.FrameController;
 import aero.sort.vizualizer.controller.sort.SortController;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
@@ -17,8 +18,8 @@ import javax.swing.*;
  */
 public class ControllerManager {
 
-    private final SortController sortController;
-    private final FrameController frameManagementController;
+    private final @NotNull SortController sortController;
+    private final @NotNull FrameController frameManagementController;
 
     public ControllerManager(JDesktopPane desktop) {
         sortController = new SortController();

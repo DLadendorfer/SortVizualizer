@@ -9,6 +9,7 @@ import aero.sort.vizualizer.algorithms.StepResult;
 import aero.sort.vizualizer.data.characteristics.Method;
 import aero.sort.vizualizer.data.characteristics.Performance;
 import aero.sort.vizualizer.data.maths.Notation;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +29,7 @@ import java.util.List;
  */
 public class MergeSort extends AbstractSortingAlgorithm {
 
-    private void mergeSort(List<StepResult> stepResults, Integer[] arr, int n) {
+    private void mergeSort(@NotNull List<StepResult> stepResults, Integer @NotNull [] arr, int n) {
         if (n < 2) {
             return;
         }
@@ -46,7 +47,7 @@ public class MergeSort extends AbstractSortingAlgorithm {
         merge(stepResults, arr, l, r, mid, n - mid);
     }
 
-    private void merge(List<StepResult> stepResults,
+    private void merge(@NotNull List<StepResult> stepResults,
                        Integer[] arr, Integer[] lArr, Integer[] rArr, int left, int right) {
         int i = 0;
         int j = 0;
@@ -74,7 +75,7 @@ public class MergeSort extends AbstractSortingAlgorithm {
     }
 
     @Override
-    protected LinkedList<StepResult> sortInternal() {
+    protected @NotNull LinkedList<StepResult> sortInternal() {
         var stepResults = new LinkedList<StepResult>();
         mergeSort(stepResults, ints, ints.length);
         stepResults.add(createEmptyStep());
@@ -87,12 +88,12 @@ public class MergeSort extends AbstractSortingAlgorithm {
     }
 
     @Override
-    public Performance getPerformance() {
+    public @NotNull Performance getPerformance() {
         return new Performance(Notation.N_LOG_N, Notation.N_LOG_N, Notation.N_LOG_N, Notation.N);
     }
 
     @Override
-    public Method getMethod() {
+    public @NotNull Method getMethod() {
         return Method.MERGING;
     }
 }

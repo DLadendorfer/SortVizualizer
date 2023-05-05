@@ -7,6 +7,7 @@ package aero.sort.vizualizer.app;
 import aero.sort.vizualizer.annotation.meta.Justification;
 import aero.sort.vizualizer.throwables.Rethrower;
 import aero.sort.vizualizer.throwables.app.ApplicationStartException;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,7 @@ public final class PreLaunchHook {
      *
      * @param args the command line arguments
      */
-    public static void validateArguments(String[] args) {
+    public static void validateArguments(String @NotNull [] args) {
         try {
             logger.trace("Validating arguments.");
             validate(args);
@@ -43,7 +44,7 @@ public final class PreLaunchHook {
     }
 
     @Justification("Fail fast if the user expects arguments to be valid")
-    private static void validate(String[] args) throws ApplicationStartException {
+    private static void validate(String @NotNull [] args) throws ApplicationStartException {
         if (args == null || args.length != 0) {
             throw new ApplicationStartException();
         }

@@ -5,6 +5,7 @@
 package aero.sort.vizualizer.utilities.ui;
 
 import aero.sort.vizualizer.ui.constants.Theme;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +29,7 @@ public final class UiFactory {
      * @param runnable the button action to invoke
      * @return the created button
      */
-    public static JButton createButton(String label, Runnable runnable) {
+    public static @NotNull JButton createButton(String label, @NotNull Runnable runnable) {
         Objects.requireNonNull(runnable, "Runnable must not be null");
         var button = new JButton(label);
         button.setForeground(Theme.UI_ACCENT);
@@ -44,7 +45,7 @@ public final class UiFactory {
      * @param runnable      the button action to invoke
      * @return the created button
      */
-    public static JButton createColorButton(Supplier<Color> colorSupplier, Runnable runnable) {
+    public static @NotNull JButton createColorButton(@NotNull Supplier<Color> colorSupplier, @NotNull Runnable runnable) {
         Objects.requireNonNull(colorSupplier, "Color supplier must not be null");
         Objects.requireNonNull(runnable, "Runnable must not be null");
         var button = new JButton(" ") {

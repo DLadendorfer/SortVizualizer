@@ -9,6 +9,7 @@ import aero.sort.vizualizer.ui.constants.Theme;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +23,7 @@ import java.awt.*;
  */
 public class StatusBar extends JPanel {
     private static final Logger logger = LoggerFactory.getLogger(StatusBar.class);
-    private final JPanel logPanel;
+    private final @NotNull JPanel logPanel;
 
 
     public StatusBar() {
@@ -31,7 +32,7 @@ public class StatusBar extends JPanel {
     }
 
 
-    private JPanel createLogPanel() {
+    private @NotNull JPanel createLogPanel() {
         var panel = new JPanel(new GridBagLayout());
         var logLevelLabel = new JLabel();
         var messageLabel = new JLabel();
@@ -45,7 +46,7 @@ public class StatusBar extends JPanel {
         return panel;
     }
 
-    private static void createAndRegisterLogAppender(JLabel logLevelLabel, JLabel messageLabel) {
+    private static void createAndRegisterLogAppender(@NotNull JLabel logLevelLabel, @NotNull JLabel messageLabel) {
         var loggerContext = (LoggerContext) LogManager.getContext(false);
         var rootLoggerConfig = loggerContext.getConfiguration().getLoggerConfig("");
         var appender = new JLabelAppender(logLevelLabel, messageLabel);
@@ -66,7 +67,7 @@ public class StatusBar extends JPanel {
         add(logPanel, createGridBagConstraints());
     }
 
-    private GridBagConstraints createGridBagConstraints() {
+    private @NotNull GridBagConstraints createGridBagConstraints() {
         var constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.WEST;
         constraints.weightx = 1;

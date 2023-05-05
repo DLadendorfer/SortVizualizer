@@ -6,6 +6,7 @@ package aero.sort.vizualizer.ui.components.menu;
 
 import aero.sort.vizualizer.ui.components.menu.concrete.*;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,8 +21,8 @@ import java.awt.*;
 public class MenuPanel extends JPanel {
     private static final Logger logger = LoggerFactory.getLogger(MenuPanel.class);
 
-    private final JPanel actionInvocationPanel;
-    private final JPanel sidebarPanel;
+    private final @NotNull JPanel actionInvocationPanel;
+    private final @NotNull JPanel sidebarPanel;
 
     public MenuPanel() {
         actionInvocationPanel = createActionInvocationPanel();
@@ -44,7 +45,7 @@ public class MenuPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    private JPanel createSidebarPanel() {
+    private @NotNull JPanel createSidebarPanel() {
         var panel = new JPanel(new GridBagLayout());
         var constraints = FluentConstraints.of(createGridBagConstraints());
 
@@ -56,14 +57,14 @@ public class MenuPanel extends JPanel {
         return panel;
     }
 
-    private static void createSidebarPanel(JPanel panel, FluentConstraints constraints) {
+    private static void createSidebarPanel(@NotNull JPanel panel, @NotNull FluentConstraints constraints) {
         panel.add(new AddSorterPanel(constraints), constraints.width(1).get());
         panel.add(new VisualizationPanel(constraints), constraints.resetX().incrementY().width(1).get());
         panel.add(new SortSetPanel(constraints), constraints.resetX().incrementY().padY(0).width(1).get());
         panel.add(new DebugPanel(constraints), constraints.resetX().incrementY().width(1).get());
     }
 
-    private GridBagConstraints createGridBagConstraints() {
+    private @NotNull GridBagConstraints createGridBagConstraints() {
         var constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.FIRST_LINE_START;
         constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -73,7 +74,7 @@ public class MenuPanel extends JPanel {
         return constraints;
     }
 
-    private JPanel createActionInvocationPanel() {
+    private @NotNull JPanel createActionInvocationPanel() {
         return new InvocationPanel();
     }
 }

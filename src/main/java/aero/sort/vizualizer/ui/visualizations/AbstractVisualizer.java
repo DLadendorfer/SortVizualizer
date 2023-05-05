@@ -9,6 +9,7 @@ import aero.sort.vizualizer.data.options.VisualizationOptions;
 import aero.sort.vizualizer.data.options.styles.IStyle;
 import aero.sort.vizualizer.data.registry.DataRegistry;
 import aero.sort.vizualizer.utilities.Async;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +47,7 @@ public abstract class AbstractVisualizer implements IVisualizer {
         steps.add(temp);
     }
 
-    private void setRenderPanel(JPanel render) {
+    private void setRenderPanel(@NotNull JPanel render) {
         render.setBackground(renderPanel.getBackground());
         render.setPreferredSize(getPanelDimension());
         renderPanel.removeAll();
@@ -62,7 +63,7 @@ public abstract class AbstractVisualizer implements IVisualizer {
      */
     protected abstract JPanel renderInternal(StepResult step);
 
-    protected Dimension getPanelDimension() {
+    protected @NotNull Dimension getPanelDimension() {
         return new Dimension(renderPanel.getWidth(), renderPanel.getHeight());
     }
 }

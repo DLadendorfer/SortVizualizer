@@ -12,6 +12,7 @@ import aero.sort.vizualizer.data.options.SortSetOptions;
 import aero.sort.vizualizer.data.registry.DataRegistry;
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 import aero.sort.vizualizer.utilities.Async;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.List;
@@ -80,7 +81,7 @@ public class SortController implements IController {
         return createInts();
     }
 
-    private ArrayList<Integer> createInts() {
+    private @NotNull ArrayList<Integer> createInts() {
         var options = DataRegistry.fetch(SortSetOptions.class);
         int size = options.size();
         var list = new ArrayList<>(IntStream.rangeClosed(1, size).boxed().toList());
@@ -112,7 +113,7 @@ public class SortController implements IController {
         };
     }
 
-    private void almostSort(ArrayList<Integer> list) {
+    private void almostSort(@NotNull ArrayList<Integer> list) {
         Collections.sort(list);
         int size = DataRegistry.fetch(SortSetOptions.class).size();
         var swaps = size / 3;
@@ -127,7 +128,7 @@ public class SortController implements IController {
         });
     }
 
-    private void duplicateEntries(int divisor, ArrayList<Integer> list) {
+    private void duplicateEntries(int divisor, @NotNull ArrayList<Integer> list) {
         int size = DataRegistry.fetch(SortSetOptions.class).size();
         var duplications = size / divisor;
         duplications = duplications == 0 ? 1 : duplications;

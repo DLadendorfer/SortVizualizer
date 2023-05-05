@@ -11,6 +11,7 @@ import aero.sort.vizualizer.ui.components.status.StatusBar;
 import aero.sort.vizualizer.ui.constants.FrameConstants;
 import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.utilities.ui.Ui;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,7 @@ import java.awt.*;
 public class MainFrame extends JFrame {
     private static final Logger logger = LoggerFactory.getLogger(MainFrame.class);
     private final JDesktopPane desktop;
-    private final transient ControllerManager controller;
+    private final transient @NotNull ControllerManager controller;
 
 
     public MainFrame() {
@@ -39,7 +40,7 @@ public class MainFrame extends JFrame {
         logger.debug("MainFrame initialized");
     }
 
-    private JPanel createCenterPanel() {
+    private @NotNull JPanel createCenterPanel() {
         var panel = new JPanel(new BorderLayout());
 
         panel.add(new FrameManagementPanel(), BorderLayout.NORTH);

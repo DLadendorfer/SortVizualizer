@@ -15,6 +15,7 @@ import aero.sort.vizualizer.utilities.ui.Ui;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,10 +35,10 @@ import static aero.sort.vizualizer.ui.components.desktop.SortingFrame.ICONS_SORT
 public class LogFrame extends JInternalFrame {
     private static final Logger logger = LoggerFactory.getLogger(LogFrame.class);
     private final JPanel logPanel;
-    private final transient FluentConstraints constraints;
+    private final transient @NotNull FluentConstraints constraints;
     private final transient DebugOptions options;
 
-    public LogFrame(DebugOptions options) {
+    public LogFrame(@NotNull DebugOptions options) {
         this.options = options;
         this.logPanel = Ui.using(new JPanel(new GridBagLayout())).execute(panel -> panel.setBackground(Theme.BACKGROUND)).get();
         this.constraints = FluentConstraints.of(createGridBagConstraints());
@@ -45,7 +46,7 @@ public class LogFrame extends JInternalFrame {
     }
 
 
-    private void initializeFrame(DebugOptions options) {
+    private void initializeFrame(@NotNull DebugOptions options) {
         setTitle("Log - Level=%s".formatted(options.logLevel()));
 
         if (!GraphicsEnvironment.isHeadless()) {
@@ -72,12 +73,12 @@ public class LogFrame extends JInternalFrame {
         add(scrollPane);
     }
 
-    private void onLogEvent(JLabel levelLabel, JLabel messageLabel) {
+    private void onLogEvent(@NotNull JLabel levelLabel, @NotNull JLabel messageLabel) {
         logPanel.add(levelLabel, constraints.weightX(0.1f).resetX().incrementY().get());
         logPanel.add(messageLabel, constraints.weightX(0.9f).incrementX().get());
     }
 
-    private Level getLogLevel() {
+    private @NotNull Level getLogLevel() {
         return switch (options.logLevel()) {
             case ERROR -> Level.ERROR;
             case WARN -> Level.WARN;
@@ -97,7 +98,7 @@ public class LogFrame extends JInternalFrame {
         }
     }
 
-    private GridBagConstraints createGridBagConstraints() {
+    private @NotNull GridBagConstraints createGridBagConstraints() {
         var cons = new GridBagConstraints();
         cons.anchor = GridBagConstraints.NORTHWEST;
         cons.fill = GridBagConstraints.VERTICAL;

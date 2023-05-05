@@ -11,6 +11,7 @@ import aero.sort.vizualizer.ui.components.desktop.LogFrame;
 import aero.sort.vizualizer.ui.components.menu.AbstractMenuPanel;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
 import aero.sort.vizualizer.utilities.ui.UiFactory;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.event.Level;
 
 import javax.swing.*;
@@ -28,12 +29,12 @@ public class DebugPanel extends AbstractMenuPanel<DebugOptions> {
     }
 
     @Override
-    protected String getTitle() {
+    protected @NotNull String getTitle() {
         return "Debugging ";
     }
 
     @Override
-    protected DebugOptions getData() {
+    protected @NotNull DebugOptions getData() {
         var logLevel = (Level) logLevelComboBox.getSelectedItem();
         return new DebugOptions(logLevel);
     }

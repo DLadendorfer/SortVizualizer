@@ -5,6 +5,7 @@
 package aero.sort.vizualizer.utilities.ui;
 
 import aero.sort.vizualizer.annotation.meta.Justification;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
@@ -27,7 +28,7 @@ public class FluentConstraints {
      *
      * @return the new {@link FluentConstraints} instance
      */
-    public static FluentConstraints create() {
+    public static @NotNull FluentConstraints create() {
         return of(new GridBagConstraints());
     }
 
@@ -37,7 +38,7 @@ public class FluentConstraints {
      * @param gbc the {@link GridBagConstraints} to manage
      * @return the new {@link FluentConstraints} instance
      */
-    public static FluentConstraints of(GridBagConstraints gbc) {
+    public static @NotNull FluentConstraints of(GridBagConstraints gbc) {
         return new FluentConstraints(gbc);
     }
 
@@ -46,7 +47,7 @@ public class FluentConstraints {
      *
      * @return this
      */
-    public FluentConstraints incrementX() {
+    public @NotNull FluentConstraints incrementX() {
         gbc.gridx++;
         return this;
     }
@@ -56,7 +57,7 @@ public class FluentConstraints {
      *
      * @return this
      */
-    public FluentConstraints incrementY() {
+    public @NotNull FluentConstraints incrementY() {
         gbc.gridy++;
         return this;
     }
@@ -66,7 +67,7 @@ public class FluentConstraints {
      *
      * @return this
      */
-    public FluentConstraints resetX() {
+    public @NotNull FluentConstraints resetX() {
         gbc.gridx = 0;
         return this;
     }
@@ -76,7 +77,7 @@ public class FluentConstraints {
      *
      * @return this
      */
-    public FluentConstraints resetY() {
+    public @NotNull FluentConstraints resetY() {
         gbc.gridy = 0;
         return this;
     }
@@ -87,7 +88,7 @@ public class FluentConstraints {
      * @param width the new gridwith
      * @return this
      */
-    public FluentConstraints width(int width) {
+    public @NotNull FluentConstraints width(int width) {
         gbc.gridwidth = width;
         return this;
     }
@@ -98,7 +99,7 @@ public class FluentConstraints {
      * @param pad the new padding
      * @return this
      */
-    public FluentConstraints padY(int pad) {
+    public @NotNull FluentConstraints padY(int pad) {
         gbc.ipady = pad;
         return this;
     }
@@ -110,7 +111,7 @@ public class FluentConstraints {
      * @param weight the new padding
      * @return this
      */
-    public FluentConstraints weightY(float weight) {
+    public @NotNull FluentConstraints weightY(float weight) {
         gbc.weighty = weight;
         return this;
     }
@@ -121,7 +122,7 @@ public class FluentConstraints {
      * @param weight the new padding
      * @return this
      */
-    public FluentConstraints weightX(float weight) {
+    public @NotNull FluentConstraints weightX(float weight) {
         gbc.weightx = weight;
         return this;
     }

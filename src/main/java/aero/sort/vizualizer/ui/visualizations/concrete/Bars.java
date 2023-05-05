@@ -11,6 +11,7 @@ import aero.sort.vizualizer.data.options.styles.IStyle;
 import aero.sort.vizualizer.data.options.styles.StyleContext;
 import aero.sort.vizualizer.data.registry.DataRegistry;
 import aero.sort.vizualizer.ui.visualizations.AbstractVisualizer;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,7 +35,7 @@ public class Bars extends AbstractVisualizer {
     }
 
     @Override
-    public JPanel renderInternal(StepResult step) {
+    public @NotNull JPanel renderInternal(@NotNull StepResult step) {
         int maxValue = Arrays.stream(step.ints()).max(Comparator.naturalOrder()).orElse(1);
         int minValue = Arrays.stream(step.ints()).min(Comparator.naturalOrder()).orElse(1);
 
@@ -57,7 +58,7 @@ public class Bars extends AbstractVisualizer {
         };
     }
 
-    private void drawBar(StyleContext context, int heightRatio, int barWidth, StepResult step) {
+    private void drawBar(@NotNull StyleContext context, int heightRatio, int barWidth, @NotNull StepResult step) {
         boolean markedIndex = Arrays.stream(step.marked()).anyMatch(m -> m == context.index());
         context.g2().setColor(style.getColor(context));
         int x = MARGIN + context.index() * BAR_OFFSET + (context.index() * barWidth);
@@ -70,7 +71,7 @@ public class Bars extends AbstractVisualizer {
         }
     }
 
-    private static void drawMarker(StyleContext context, int barWidth, int x, int y, int height) {
+    private static void drawMarker(@NotNull StyleContext context, int barWidth, int x, int y, int height) {
         var markOptions = DataRegistry.fetch(VisualizationOptions.class).marker();
 
         context.g2().setColor(markOptions.markColor());

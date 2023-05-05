@@ -4,6 +4,9 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.algorithms;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Arrays;
 
 /**
@@ -16,7 +19,7 @@ public record StepResult(Integer[] marked, Integer[] ints) {
     // manual equals and hashcode override due to arrays
     // SL$ S6218
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StepResult that = (StepResult) o;
@@ -31,7 +34,7 @@ public record StepResult(Integer[] marked, Integer[] ints) {
     }
 
     @Override
-    public String toString() {
+    public @NotNull String toString() {
         return "StepResult{" +
                 "marked=" + Arrays.toString(marked) +
                 ", ints=" + Arrays.toString(ints) +

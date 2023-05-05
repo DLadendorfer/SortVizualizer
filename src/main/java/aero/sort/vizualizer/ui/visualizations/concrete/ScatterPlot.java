@@ -11,6 +11,7 @@ import aero.sort.vizualizer.data.options.styles.IStyle;
 import aero.sort.vizualizer.data.options.styles.StyleContext;
 import aero.sort.vizualizer.data.registry.DataRegistry;
 import aero.sort.vizualizer.ui.visualizations.AbstractVisualizer;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +31,7 @@ public class ScatterPlot extends AbstractVisualizer {
         super(renderPanel, style, steps);
     }
 
-    public JPanel renderInternal(StepResult step) {
+    public @NotNull JPanel renderInternal(@NotNull StepResult step) {
         int maxValue = Arrays.stream(step.ints()).max(Comparator.naturalOrder()).orElse(1);
         int minValue = Arrays.stream(step.ints()).min(Comparator.naturalOrder()).orElse(1);
 
@@ -53,7 +54,7 @@ public class ScatterPlot extends AbstractVisualizer {
         };
     }
 
-    private void drawCircle(StyleContext context, int width, int height, StepResult step) {
+    private void drawCircle(@NotNull StyleContext context, int width, int height, @NotNull StepResult step) {
         boolean markedIndex = Arrays.stream(step.marked()).anyMatch(m -> m == context.index());
         context.g2().setColor(style.getColor(context));
 
@@ -67,7 +68,7 @@ public class ScatterPlot extends AbstractVisualizer {
         }
     }
 
-    private static void drawMarker(StyleContext context, int width, int height, int x, int y) {
+    private static void drawMarker(@NotNull StyleContext context, int width, int height, int x, int y) {
         var markOptions = DataRegistry.fetch(VisualizationOptions.class).marker();
 
         context.g2().setColor(markOptions.markColor());

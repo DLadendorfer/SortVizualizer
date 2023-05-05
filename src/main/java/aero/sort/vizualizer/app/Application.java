@@ -19,6 +19,11 @@ import java.awt.*;
 
 /**
  * The main application class.
+ * <p/>
+ * Invoking {@link #launch()} creates the application lifecycle by creating the {@link MainFrame}.
+ * Keep in mind that this is not happening if the JVM is launched in headless mode.
+ *
+ * @see GraphicsEnvironment#isHeadless()
  *
  * @author Daniel Ladendorfer
  */
@@ -26,6 +31,7 @@ public class Application {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     static {
+        // statically set up the UI Manager properties
         UIBindings.setupLookAndFeel();
     }
 

@@ -4,6 +4,8 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.utilities;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +32,7 @@ public class Async {
      *
      * @param runnable the runnable to invoke asynchronously
      */
-    public static void invoke(Runnable runnable) {
+    public static void invoke(@NotNull Runnable runnable) {
         Objects.requireNonNull(runnable, "Async::invoke does not except null as the runnable argument");
         logger.trace("Async::invoke of runnable {}", runnable);
 
@@ -43,7 +45,7 @@ public class Async {
      * @param runnable the runnable to invoke asynchronously
      * @return the {@link Future}
      */
-    public static Future<Void> submit(Runnable runnable) {
+    public static @NotNull Future<Void> submit(@NotNull Runnable runnable) {
         Objects.requireNonNull(runnable, "Async::submit does not except null as the runnable argument");
         logger.trace("Async::submit of runnable {}", runnable);
 
@@ -55,7 +57,7 @@ public class Async {
      *
      * @param future the future to cancel
      */
-    public static void safeCancel(Future<?> future) {
+    public static void safeCancel(@Nullable Future<?> future) {
         if (future == null) {
             return;
         }

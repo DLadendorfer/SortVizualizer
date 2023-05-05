@@ -9,6 +9,7 @@ import aero.sort.vizualizer.algorithms.StepResult;
 import aero.sort.vizualizer.data.characteristics.Method;
 import aero.sort.vizualizer.data.characteristics.Performance;
 import aero.sort.vizualizer.data.maths.Notation;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedList;
 
@@ -32,7 +33,7 @@ import java.util.LinkedList;
 public class SelectionSort extends AbstractSortingAlgorithm {
 
     @Override
-    protected LinkedList<StepResult> sortInternal() {
+    protected @NotNull LinkedList<StepResult> sortInternal() {
         var stepResults = new LinkedList<StepResult>();
         for (int i = 0; i < ints.length - 1; i++) {
             int index = i;
@@ -57,12 +58,12 @@ public class SelectionSort extends AbstractSortingAlgorithm {
     }
 
     @Override
-    public Performance getPerformance() {
+    public @NotNull Performance getPerformance() {
         return new Performance(Notation.N_SQUARE, Notation.N_SQUARE, Notation.N_SQUARE, Notation.ONE);
     }
 
     @Override
-    public Method getMethod() {
+    public @NotNull Method getMethod() {
         return Method.SELECTION;
     }
 }

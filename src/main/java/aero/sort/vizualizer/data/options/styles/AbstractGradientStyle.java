@@ -4,6 +4,8 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.data.options.styles;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.*;
 
 /**
@@ -28,7 +30,7 @@ public abstract class AbstractGradientStyle implements IStyle {
     protected abstract Color getSecondaryColor();
 
     @Override
-    public Color getColor(StyleContext context) {
+    public @NotNull Color getColor(@NotNull StyleContext context) {
 
         /*
          Interpolating colours by calculating the same interpolation for each of its components (R, G, B).

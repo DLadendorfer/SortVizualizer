@@ -4,6 +4,8 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.utilities.ui;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.util.Arrays;
 import java.util.Objects;
@@ -29,7 +31,7 @@ public class FluentUi<T extends JComponent> {
      * @param components the components to add
      * @return this
      */
-    public FluentUi<T> add(JComponent... components) {
+    public @NotNull FluentUi<T> add(JComponent @NotNull ... components) {
         Objects.requireNonNull(components, "Components must not be null");
         Arrays.stream(components).forEach(component::add);
         return this;
@@ -41,7 +43,7 @@ public class FluentUi<T extends JComponent> {
      * @param consumer the component consumer to accept the managed component
      * @return this
      */
-    public FluentUi<T> execute(Consumer<T> consumer) {
+    public @NotNull FluentUi<T> execute(@NotNull Consumer<T> consumer) {
         Objects.requireNonNull(consumer, "Consumer must not be null");
         consumer.accept(component);
         return this;

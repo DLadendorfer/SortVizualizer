@@ -20,6 +20,7 @@ import aero.sort.vizualizer.ui.visualizations.IVisualizer;
 import aero.sort.vizualizer.ui.visualizations.concrete.*;
 import aero.sort.vizualizer.utilities.Async;
 import aero.sort.vizualizer.utilities.ui.Ui;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,12 +46,12 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
     private static int createOffset = 0;
     private final transient SortOptions options;
     private final JPanel renderPanel;
-    private final JPanel statsPanel;
+    private final @NotNull JPanel statsPanel;
     private final transient Logger logger;
-    private final transient ISortingAlgorithm algorithm;
-    private transient LinkedList<StepResult> previousRenderData = new LinkedList<>();
+    private final transient @NotNull ISortingAlgorithm algorithm;
+    private transient @NotNull LinkedList<StepResult> previousRenderData = new LinkedList<>();
 
-    public SortingFrame(SortOptions options) {
+    public SortingFrame(@NotNull SortOptions options) {
         this.options = options;
         this.logger = LoggerFactory.getLogger("%s:%s:%s:%s".formatted(options.algorithm(), options.visualization(), options.style(), UUID.randomUUID()));
         this.renderPanel = Ui.using(new JPanel()).execute(panel -> panel.setBackground(Theme.BACKGROUND)).get();
@@ -59,7 +60,7 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
         initializeFrame(options);
     }
 
-    private void initializeFrame(SortOptions options) {
+    private void initializeFrame(@NotNull SortOptions options) {
         var framePanel = new JPanel(new BorderLayout());
         framePanel.add(renderPanel, BorderLayout.CENTER);
 
@@ -120,7 +121,7 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
         render(algorithm.sort(ints));
     }
 
-    private ISortingAlgorithm getSortingAlgorithm() {
+    private @NotNull ISortingAlgorithm getSortingAlgorithm() {
         return switch (options.algorithm()) {
             case BUBBLE -> new BubbleSort();
             case INSERTION -> new InsertionSort();
@@ -130,7 +131,7 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
         };
     }
 
-    private void render(LinkedList<StepResult> steps) {
+    private void render(@NotNull LinkedList<StepResult> steps) {
         previousRenderData = new LinkedList<>();
         previousRenderData.add(new StepResult(steps.getFirst().marked(), steps.getFirst().ints()));
         IStyle style = switch (options.style()) {

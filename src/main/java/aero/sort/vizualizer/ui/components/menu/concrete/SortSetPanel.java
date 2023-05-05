@@ -9,6 +9,7 @@ import aero.sort.vizualizer.data.options.SetType;
 import aero.sort.vizualizer.data.options.SortSetOptions;
 import aero.sort.vizualizer.ui.components.menu.AbstractMenuPanel;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
@@ -33,12 +34,12 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
     }
 
     @Override
-    protected String getTitle() {
+    protected @NotNull String getTitle() {
         return "Sort Set Options ";
     }
 
     @Override
-    protected SortSetOptions getData() {
+    protected @NotNull SortSetOptions getData() {
         return new SortSetOptions(identical.isSelected(), elements.getValue(), getDuplicates(), getSetType());
     }
 
@@ -84,7 +85,7 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
         add(almostSorted, constraints.incrementY().get());
     }
 
-    private SetType getSetType() {
+    private @NotNull SetType getSetType() {
         if (random.isSelected()) {
             return SetType.RANDOM;
         } else if (reversed.isSelected()) {
@@ -95,7 +96,7 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
         return SetType.ALMOST_SORTED;
     }
 
-    private Duplicates getDuplicates() {
+    private @NotNull Duplicates getDuplicates() {
         if (none.isSelected()) {
             return Duplicates.NONE;
         } else if (some.isSelected()) {

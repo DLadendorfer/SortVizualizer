@@ -6,6 +6,7 @@ package aero.sort.vizualizer;
 
 import aero.sort.vizualizer.app.Application;
 import aero.sort.vizualizer.app.PreLaunchHook;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Entry point of the application.
@@ -15,7 +16,7 @@ import aero.sort.vizualizer.app.PreLaunchHook;
  */
 public class VizualizerApplication {
 
-    public static void main(String[] args) {
+    public static void main(String @NotNull [] args) {
         PreLaunchHook.validateArguments(args);
         Application.launch();
     }

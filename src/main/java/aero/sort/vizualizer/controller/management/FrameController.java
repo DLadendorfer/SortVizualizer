@@ -11,6 +11,7 @@ import aero.sort.vizualizer.data.registry.DataRegistry;
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 import aero.sort.vizualizer.utilities.Async;
 import aero.sort.vizualizer.utilities.ui.Ui;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +50,7 @@ public class FrameController implements IController {
      *
      * @param options the options for this specific frame
      */
-    public void createInternalFrame(SortOptions options) {
+    public void createInternalFrame(@NotNull SortOptions options) {
         var frame = new SortingFrame(options);
         desktop.add(frame);
         frame.toFront();
@@ -224,7 +225,7 @@ public class FrameController implements IController {
     }
 
 
-    private Dimension getDesktopDimension() {
+    private @NotNull Dimension getDesktopDimension() {
         return new Dimension(desktop.getWidth(), desktop.getHeight());
     }
 

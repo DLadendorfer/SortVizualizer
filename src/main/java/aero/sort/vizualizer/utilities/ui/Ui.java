@@ -6,6 +6,7 @@ package aero.sort.vizualizer.utilities.ui;
 
 import aero.sort.vizualizer.controller.Controllers;
 import aero.sort.vizualizer.controller.management.FrameController;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,7 @@ public final class Ui {
      * @param <T>       the concrete {@link JComponent} type
      * @return the new instance of {@link FluentUi}
      */
-    public static <T extends JComponent> FluentUi<T> using(T component) {
+    public static <T extends JComponent> @NotNull FluentUi<T> using(T component) {
         return new FluentUi<>(component);
     }
 

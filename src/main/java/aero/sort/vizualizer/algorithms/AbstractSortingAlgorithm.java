@@ -4,6 +4,8 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.algorithms;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +19,7 @@ import java.util.LinkedList;
  */
 public abstract class AbstractSortingAlgorithm implements ISortingAlgorithm {
     private static final Integer[] EMPTY_ARRAY = {};
-    private final LinkedList<StepResult> stepResults;
+    private final @NotNull LinkedList<StepResult> stepResults;
     private final Logger logger;
     protected Integer[] ints;
 
@@ -27,7 +29,7 @@ public abstract class AbstractSortingAlgorithm implements ISortingAlgorithm {
     }
 
     @Override
-    public LinkedList<StepResult> sort(Integer[] ints) {
+    public @NotNull LinkedList<StepResult> sort(Integer @NotNull [] ints) {
         logger.debug("Starting to sort {}", Arrays.stream(ints).toList());
         this.ints = ints;
         stepResults.add(createEmptyStep());
@@ -40,7 +42,7 @@ public abstract class AbstractSortingAlgorithm implements ISortingAlgorithm {
      *
      * @return a new empty step
      */
-    protected final StepResult createEmptyStep() {
+    protected final @NotNull StepResult createEmptyStep() {
         return createStep(EMPTY_ARRAY);
     }
 
@@ -50,7 +52,7 @@ public abstract class AbstractSortingAlgorithm implements ISortingAlgorithm {
      * @param marked the marked indices
      * @return a new step
      */
-    protected final StepResult createStep(final Integer[] marked) {
+    protected final @NotNull StepResult createStep(final Integer @Nullable [] marked) {
         // null safety just to be sure
         var markedIndices = marked == null ? EMPTY_ARRAY : marked;
 
@@ -64,7 +66,7 @@ public abstract class AbstractSortingAlgorithm implements ISortingAlgorithm {
      *
      * @return a copy of the current array state
      */
-    protected Integer[] copyArr() {
+    protected Integer @NotNull [] copyArr() {
         return Arrays.copyOf(ints, ints.length);
     }
 

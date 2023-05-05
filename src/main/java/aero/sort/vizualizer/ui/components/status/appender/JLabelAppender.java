@@ -8,6 +8,7 @@ import aero.sort.vizualizer.ui.constants.Theme;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.appender.AbstractAppender;
 import org.apache.logging.log4j.core.layout.PatternLayout;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,12 +25,12 @@ import java.util.function.BiConsumer;
 public class JLabelAppender extends AbstractAppender {
     private static final String LOG_PATTERN = "%m";
     public static final String LEVEL_FORMAT = " [%s]  ";
-    private final JLabel logLevelLabel;
-    private final JLabel messageLabel;
+    private final @NotNull JLabel logLevelLabel;
+    private final @NotNull JLabel messageLabel;
     private BiConsumer<JLabel, JLabel> eventCallback;
 
 
-    public JLabelAppender(JLabel logLevelLabel, JLabel messageLabel) {
+    public JLabelAppender(@NotNull JLabel logLevelLabel, @NotNull JLabel messageLabel) {
         super("JLabel-Logger-%s".formatted(UUID.randomUUID()), null, createPatternLayout(), true, null);
 
         Objects.requireNonNull(logLevelLabel, "Log-level-Label must not be null.");
@@ -40,7 +41,7 @@ public class JLabelAppender extends AbstractAppender {
     }
 
     @Override
-    public void append(LogEvent event) {
+    public void append(@NotNull LogEvent event) {
         logLevelLabel.setForeground(getColor(event));
         logLevelLabel.setText(LEVEL_FORMAT.formatted(event.getLevel().getStandardLevel().name()));
         logLevelLabel.setFont(logLevelLabel.getFont().deriveFont(Font.BOLD));
@@ -49,14 +50,14 @@ public class JLabelAppender extends AbstractAppender {
         Optional.ofNullable(eventCallback).ifPresent(this::invokeCallback);
     }
 
-    private void invokeCallback(BiConsumer<JLabel, JLabel> callBack) {
+    private void invokeCallback(@NotNull BiConsumer<JLabel, JLabel> callBack) {
         var levelClone = new JLabel(logLevelLabel.getText());
         var messageClone = new JLabel(messageLabel.getText());
         levelClone.setForeground(logLevelLabel.getForeground());
         callBack.accept(levelClone, messageClone);
     }
 
-    private static Color getColor(LogEvent event) {
+    private static @NotNull Color getColor(@NotNull LogEvent event) {
         return switch (event.getLevel().getStandardLevel()) {
             case FATAL, ERROR -> Theme.RED;
             case WARN -> Theme.YELLOW;

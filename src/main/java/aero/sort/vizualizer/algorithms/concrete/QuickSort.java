@@ -9,6 +9,7 @@ import aero.sort.vizualizer.algorithms.StepResult;
 import aero.sort.vizualizer.data.characteristics.Method;
 import aero.sort.vizualizer.data.characteristics.Performance;
 import aero.sort.vizualizer.data.maths.Notation;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -43,7 +44,7 @@ public class QuickSort extends AbstractSortingAlgorithm {
      * @param end end index
      * @return the partition index
      */
-    private int partition(List<StepResult> stepResults, Integer[] arr, int start, int end) {
+    private int partition(@NotNull List<StepResult> stepResults, Integer @NotNull [] arr, int start, int end) {
         int pivotElement = arr[end];
         int i = (start - 1);
 
@@ -65,7 +66,7 @@ public class QuickSort extends AbstractSortingAlgorithm {
         return (i + 1);
     }
 
-    private void quickSort(List<StepResult> stepResults, Integer[] arr, int start, int end) {
+    private void quickSort(@NotNull List<StepResult> stepResults, Integer @NotNull [] arr, int start, int end) {
         if (start < end) {
             int partitionIndex = partition(stepResults, arr, start, end);
             quickSort(stepResults, arr, start, partitionIndex - 1);
@@ -74,7 +75,7 @@ public class QuickSort extends AbstractSortingAlgorithm {
     }
 
     @Override
-    protected LinkedList<StepResult> sortInternal() {
+    protected @NotNull LinkedList<StepResult> sortInternal() {
         var stepResults = new LinkedList<StepResult>();
         quickSort(stepResults, ints, 0, ints.length - 1);
         return stepResults;
@@ -86,12 +87,12 @@ public class QuickSort extends AbstractSortingAlgorithm {
     }
 
     @Override
-    public Performance getPerformance() {
+    public @NotNull Performance getPerformance() {
         return new Performance(Notation.N_LOG_N, Notation.N_LOG_N, Notation.N_SQUARE, Notation.LOG_N);
     }
 
     @Override
-    public Method getMethod() {
+    public @NotNull Method getMethod() {
         return Method.PARTITIONING;
     }
 }
