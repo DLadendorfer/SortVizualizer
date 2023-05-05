@@ -14,7 +14,9 @@ public enum Visualization {
     PYRAMID("Pyramid"),
     SCATTER_PLOT("Scatter Plot"),
     CIRCLE("Circle"),
+    RING("Ring"),
     DISPARITY_CIRCLE("Disparity Circle"),
+    DISPARITY_RING("Disparity Ring"),
     BUBBLES("Bubbles"),
     SQUARES("Squares");
 

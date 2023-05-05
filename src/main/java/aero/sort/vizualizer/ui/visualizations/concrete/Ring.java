@@ -20,12 +20,12 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 /**
- * Circle visualizer.
+ * Ring visualizer.
  *
  * @author Daniel Ladendorfer
  */
-public class Circle extends AbstractVisualizer {
-    public Circle(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
+public class Ring extends AbstractVisualizer {
+    public Ring(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
         super(renderPanel, style, steps);
     }
 
@@ -62,8 +62,8 @@ public class Circle extends AbstractVisualizer {
         int arcAngle = Math.round(360.0f / step.ints().length);
         int startAngle = (context.index() + 1) * arcAngle + 90 - arcAngle;
 
-        context.g2().fillArc(startX, startY, length, length, startAngle, arcAngle);
-
+        context.g2().setStroke(new BasicStroke(5));
+        context.g2().drawArc(startX, startY, length, length, startAngle, arcAngle);
 
         if (markedIndex) {
             drawMarker(context, startX, startY, length, startAngle, arcAngle);
@@ -74,11 +74,8 @@ public class Circle extends AbstractVisualizer {
         var markOptions = DataRegistry.fetch(VisualizationOptions.class).marker();
 
         context.g2().setColor(markOptions.markColor());
-        context.g2().setStroke(new BasicStroke(3));
         var markType = markOptions.markType();
-        if (Objects.requireNonNull(markType) == MarkType.FILL) {
-            context.g2().fillArc(startX, startY, length, length, startAngle, arcAngle);
-        } else if (markType == MarkType.OUTLINE) {
+        if (Objects.requireNonNull(markType) != MarkType.OFF) {
             context.g2().drawArc(startX, startY, length, length, startAngle, arcAngle);
         }
     }

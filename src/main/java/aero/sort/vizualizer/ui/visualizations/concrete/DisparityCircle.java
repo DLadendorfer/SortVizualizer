@@ -65,7 +65,6 @@ public class DisparityCircle extends AbstractVisualizer {
 
         context.g2().fillArc(startX, startY, length, length, startAngle, arcAngle);
 
-
         if (markedIndex) {
             drawMarker(context, startX, startY, length, startAngle, arcAngle);
         }

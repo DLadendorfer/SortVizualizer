@@ -20,13 +20,13 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 /**
- * Disparity circle visualizer.
+ * Disparity ring visualizer.
  *
  * @author Daniel Ladendorfer
  */
-public class DisparityCircle extends AbstractVisualizer {
+public class DisparityRing extends AbstractVisualizer {
 
-    public DisparityCircle(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
+    public DisparityRing(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
         super(renderPanel, style, steps);
     }
 
@@ -63,8 +63,8 @@ public class DisparityCircle extends AbstractVisualizer {
         int arcAngle = Math.round(360.0f / step.ints().length);
         int startAngle = (context.index()) * arcAngle + 90;
 
-        context.g2().fillArc(startX, startY, length, length, startAngle, arcAngle);
-
+        context.g2().setStroke(new BasicStroke(5));
+        context.g2().drawArc(startX, startY, length, length, startAngle, arcAngle);
 
         if (markedIndex) {
             drawMarker(context, startX, startY, length, startAngle, arcAngle);
@@ -75,11 +75,8 @@ public class DisparityCircle extends AbstractVisualizer {
         var markOptions = DataRegistry.fetch(VisualizationOptions.class).marker();
 
         context.g2().setColor(markOptions.markColor());
-        context.g2().setStroke(new BasicStroke(3));
         var markType = markOptions.markType();
-        if (Objects.requireNonNull(markType) == MarkType.FILL) {
-            context.g2().fillArc(startX, startY, length, length, startAngle, arcAngle);
-        } else if (markType == MarkType.OUTLINE) {
+        if (Objects.requireNonNull(markType) != MarkType.OFF) {
             context.g2().drawArc(startX, startY, length, length, startAngle, arcAngle);
         }
     }
