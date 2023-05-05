@@ -35,7 +35,7 @@ public class BubbleSort extends AbstractSortingAlgorithm {
         return stepResults;
     }
 
-    private void bubbleSort(LinkedList<StepResult> stepResults) {
+    private void bubbleSort(@NotNull LinkedList<StepResult> stepResults) {
          /*
             Classic implementation of this well-known algorithm.
             Hence, the cryptic variable names because they are declared like this in

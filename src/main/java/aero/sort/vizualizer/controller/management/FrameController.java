@@ -62,7 +62,7 @@ public class FrameController implements IController {
         renderSortedSet(frame);
     }
 
-    private static void renderSortedSet(SortingFrame frame) {
+    private static void renderSortedSet(@NotNull SortingFrame frame) {
         var options = DataRegistry.fetch(SortSetOptions.class);
 
         Async.invoke(() -> frame.render(IntStream.rangeClosed(1, options.size())
@@ -233,7 +233,7 @@ public class FrameController implements IController {
         }
     }
 
-    private static void setFrameDimension(int height, int width, JInternalFrame frame) {
+    private static void setFrameDimension(int height, int width, @NotNull JInternalFrame frame) {
         var preferredSize = new Dimension(width, height);
         frame.setPreferredSize(preferredSize);
         frame.setSize(preferredSize);

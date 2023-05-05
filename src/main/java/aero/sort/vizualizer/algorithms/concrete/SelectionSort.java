@@ -39,7 +39,7 @@ public class SelectionSort extends AbstractSortingAlgorithm {
         return stepResults;
     }
 
-    private void selectionSort(LinkedList<StepResult> stepResults) {
+    private void selectionSort(@NotNull LinkedList<StepResult> stepResults) {
     /*
         Classic implementation of this well-known algorithm.
         Hence, the cryptic variable names because they are declared like this in

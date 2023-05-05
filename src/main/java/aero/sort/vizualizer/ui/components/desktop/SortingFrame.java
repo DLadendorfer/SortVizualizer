@@ -44,7 +44,7 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
     // this variable is used to make sure new windows are not exactly on top of each others
     @Justification("If the frames are not offset, it may be hard for the user to realize that a frame was created")
     private static int createOffset = 0;
-    private final transient SortOptions options;
+    private final transient @NotNull SortOptions options;
     private final JPanel renderPanel;
     private final @NotNull JPanel statsPanel;
     private final transient Logger logger;

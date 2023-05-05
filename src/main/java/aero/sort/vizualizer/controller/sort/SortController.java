@@ -77,7 +77,7 @@ public class SortController implements IController {
         });
     }
 
-    private List<Integer> createList() {
+    private @NotNull List<Integer> createList() {
         return createInts();
     }
 

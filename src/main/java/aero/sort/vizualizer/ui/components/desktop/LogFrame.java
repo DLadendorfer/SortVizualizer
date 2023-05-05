@@ -36,7 +36,7 @@ public class LogFrame extends JInternalFrame {
     private static final Logger logger = LoggerFactory.getLogger(LogFrame.class);
     private final JPanel logPanel;
     private final transient @NotNull FluentConstraints constraints;
-    private final transient DebugOptions options;
+    private final transient @NotNull DebugOptions options;
 
     public LogFrame(@NotNull DebugOptions options) {
         this.options = options;
