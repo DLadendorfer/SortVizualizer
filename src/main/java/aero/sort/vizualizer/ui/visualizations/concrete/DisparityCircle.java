@@ -25,6 +25,9 @@ import java.util.Objects;
  * @author Daniel Ladendorfer
  */
 public class Circle extends AbstractVisualizer {
+    public static final int ARC = 10;
+    private static final int MARGIN = 7;
+
     public Circle(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
         super(renderPanel, style, steps);
     }
