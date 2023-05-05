@@ -12,6 +12,7 @@ import aero.sort.vizualizer.data.options.SortSetOptions;
 import aero.sort.vizualizer.data.registry.DataRegistry;
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 import aero.sort.vizualizer.utilities.Async;
+import aero.sort.vizualizer.utilities.CollectionFactory;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -53,11 +54,17 @@ public class SortController implements IController {
     }
 
     private void removeDoneFutures() {
-        futures.stream().filter(Future::isDone).toList().forEach(futures::remove);
+        futures.stream()
+               .filter(Future::isDone)
+               .toList()
+               .forEach(futures::remove);
     }
 
     private void cancelRunningFutures() {
-        futures.stream().filter(not(Future::isDone)).toList().forEach(Async::safeCancel);
+        futures.stream()
+               .filter(not(Future::isDone))
+               .toList()
+               .forEach(Async::safeCancel);
     }
 
     private void invokeSort() {
@@ -66,9 +73,12 @@ public class SortController implements IController {
         }
 
         Async.invoke(() -> {
-            boolean useIdenticalSet = DataRegistry.fetch(SortSetOptions.class).identical();
+            boolean useIdenticalSet = DataRegistry.fetch(SortSetOptions.class)
+                                                  .identical();
             var ints = useIdenticalSet ? createList() : List.<Integer>of();
-            for (var frame : Controllers.fetch(FrameController.class).getDesktop().getAllFrames()) {
+            for (var frame : Controllers.fetch(FrameController.class)
+                                        .getDesktop()
+                                        .getAllFrames()) {
                 if (frame instanceof SortingFrame sortingFrame) {
                     var listToUse = useIdenticalSet ? ints : createList();
                     futures.add(Async.submit(() -> sortingFrame.sort(listToUse.toArray(new Integer[0]))));
@@ -81,10 +91,9 @@ public class SortController implements IController {
         return createInts();
     }
 
-    private @NotNull ArrayList<Integer> createInts() {
+    private @NotNull List<Integer> createInts() {
         var options = DataRegistry.fetch(SortSetOptions.class);
-        int size = options.size();
-        var list = new ArrayList<>(IntStream.rangeClosed(1, size).boxed().toList());
+        var list = CollectionFactory.createFilledList(1, options.size());
 
         Duplicates duplicates = options.duplicates();
         if (duplicates == Duplicates.SOME) {
@@ -113,29 +122,33 @@ public class SortController implements IController {
         };
     }
 
-    private void almostSort(@NotNull ArrayList<Integer> list) {
+    private void almostSort(@NotNull List<Integer> list) {
         Collections.sort(list);
-        int size = DataRegistry.fetch(SortSetOptions.class).size();
+        int size = DataRegistry.fetch(SortSetOptions.class)
+                               .size();
         var swaps = size / 3;
         swaps = swaps == 0 ? 1 : swaps;
-        IntStream.range(0, swaps).forEach(i -> {
-            var index1 = random.nextInt(size);
-            var index2 = random.nextInt(size);
-            var val1 = list.get(index1);
-            var val2 = list.get(index2);
-            list.set(index1, val2);
-            list.set(index2, val1);
-        });
+        IntStream.range(0, swaps)
+                 .forEach(i -> {
+                     var index1 = random.nextInt(size);
+                     var index2 = random.nextInt(size);
+                     var val1 = list.get(index1);
+                     var val2 = list.get(index2);
+                     list.set(index1, val2);
+                     list.set(index2, val1);
+                 });
     }
 
-    private void duplicateEntries(int divisor, @NotNull ArrayList<Integer> list) {
-        int size = DataRegistry.fetch(SortSetOptions.class).size();
+    private void duplicateEntries(int divisor, @NotNull List<Integer> list) {
+        int size = DataRegistry.fetch(SortSetOptions.class)
+                               .size();
         var duplications = size / divisor;
         duplications = duplications == 0 ? 1 : duplications;
-        IntStream.range(0, duplications).forEach(i -> {
-            var index1 = random.nextInt(size);
-            var index2 = random.nextInt(size);
-            list.set(index2, list.get(index1));
-        });
+        IntStream.range(0, duplications)
+                 .forEach(i -> {
+                     var index1 = random.nextInt(size);
+                     var index2 = random.nextInt(size);
+                     list.set(index2, list.get(index1));
+                 });
     }
 }

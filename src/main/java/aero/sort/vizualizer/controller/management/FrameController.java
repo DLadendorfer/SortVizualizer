@@ -11,6 +11,7 @@ import aero.sort.vizualizer.data.options.SortSetOptions;
 import aero.sort.vizualizer.data.registry.DataRegistry;
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 import aero.sort.vizualizer.utilities.Async;
+import aero.sort.vizualizer.utilities.CollectionFactory;
 import aero.sort.vizualizer.utilities.ui.Ui;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -19,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
-import java.util.stream.IntStream;
 
 /**
  * Handles the frame management invocations of UI elements.
@@ -64,10 +64,9 @@ public class FrameController implements IController {
 
     private static void renderSortedSet(@NotNull SortingFrame frame) {
         var options = DataRegistry.fetch(SortSetOptions.class);
+        var array = CollectionFactory.createFilledArray(1, options.size());
 
-        Async.invoke(() -> frame.render(IntStream.rangeClosed(1, options.size())
-                                                 .boxed()
-                                                 .toArray(Integer[]::new)));
+        Async.invoke(() -> frame.render(array));
     }
 
 

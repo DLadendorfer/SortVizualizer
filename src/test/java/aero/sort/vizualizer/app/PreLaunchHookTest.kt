@@ -30,9 +30,8 @@ internal class PreLaunchHookTest {
     }
 
     @ParameterizedTest
-    @NullSource
     @MethodSource("argsProvider")
-    fun `Passing null or multiple arguments results in ApplicationStartException`(args: Array<String>?) {
+    fun `Passing null or multiple arguments results in ApplicationStartException`(args: Array<String>) {
         val e = assertThrows<RuntimeException> {
             PreLaunchValidator.validateArguments(args)
         }

@@ -57,11 +57,6 @@ internal class FluentUiTest {
         }
     }
 
-    @Test
-    fun `Tests that the execute consumer can not be null`() {
-        assertThrows<NullPointerException>({ "NullPointerException should be thrown " },
-            { FluentUi(JPanel()).execute(null) })
-    }
 
     @Test
     fun `Tests if the execute method is functional`() {

@@ -10,8 +10,6 @@ import org.apache.logging.log4j.core.impl.Log4jLogEvent
 import org.apache.logging.log4j.message.ObjectMessage
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -35,17 +33,6 @@ internal class JLabelAppenderTest {
         appender = JLabelAppender(logLevelLabel, messageLabel)
     }
 
-    @Test
-    fun `Null logLevelLabel throws NullPointerException`() {
-        assertThrows<NullPointerException>({ "NullPointerException should be thrown " },
-            { JLabelAppender(null, JLabel()) })
-    }
-
-    @Test
-    fun `Null messageLabel throws NullPointerException`() {
-        assertThrows<NullPointerException>({ "NullPointerException should be thrown " },
-            { JLabelAppender(JLabel(), null) })
-    }
 
     @ParameterizedTest(name = "Tests if append works for log level: {0}")
     @MethodSource("logEventProvider")

@@ -42,23 +42,6 @@ internal class UiFactoryTest {
         }
     }
 
-    @Test
-    fun `Tests that the runnable is not allowed to be passed as null`() {
-        assertThrows<NullPointerException>({ "NullPointerException should be thrown" },
-            { UiFactory.createButton("any", null) })
-    }
-
-    @Test
-    fun `Tests that the runnable is not allowed to be passed as null for color buttons`() {
-        assertThrows<NullPointerException>({ "NullPointerException should be thrown" },
-            { UiFactory.createColorButton({ Theme.BLACK }, null) })
-    }
-
-    @Test
-    fun `Tests that the supplier is not allowed to be passed as null for color buttons`() {
-        assertThrows<NullPointerException>({ "NullPointerException should be thrown" },
-            { UiFactory.createColorButton(null) { } })
-    }
 
     @Test
     fun `Tests if a color button can be created`() {

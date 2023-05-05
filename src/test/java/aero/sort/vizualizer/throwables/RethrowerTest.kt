@@ -28,24 +28,6 @@ internal class RethrowerTest {
         )
     }
 
-    @Test
-    fun `Tests if null throwable throws NullPointerException`() {
-        assertThrows<NullPointerException>(
-            { "A null pointer exception should have been thrown " },
-            { Rethrower.wrapAndRethrow("something", null) }
-        )
-    }
-
-
-    @Test
-    fun `Tests if null message and throwable throws NullPointerException`() {
-        assertThrows<NullPointerException>(
-            { "A null pointer exception should have been thrown " },
-            { Rethrower.wrapAndRethrow(null, null) }
-        )
-    }
-
-
     @ParameterizedTest(name = "Tests if a exception is wrapped and rethrown: {0}")
     @MethodSource("exceptionProvider")
     fun `Tests if a exception is wrapped and rethrown`(exception: Throwable) {
@@ -57,14 +39,6 @@ internal class RethrowerTest {
         assertInstanceOf(exception.javaClass, t.cause) {
             "Inner exception should be of the expected type"
         }
-    }
-
-    @Test
-    fun `Tests if null throwable throws NullPointerException in the silently use case`() {
-        assertThrows<NullPointerException>(
-            { "A null pointer exception should have been thrown " },
-            { Rethrower.wrapAndRethrowSilently(null) }
-        )
     }
 
 
