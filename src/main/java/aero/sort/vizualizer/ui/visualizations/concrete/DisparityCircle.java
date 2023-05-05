@@ -20,15 +20,13 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 /**
- * Circle visualizer.
+ * Disparity circle visualizer.
  *
  * @author Daniel Ladendorfer
  */
-public class Circle extends AbstractVisualizer {
-    public static final int ARC = 10;
-    private static final int MARGIN = 7;
+public class DisparityCircle extends AbstractVisualizer {
 
-    public Circle(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
+    public DisparityCircle(JPanel renderPanel, IStyle style, LinkedList<StepResult> steps) {
         super(renderPanel, style, steps);
     }
 
@@ -50,7 +48,7 @@ public class Circle extends AbstractVisualizer {
 
                     for (int index = 0; index < step.ints().length; index++) {
                         var context = new StyleContext(g2, step.ints().length, index, step.ints()[index], maxValue, minValue);
-                        drawArc(context, length, step);
+                        drawArc(context, length - (length / context.max() * (context.value() - context.index() + 1)), step);
                     }
                 }
             }
