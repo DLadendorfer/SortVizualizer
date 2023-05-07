@@ -11,6 +11,7 @@ import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.data.options.Style;
 import aero.sort.vizualizer.data.options.Visualization;
 import aero.sort.vizualizer.data.options.styles.StyleType;
+import aero.sort.vizualizer.ui.components.basic.StyleTypeComboBox;
 import aero.sort.vizualizer.ui.components.menu.AbstractMenuPanel;
 import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
@@ -58,10 +59,10 @@ public class AddSorterPanel extends AbstractMenuPanel<SortOptions> {
     protected void createUiComponents() {
         algorithmComboBox = new JComboBox<>(Algorithm.values());
         visualizationComboBox = new JComboBox<>(Visualization.values());
-        styleTypeComboBox = new JComboBox<>(StyleType.values());
-        styleComboBox = new JComboBox<>(Style.values());
         primaryColor = new JColorChooser(Theme.UI_ACCENT);
         secondaryColor = new JColorChooser(Theme.UI_ACCENT_2);
+        styleComboBox = new JComboBox<>(new Style[]{Style.RAINBOW});
+        styleTypeComboBox = new StyleTypeComboBox(styleComboBox);
         showStats = UiFactory.createCheck(false);
     }
 
