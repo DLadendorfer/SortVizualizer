@@ -7,6 +7,7 @@ package aero.sort.vizualizer.utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -32,12 +33,13 @@ public class CollectionFactory {
     public static List<Integer> createFilledList(int lowerValue, int upperValue) {
         if (upperValue < lowerValue) {
             logger.error("Suspicious filled list creation. Upper < Lower: {} < {}", upperValue, lowerValue);
-            return List.of();
+            return new ArrayList<>();
         }
 
-        return IntStream.rangeClosed(lowerValue, upperValue)
-                        .boxed()
-                        .toList();
+        // wrap in mutable list
+        return new ArrayList<>(IntStream.rangeClosed(lowerValue, upperValue)
+                                        .boxed()
+                                        .toList());
     }
 
     /**
