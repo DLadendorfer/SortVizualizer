@@ -12,6 +12,7 @@ import org.junit.jupiter.params.provider.NullSource
 import org.junit.jupiter.params.provider.ValueSource
 import java.util.concurrent.CountDownLatch
 import javax.swing.JButton
+import javax.swing.JColorChooser
 
 /**
  * Tests [UiFactory].
@@ -44,7 +45,7 @@ internal class UiFactoryTest {
 
     @Test
     fun `Tests if a color button can be created`() {
-        val button = UiFactory.createColorButton({ Theme.BLACK }, { })
+        val button = UiFactory.createColorButton({ Theme.BLACK }, JColorChooser())
         assertNotNull(button) {
             "Button must not be null"
         }

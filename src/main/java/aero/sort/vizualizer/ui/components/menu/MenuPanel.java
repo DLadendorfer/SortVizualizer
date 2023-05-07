@@ -60,21 +60,28 @@ public class MenuPanel extends JPanel {
     }
 
     private static void createSidebarPanel(@NotNull JPanel panel, @NotNull FluentConstraints constraints) {
-        panel.add(new AddSorterPanel(constraints), constraints.width(1)
-                                                              .get());
-        panel.add(new VisualizationPanel(constraints), constraints.resetX()
-                                                                  .incrementY()
-                                                                  .width(1)
-                                                                  .get());
-        panel.add(new SortSetPanel(constraints), constraints.resetX()
-                                                            .incrementY()
-                                                            .padY(0)
-                                                            .width(1)
-                                                            .get());
-        panel.add(new DebugPanel(constraints), constraints.resetX()
-                                                          .incrementY()
-                                                          .width(1)
-                                                          .get());
+        // panels
+        var addSorterPanel = new AddSorterPanel(constraints);
+        var visualizationPanel = new VisualizationPanel(constraints);
+        var sortSetPanel = new SortSetPanel(constraints);
+        var debugPanel = new DebugPanel(constraints);
+
+        // add panels at the correct position
+        panel.add(addSorterPanel, constraints.width(1)
+                                             .get());
+        panel.add(visualizationPanel, constraints.resetX()
+                                                 .incrementY()
+                                                 .width(1)
+                                                 .get());
+        panel.add(sortSetPanel, constraints.resetX()
+                                           .incrementY()
+                                           .padY(0)
+                                           .width(1)
+                                           .get());
+        panel.add(debugPanel, constraints.resetX()
+                                         .incrementY()
+                                         .width(1)
+                                         .get());
     }
 
     private @NotNull GridBagConstraints createGridBagConstraints() {
