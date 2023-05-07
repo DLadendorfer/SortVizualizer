@@ -13,7 +13,7 @@ import java.awt.*;
  * Additionally, the max value of the set and the min value are
  * specified.
  *
- * @param g2     the graphics context
+ * @param g2     the 2D graphics context
  * @param length the number of elements in the sort-set
  * @param index  the index to color
  * @param value  the value of the sort-set-entry

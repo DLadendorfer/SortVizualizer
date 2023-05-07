@@ -2,9 +2,9 @@
 // Copyright (c) Ladendorfer Daniel.
 // All Rights Reserved.  See LICENSE in the project root for license information.
 // -------------------------------------------------------------------------------
-package aero.sort.vizualizer.data.options.styles
+package aero.sort.vizualizer.data.options.styles.concrete.gradient
 
-import aero.sort.vizualizer.data.options.styles.concrete.gradient.AbstractGradientStyle
+import aero.sort.vizualizer.data.options.styles.StyleContext
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.awt.Color
