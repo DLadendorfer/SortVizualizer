@@ -15,6 +15,7 @@ import aero.sort.vizualizer.data.options.styles.IStyle;
 import aero.sort.vizualizer.data.options.styles.concrete.gradient.*;
 import aero.sort.vizualizer.data.options.styles.concrete.plain.*;
 import aero.sort.vizualizer.data.options.styles.concrete.special.Rainbow;
+import aero.sort.vizualizer.data.options.styles.concrete.special.RelativeToPosition;
 import aero.sort.vizualizer.ui.MainFrame;
 import aero.sort.vizualizer.ui.components.statistics.StatisticsPanel;
 import aero.sort.vizualizer.ui.constants.Theme;
@@ -145,6 +146,7 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
         IStyle style = switch (options.style()) {
             case APP -> new App();
             case RAINBOW -> new Rainbow();
+            case RELATIVE_TO_POSITION -> new RelativeToPosition();
             case CUSTOM_GRADIENT -> new CustomGradient(options.colors());
             case GRAY -> new Grayscale();
             case AQUA -> new Aqua();

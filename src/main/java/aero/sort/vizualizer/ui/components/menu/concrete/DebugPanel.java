@@ -47,6 +47,7 @@ public class DebugPanel extends AbstractMenuPanel<DebugOptions> {
     @Override
     protected void initializePanel() {
         add(new JLabel("Log Level: "), constraints.width(1)
+                                                  .padY(0)
                                                   .incrementY()
                                                   .resetX()
                                                   .get());

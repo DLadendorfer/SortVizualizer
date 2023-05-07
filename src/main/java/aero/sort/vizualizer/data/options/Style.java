@@ -11,6 +11,7 @@ package aero.sort.vizualizer.data.options;
  */
 public enum Style {
     RAINBOW("Rainbow"),
+    RELATIVE_TO_POSITION("test"),//"Relative to correct position"),
     APP("Application Theme"),
     CUSTOM_GRADIENT("Custom 2-Color Gradient"),
     GRAY("Grayscale"),

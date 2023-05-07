@@ -64,6 +64,7 @@ public class VisualizationPanel extends AbstractMenuPanel<VisualizationOptions> 
     @Override
     protected void initializePanel() {
         add(new JLabel("Show shuffle: "), constraints.resetX()
+                                                     .width(1)
                                                      .incrementY()
                                                      .get());
         add(showShuffle, constraints.incrementX()

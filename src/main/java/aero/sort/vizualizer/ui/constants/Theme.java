@@ -17,6 +17,7 @@ import java.awt.*;
 public class Theme {
     // inspired by darcula and One Half Dark
     public static final Color RED = new Color(0xE06C75);
+    public static final Color DARK_RED = new Color(0xEF1A2B);
     public static final Color GREEN = new Color(0x98C379);
     public static final Color YELLOW = new Color(0xE5C07B);
     public static final Color BLUE = new Color(0x61AFEF);
