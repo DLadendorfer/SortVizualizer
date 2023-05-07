@@ -6,6 +6,7 @@ package aero.sort.vizualizer.data.options;
 
 import aero.sort.vizualizer.annotation.meta.Justification;
 import aero.sort.vizualizer.ui.constants.Theme;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 
@@ -22,7 +23,7 @@ import java.awt.*;
 public record SortOptions(
         Algorithm algorithm,
         Visualization visualization,
-        Style style,
+        @Nullable Style style,
         Colors colors,
         boolean showStatistics
 ) implements IOptions {

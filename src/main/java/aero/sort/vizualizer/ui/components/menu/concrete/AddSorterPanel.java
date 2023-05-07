@@ -10,7 +10,7 @@ import aero.sort.vizualizer.data.options.Algorithm;
 import aero.sort.vizualizer.data.options.SortOptions;
 import aero.sort.vizualizer.data.options.Style;
 import aero.sort.vizualizer.data.options.Visualization;
-import aero.sort.vizualizer.data.options.styles.StyleType;
+import aero.sort.vizualizer.ui.components.basic.StyleComboBox;
 import aero.sort.vizualizer.ui.components.basic.StyleTypeComboBox;
 import aero.sort.vizualizer.ui.components.menu.AbstractMenuPanel;
 import aero.sort.vizualizer.ui.constants.Theme;
@@ -27,14 +27,17 @@ import java.util.Objects;
  * @author Daniel Ladendorfer
  */
 public class AddSorterPanel extends AbstractMenuPanel<SortOptions> {
+    private JLabel primaryLabel;
+    private JLabel secondaryLabel;
     private JComboBox<Algorithm> algorithmComboBox;
     private JComboBox<Visualization> visualizationComboBox;
-    private JComboBox<StyleType> styleTypeComboBox;
-    private JComboBox<Style> styleComboBox;
+    private StyleTypeComboBox styleTypeComboBox;
+    private StyleComboBox styleComboBox;
     private JColorChooser primaryColor;
     private JColorChooser secondaryColor;
     private JCheckBox showStats;
-
+    private JButton primaryColorButton;
+    private JButton secondaryColorButton;
 
     public AddSorterPanel(FluentConstraints constraints) {
         super(constraints);
@@ -49,7 +52,7 @@ public class AddSorterPanel extends AbstractMenuPanel<SortOptions> {
     protected @NotNull SortOptions getData() {
         var algorithm = Objects.requireNonNull((Algorithm) algorithmComboBox.getSelectedItem());
         var visualization = Objects.requireNonNull((Visualization) visualizationComboBox.getSelectedItem());
-        var style = Objects.requireNonNull((Style) styleComboBox.getSelectedItem());
+        var style = (Style) styleComboBox.getSelectedItem();
         var colors = new SortOptions.Colors(primaryColor.getColor(), secondaryColor.getColor());
         var stats = showStats.isSelected();
         return new SortOptions(algorithm, visualization, style, colors, stats);
@@ -57,11 +60,15 @@ public class AddSorterPanel extends AbstractMenuPanel<SortOptions> {
 
     @Override
     protected void createUiComponents() {
+        primaryLabel = new JLabel("Primary Color: ");
+        secondaryLabel = new JLabel("Secondary Color: ");
         algorithmComboBox = new JComboBox<>(Algorithm.values());
         visualizationComboBox = new JComboBox<>(Visualization.values());
         primaryColor = new JColorChooser(Theme.UI_ACCENT);
         secondaryColor = new JColorChooser(Theme.UI_ACCENT_2);
-        styleComboBox = new JComboBox<>(new Style[]{Style.RAINBOW});
+        primaryColorButton = UiFactory.createColorButton(primaryColor::getColor, primaryColor);
+        secondaryColorButton = UiFactory.createColorButton(secondaryColor::getColor, secondaryColor);
+        styleComboBox = new StyleComboBox(primaryColorButton, secondaryColorButton, primaryLabel, secondaryLabel);
         styleTypeComboBox = new StyleTypeComboBox(styleComboBox);
         showStats = UiFactory.createCheck(false);
     }
@@ -110,17 +117,17 @@ public class AddSorterPanel extends AbstractMenuPanel<SortOptions> {
                                   .get());
 
         // -- color selection section
-        add(new JLabel("Primary Color: "), constraints.resetX()
-                                                      .incrementY()
-                                                      .get());
-        add(UiFactory.createColorButton(primaryColor::getColor, primaryColor), constraints.incrementX()
-                                                                                          .get());
+        add(primaryLabel, constraints.resetX()
+                                     .incrementY()
+                                     .get());
+        add(primaryColorButton, constraints.incrementX()
+                                           .get());
 
-        add(new JLabel("Secondary Color: "), constraints.resetX()
-                                                        .incrementY()
-                                                        .get());
-        add(UiFactory.createColorButton(secondaryColor::getColor, secondaryColor), constraints.incrementX()
-                                                                                              .get());
+        add(secondaryLabel, constraints.resetX()
+                                       .incrementY()
+                                       .get());
+        add(secondaryColorButton, constraints.incrementX()
+                                             .get());
 
         // -- add sorter button
         add(UiFactory.createButton("Add Sorter", this::createInternalFrame), constraints.resetX()
