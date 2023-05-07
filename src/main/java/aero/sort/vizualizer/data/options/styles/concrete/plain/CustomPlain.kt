@@ -4,7 +4,6 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.data.options.styles.concrete.plain
 
-import aero.sort.vizualizer.data.options.styles.AbstractPlainStyle
 import java.awt.Color
 import java.util.*
 

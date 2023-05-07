@@ -2,8 +2,10 @@
 // Copyright (c) Ladendorfer Daniel.  
 // All Rights Reserved.  See LICENSE in the project root for license information.
 // -------------------------------------------------------------------------------
-package aero.sort.vizualizer.data.options.styles;
+package aero.sort.vizualizer.data.options.styles.concrete.gradient;
 
+import aero.sort.vizualizer.data.options.styles.IStyle;
+import aero.sort.vizualizer.data.options.styles.StyleContext;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;

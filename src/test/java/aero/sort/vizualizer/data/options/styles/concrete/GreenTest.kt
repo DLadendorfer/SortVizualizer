@@ -4,7 +4,7 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.data.options.styles.concrete
 
-import aero.sort.vizualizer.data.options.styles.AbstractPlainStyle
+import aero.sort.vizualizer.data.options.styles.concrete.plain.AbstractPlainStyle
 import aero.sort.vizualizer.data.options.styles.AbstractPlainStyleTest
 import aero.sort.vizualizer.data.options.styles.concrete.plain.Green
 import aero.sort.vizualizer.ui.constants.Theme

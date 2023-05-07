@@ -5,7 +5,6 @@
 package aero.sort.vizualizer.data.options.styles.concrete.gradient
 
 import aero.sort.vizualizer.data.options.SortOptions
-import aero.sort.vizualizer.data.options.styles.AbstractGradientStyle
 import java.awt.Color
 import java.util.*
 
