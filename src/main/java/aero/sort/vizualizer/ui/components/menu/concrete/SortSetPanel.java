@@ -11,6 +11,7 @@ import aero.sort.vizualizer.ui.components.basic.SliderPanel;
 import aero.sort.vizualizer.ui.components.menu.AbstractMenuPanel;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
 import aero.sort.vizualizer.utilities.ui.Ui;
+import aero.sort.vizualizer.utilities.ui.UiFactory;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -50,7 +51,7 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
 
     @Override
     protected void createUiComponents() {
-        identical = new JCheckBox("", true);
+        identical = UiFactory.createCheck(true);
         elements = new SliderPanel(MIN_ELEMENTS, MAX_ELEMENTS, DEFAULT_ELEMENT_COUNT);
         none = new JRadioButton("None", true);
         some = new JRadioButton("Some");

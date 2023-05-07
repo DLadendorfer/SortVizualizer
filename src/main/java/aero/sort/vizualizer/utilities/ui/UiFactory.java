@@ -67,4 +67,13 @@ public final class UiFactory {
         button.addActionListener(e -> Ui.showInfo("Choose a color", colorChooser.getChooserPanels()[HSV_INDEX]));
         return button;
     }
+
+    /**
+     * Creates a {@link JCheckBox} without a label and sets the select property to the given value.
+     * @param selected the selected value
+     * @return the created checkbox
+     */
+    public static JCheckBox createCheck(boolean selected) {
+        return new JCheckBox("", selected);
+    }
 }
