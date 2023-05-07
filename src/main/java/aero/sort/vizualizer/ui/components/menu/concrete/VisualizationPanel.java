@@ -9,7 +9,6 @@ import aero.sort.vizualizer.data.options.VisualizationOptions;
 import aero.sort.vizualizer.ui.components.menu.AbstractMenuPanel;
 import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
-import aero.sort.vizualizer.utilities.ui.Ui;
 import aero.sort.vizualizer.utilities.ui.UiFactory;
 import org.jetbrains.annotations.NotNull;
 
@@ -93,8 +92,8 @@ public class VisualizationPanel extends AbstractMenuPanel<VisualizationOptions> 
                                                      .padY(0)
                                                      .incrementY()
                                                      .get());
-        add(UiFactory.createColorButton(markerColor::getColor, () -> Ui.showInfo("Choose a primary color", markerColor.getChooserPanels()[1])), constraints.incrementX()
-                                                                                                                                                           .get());
+        add(UiFactory.createColorButton(markerColor::getColor, markerColor), constraints.incrementX()
+                                                                                        .get());
 
     }
 

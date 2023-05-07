@@ -18,6 +18,9 @@ import java.util.function.Supplier;
  * @author Daniel Ladendorfer
  */
 public final class UiFactory {
+
+    public static final int HSV_INDEX = 1;
+
     private UiFactory() {
         // static utility class - no instance needed
     }
@@ -42,13 +45,13 @@ public final class UiFactory {
      * is invoked on click.
      *
      * @param colorSupplier the color supplier
-     * @param runnable      the button action to invoke
+     * @param colorChooser  the color chooser to invoke
      * @return the created button
      */
     public static @NotNull JButton createColorButton(@NotNull Supplier<Color> colorSupplier,
-                                                     @NotNull Runnable runnable) {
+                                                     @NotNull JColorChooser colorChooser) {
         Objects.requireNonNull(colorSupplier, "Color supplier must not be null");
-        Objects.requireNonNull(runnable, "Runnable must not be null");
+        Objects.requireNonNull(colorChooser, "Color chooser must not be null");
         var button = new JButton(" ") {
             @Override
             public void paintComponent(Graphics g) {
@@ -61,7 +64,7 @@ public final class UiFactory {
             }
         };
 
-        button.addActionListener(e -> runnable.run());
+        button.addActionListener(e -> Ui.showInfo("Choose a color", colorChooser.getChooserPanels()[HSV_INDEX]));
         return button;
     }
 }

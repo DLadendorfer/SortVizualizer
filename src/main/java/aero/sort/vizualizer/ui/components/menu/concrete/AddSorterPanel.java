@@ -14,11 +14,11 @@ import aero.sort.vizualizer.data.options.styles.StyleType;
 import aero.sort.vizualizer.ui.components.menu.AbstractMenuPanel;
 import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
-import aero.sort.vizualizer.utilities.ui.Ui;
 import aero.sort.vizualizer.utilities.ui.UiFactory;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import java.util.Objects;
 
 /**
  * Panel that manages the creation of new sorter-frames.
@@ -46,9 +46,9 @@ public class AddSorterPanel extends AbstractMenuPanel<SortOptions> {
 
     @Override
     protected @NotNull SortOptions getData() {
-        var algorithm = (Algorithm) algorithmComboBox.getSelectedItem();
-        var visualization = (Visualization) visualizationComboBox.getSelectedItem();
-        var style = (Style) styleComboBox.getSelectedItem();
+        var algorithm = Objects.requireNonNull((Algorithm) algorithmComboBox.getSelectedItem());
+        var visualization = Objects.requireNonNull((Visualization) visualizationComboBox.getSelectedItem());
+        var style = Objects.requireNonNull((Style) styleComboBox.getSelectedItem());
         var colors = new SortOptions.Colors(primaryColor.getColor(), secondaryColor.getColor());
         var stats = showStats.isSelected();
         return new SortOptions(algorithm, visualization, style, colors, stats);
@@ -112,20 +112,24 @@ public class AddSorterPanel extends AbstractMenuPanel<SortOptions> {
         add(new JLabel("Primary Color: "), constraints.resetX()
                                                       .incrementY()
                                                       .get());
-        add(UiFactory.createColorButton(primaryColor::getColor, () -> Ui.showInfo("Choose a primary color", primaryColor.getChooserPanels()[1])), constraints.incrementX()
-                                                                                                                                                             .get());
+        add(UiFactory.createColorButton(primaryColor::getColor, primaryColor), constraints.incrementX()
+                                                                                          .get());
 
         add(new JLabel("Secondary Color: "), constraints.resetX()
                                                         .incrementY()
                                                         .get());
-        add(UiFactory.createColorButton(secondaryColor::getColor, () -> Ui.showInfo("Choose a secondary color", secondaryColor.getChooserPanels()[1])), constraints.incrementX()
-                                                                                                                                                                   .get());
+        add(UiFactory.createColorButton(secondaryColor::getColor, secondaryColor), constraints.incrementX()
+                                                                                              .get());
 
         // -- add sorter button
-        add(UiFactory.createButton("Add Sorter", () -> Controllers.fetch(FrameController.class)
-                                                                  .createInternalFrame(getData())), constraints.resetX()
-                                                                                                               .incrementY()
-                                                                                                               .width(2)
-                                                                                                               .get());
+        add(UiFactory.createButton("Add Sorter", this::createInternalFrame), constraints.resetX()
+                                                                                        .incrementY()
+                                                                                        .width(2)
+                                                                                        .get());
+    }
+
+    private void createInternalFrame() {
+        var controller = Controllers.fetch(FrameController.class);
+        controller.createInternalFrame(getData());
     }
 }
