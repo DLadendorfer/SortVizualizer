@@ -6,6 +6,7 @@ package aero.sort.vizualizer.ui.components.menu.concrete;
 
 import aero.sort.vizualizer.data.options.MarkType;
 import aero.sort.vizualizer.data.options.VisualizationOptions;
+import aero.sort.vizualizer.ui.components.basic.SliderPanel;
 import aero.sort.vizualizer.ui.components.menu.AbstractMenuPanel;
 import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
@@ -20,9 +21,12 @@ import javax.swing.*;
  * @author Daniel Ladendorfer
  */
 public class VisualizationPanel extends AbstractMenuPanel<VisualizationOptions> {
+    private static final int MIN_TIME = 1;
+    private static final int MAX_TIME = 200;
+    private static final int DEFAULT_TIME = 15;
     private JCheckBox showShuffle;
     private JCheckBox showSteps;
-    private JSlider stepTime;
+    private SliderPanel stepTime;
     private JRadioButton fill;
     private JRadioButton outline;
     private JRadioButton off;
@@ -47,7 +51,7 @@ public class VisualizationPanel extends AbstractMenuPanel<VisualizationOptions> 
     protected void createUiComponents() {
         showShuffle = new JCheckBox("", true);
         showSteps = new JCheckBox("", true);
-        stepTime = new JSlider(0, 1000, 45);
+        stepTime = new SliderPanel(MIN_TIME, MAX_TIME, DEFAULT_TIME);
         var markType = new ButtonGroup();
         fill = new JRadioButton("Fill", true);
         outline = new JRadioButton("Outline");
@@ -56,9 +60,6 @@ public class VisualizationPanel extends AbstractMenuPanel<VisualizationOptions> 
         markType.add(fill);
         markType.add(outline);
         markType.add(off);
-        stepTime.setMajorTickSpacing(250);
-        stepTime.setPaintTicks(true);
-        stepTime.setPaintLabels(true);
     }
 
     @Override

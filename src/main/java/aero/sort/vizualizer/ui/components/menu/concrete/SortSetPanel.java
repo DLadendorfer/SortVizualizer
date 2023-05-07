@@ -7,6 +7,7 @@ package aero.sort.vizualizer.ui.components.menu.concrete;
 import aero.sort.vizualizer.data.options.Duplicates;
 import aero.sort.vizualizer.data.options.SetType;
 import aero.sort.vizualizer.data.options.SortSetOptions;
+import aero.sort.vizualizer.ui.components.basic.SliderPanel;
 import aero.sort.vizualizer.ui.components.menu.AbstractMenuPanel;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
 import org.jetbrains.annotations.NotNull;
@@ -19,8 +20,11 @@ import javax.swing.*;
  * @author Daniel Ladendorfer
  */
 public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
+    private static final int MAX_ELEMENTS = 360;
+    private static final int DEFAULT_ELEMENT_COUNT = 50;
+    private static final int MIN_ELEMENTS = 2;
     private JCheckBox identical;
-    private JSlider elements;
+    private SliderPanel elements;
     private JRadioButton none;
     private JRadioButton some;
     private JRadioButton many;
@@ -46,7 +50,7 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
     @Override
     protected void createUiComponents() {
         identical = new JCheckBox("", true);
-        elements = new JSlider(0, 100, 20);
+        elements = new SliderPanel(MIN_ELEMENTS, MAX_ELEMENTS, DEFAULT_ELEMENT_COUNT);
         ButtonGroup duplicates = new ButtonGroup();
         none = new JRadioButton("None", true);
         some = new JRadioButton("Some");
@@ -56,16 +60,13 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
         duplicates.add(many);
         ButtonGroup setType = new ButtonGroup();
         random = new JRadioButton("Random", true);
-        reversed = new JRadioButton("Reveresed");
+        reversed = new JRadioButton("Reversed");
         sorted = new JRadioButton("Sorted");
         almostSorted = new JRadioButton("Almost sorted");
         setType.add(random);
         setType.add(reversed);
         setType.add(sorted);
         setType.add(almostSorted);
-        elements.setMajorTickSpacing(10);
-        elements.setPaintTicks(true);
-        elements.setPaintLabels(true);
     }
 
     @Override
