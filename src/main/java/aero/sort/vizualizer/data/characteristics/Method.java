@@ -5,7 +5,8 @@
 package aero.sort.vizualizer.data.characteristics;
 
 /**
- * The types of sort algorithms.
+ * The types of sort algorithms. The value is used to display the enumeration value
+ * in the UI.
  *
  * @author Daniel Ladendorfer
  */

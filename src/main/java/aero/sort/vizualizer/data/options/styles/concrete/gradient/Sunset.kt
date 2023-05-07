@@ -1,18 +1,19 @@
 // -------------------------------------------------------------------------------
-// Copyright (c) Ladendorfer Daniel.
+// Copyright (c) Ladendorfer Daniel.  
 // All Rights Reserved.  See LICENSE in the project root for license information.
 // -------------------------------------------------------------------------------
-package aero.sort.vizualizer.data.options.styles.concrete
+package aero.sort.vizualizer.data.options.styles.concrete.gradient
 
-import aero.sort.vizualizer.data.options.styles.AbstractPlainStyle
+import aero.sort.vizualizer.data.options.styles.AbstractGradientStyle
 import aero.sort.vizualizer.ui.constants.Theme
 import java.awt.Color
 
 /**
- * Purple style.
+ * Sunset gradient style.
  *
  * @author Daniel Ladendorfer
  */
-class Purple : AbstractPlainStyle() {
-    override fun getPlainColor(): Color = Theme.PURPLE
+class Sunset : AbstractGradientStyle() {
+    override fun getPrimaryColor(): Color = Theme.RED
+    override fun getSecondaryColor(): Color = Theme.YELLOW
 }

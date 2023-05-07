@@ -1,19 +1,18 @@
 // -------------------------------------------------------------------------------
-// Copyright (c) Ladendorfer Daniel.  
+// Copyright (c) Ladendorfer Daniel.
 // All Rights Reserved.  See LICENSE in the project root for license information.
 // -------------------------------------------------------------------------------
-package aero.sort.vizualizer.data.options.styles.concrete
+package aero.sort.vizualizer.data.options.styles.concrete.plain
 
-import aero.sort.vizualizer.data.options.styles.AbstractGradientStyle
+import aero.sort.vizualizer.data.options.styles.AbstractPlainStyle
 import aero.sort.vizualizer.ui.constants.Theme
 import java.awt.Color
 
 /**
- * App gradient style.
+ * Yellow style.
  *
  * @author Daniel Ladendorfer
  */
-class App : AbstractGradientStyle() {
-    override fun getPrimaryColor(): Color = Theme.UI_ACCENT
-    override fun getSecondaryColor(): Color = Theme.UI_ACCENT_2
+class Yellow : AbstractPlainStyle() {
+    override fun getPlainColor(): Color = Theme.YELLOW
 }

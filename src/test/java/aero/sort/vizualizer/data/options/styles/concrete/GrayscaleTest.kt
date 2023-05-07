@@ -6,6 +6,7 @@ package aero.sort.vizualizer.data.options.styles.concrete
 
 import aero.sort.vizualizer.data.options.styles.AbstractGradientStyle
 import aero.sort.vizualizer.data.options.styles.AbstractGradientStyleTest
+import aero.sort.vizualizer.data.options.styles.concrete.gradient.Grayscale
 import aero.sort.vizualizer.ui.constants.Theme
 import java.awt.Color
 
