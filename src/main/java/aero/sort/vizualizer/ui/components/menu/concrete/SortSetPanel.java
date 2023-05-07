@@ -10,6 +10,7 @@ import aero.sort.vizualizer.data.options.SortSetOptions;
 import aero.sort.vizualizer.ui.components.basic.SliderPanel;
 import aero.sort.vizualizer.ui.components.menu.AbstractMenuPanel;
 import aero.sort.vizualizer.utilities.ui.FluentConstraints;
+import aero.sort.vizualizer.utilities.ui.Ui;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -51,22 +52,16 @@ public class SortSetPanel extends AbstractMenuPanel<SortSetOptions> {
     protected void createUiComponents() {
         identical = new JCheckBox("", true);
         elements = new SliderPanel(MIN_ELEMENTS, MAX_ELEMENTS, DEFAULT_ELEMENT_COUNT);
-        ButtonGroup duplicates = new ButtonGroup();
         none = new JRadioButton("None", true);
         some = new JRadioButton("Some");
         many = new JRadioButton("Many");
-        duplicates.add(none);
-        duplicates.add(some);
-        duplicates.add(many);
-        ButtonGroup setType = new ButtonGroup();
         random = new JRadioButton("Random", true);
         reversed = new JRadioButton("Reversed");
         sorted = new JRadioButton("Sorted");
         almostSorted = new JRadioButton("Almost sorted");
-        setType.add(random);
-        setType.add(reversed);
-        setType.add(sorted);
-        setType.add(almostSorted);
+
+        Ui.createButtonGroup(none, some, many);
+        Ui.createButtonGroup(random, reversed, sorted, almostSorted);
     }
 
     @Override
