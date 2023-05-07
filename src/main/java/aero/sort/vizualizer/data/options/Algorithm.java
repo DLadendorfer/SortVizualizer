@@ -5,7 +5,7 @@
 package aero.sort.vizualizer.data.options;
 
 /**
- * Enumeration of all sorting algorithms.
+ * Enumeration of all sorting algorithms, mapped to their UI text representation.
  *
  * @author Daniel Ladendorfer
  */

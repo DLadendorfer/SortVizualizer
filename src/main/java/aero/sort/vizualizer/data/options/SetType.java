@@ -6,6 +6,7 @@ package aero.sort.vizualizer.data.options;
 
 /**
  * All set type options.
+ * These describe the ordering of the values inside the sort set.
  *
  * @author Daniel Ladendorfer
  */

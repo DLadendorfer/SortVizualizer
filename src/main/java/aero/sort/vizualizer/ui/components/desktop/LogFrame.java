@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.AdjustmentEvent;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -74,10 +75,13 @@ public class LogFrame extends JInternalFrame {
         setIcon();
         var scrollPane = new JScrollPane(logPanel);
         scrollPane.getVerticalScrollBar()
-                  .addAdjustmentListener(e -> e.getAdjustable()
-                                               .setValue(e.getAdjustable()
-                                                          .getMaximum()));
+                  .addAdjustmentListener(LogFrame::scrollToBottom);
         add(scrollPane);
+    }
+
+    private static void scrollToBottom(AdjustmentEvent e) {
+        var adjustable = e.getAdjustable();
+        adjustable.setValue(adjustable.getMaximum());
     }
 
     private void onLogEvent(@NotNull JLabel levelLabel, @NotNull JLabel messageLabel) {
