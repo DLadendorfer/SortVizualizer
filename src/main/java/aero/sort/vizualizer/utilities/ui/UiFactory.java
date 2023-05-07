@@ -73,7 +73,7 @@ public final class UiFactory {
      * @param selected the selected value
      * @return the created checkbox
      */
-    public static JCheckBox createCheck(boolean selected) {
+    public static @NotNull JCheckBox createCheck(boolean selected) {
         return new JCheckBox("", selected);
     }
 }

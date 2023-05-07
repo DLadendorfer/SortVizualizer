@@ -101,7 +101,7 @@ public class SortController implements IController {
         return applyRandomness(options, list);
     }
 
-    private void applyDuplicates(SortSetOptions options, List<Integer> list) {
+    private void applyDuplicates(@NotNull SortSetOptions options, @NotNull List<Integer> list) {
         Duplicates duplicates = options.duplicates();
         if (duplicates == Duplicates.SOME) {
             duplicateEntries(5, list);
@@ -111,7 +111,7 @@ public class SortController implements IController {
     }
 
     @NotNull
-    private List<Integer> applyRandomness(SortSetOptions options, List<Integer> list) {
+    private List<Integer> applyRandomness(@NotNull SortSetOptions options, @NotNull List<Integer> list) {
         return switch (options.setType()) {
             case RANDOM -> {
                 Collections.shuffle(list);

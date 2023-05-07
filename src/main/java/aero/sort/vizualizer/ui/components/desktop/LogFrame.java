@@ -79,7 +79,7 @@ public class LogFrame extends JInternalFrame {
         add(scrollPane);
     }
 
-    private static void scrollToBottom(AdjustmentEvent e) {
+    private static void scrollToBottom(@NotNull AdjustmentEvent e) {
         var adjustable = e.getAdjustable();
         adjustable.setValue(adjustable.getMaximum());
     }

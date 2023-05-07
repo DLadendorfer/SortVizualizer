@@ -6,6 +6,7 @@ package aero.sort.vizualizer.ui.components.basic;
 
 import aero.sort.vizualizer.ui.constants.Theme;
 import aero.sort.vizualizer.utilities.ui.Ui;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
@@ -16,8 +17,8 @@ import javax.swing.*;
  */
 public class SliderPanel extends JPanel {
     private static final String TEXT_FORMAT = "%03d";
-    private final JSlider slider;
-    private final JLabel label;
+    private final @NotNull JSlider slider;
+    private final @NotNull JLabel label;
 
     public SliderPanel(int min, int max, int value) {
         slider = new JSlider(min, max, value);

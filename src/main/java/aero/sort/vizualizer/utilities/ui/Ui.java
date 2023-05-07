@@ -54,7 +54,7 @@ public final class Ui {
      *
      * @param buttons the buttons to include in the group
      */
-    public static void createButtonGroup(JRadioButton... buttons) {
+    public static void createButtonGroup(JRadioButton @NotNull ... buttons) {
         var group = new ButtonGroup();
 
         for (var button : buttons) {

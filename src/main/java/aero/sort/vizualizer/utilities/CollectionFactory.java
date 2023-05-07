@@ -4,6 +4,7 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.utilities;
 
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +31,7 @@ public class CollectionFactory {
      * @param upperValue the upper value (inclusive)
      * @return the created list; never null
      */
-    public static List<Integer> createFilledList(int lowerValue, int upperValue) {
+    public static @NotNull List<Integer> createFilledList(int lowerValue, int upperValue) {
         if (upperValue < lowerValue) {
             logger.error("Suspicious filled list creation. Upper < Lower: {} < {}", upperValue, lowerValue);
             return new ArrayList<>();

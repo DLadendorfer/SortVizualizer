@@ -27,7 +27,7 @@ public class RelativeToPosition implements IStyle {
      *
      * @return the color
      */
-    protected Color getPrimaryColor() {
+    protected @NotNull Color getPrimaryColor() {
         return Theme.DARK_GREEN;
     }
 
@@ -36,7 +36,7 @@ public class RelativeToPosition implements IStyle {
      *
      * @return the color
      */
-    protected Color getSecondaryColor() {
+    protected @NotNull Color getSecondaryColor() {
         return Theme.DARK_RED;
     }
 
