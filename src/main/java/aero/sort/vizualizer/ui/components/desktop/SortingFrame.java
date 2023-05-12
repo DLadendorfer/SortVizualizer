@@ -16,6 +16,8 @@ import aero.sort.vizualizer.data.options.styles.concrete.gradient.*;
 import aero.sort.vizualizer.data.options.styles.concrete.plain.*;
 import aero.sort.vizualizer.data.options.styles.concrete.special.Rainbow;
 import aero.sort.vizualizer.data.options.styles.concrete.special.RelativeToPosition;
+import aero.sort.vizualizer.data.shared.SharedStepToken;
+import aero.sort.vizualizer.data.shared.StepInstruction;
 import aero.sort.vizualizer.ui.MainFrame;
 import aero.sort.vizualizer.ui.components.statistics.StatisticsPanel;
 import aero.sort.vizualizer.ui.constants.Theme;
@@ -121,11 +123,11 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
     public void render(Integer[] ints) {
         var list = new LinkedList<StepResult>();
         list.add(new StepResult(new Integer[]{}, ints));
-        render(list);
+        render(new SharedStepToken(StepInstruction.CONTINUE), list);
     }
 
-    public void sort(Integer[] ints) {
-        render(algorithm.sort(ints));
+    public void sort(SharedStepToken stepToken, Integer[] ints) {
+        render(stepToken, algorithm.sort(ints));
     }
 
     private @NotNull ISortingAlgorithm getSortingAlgorithm() {
@@ -138,7 +140,7 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
         };
     }
 
-    private void render(@NotNull LinkedList<StepResult> steps) {
+    private void render(SharedStepToken stepToken, @NotNull LinkedList<StepResult> steps) {
         previousRenderData = new LinkedList<>();
         previousRenderData.add(new StepResult(steps.getFirst()
                                                    .marked(), steps.getFirst()
@@ -172,7 +174,7 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
             case BUBBLES -> new Bubbles(renderPanel, style, steps);
         };
 
-        visualizer.render();
+        visualizer.render(stepToken);
     }
 
     @Override
@@ -196,6 +198,6 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
     }
 
     private void redraw() {
-        Async.invoke(() -> render(previousRenderData));
+        Async.invoke(() -> render(new SharedStepToken(StepInstruction.CONTINUE), previousRenderData));
     }
 }

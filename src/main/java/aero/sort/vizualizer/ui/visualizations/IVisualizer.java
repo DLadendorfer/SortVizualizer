@@ -4,6 +4,8 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui.visualizations;
 
+import aero.sort.vizualizer.data.shared.SharedStepToken;
+
 /**
  * Visualizers define how the concrete {@link aero.sort.vizualizer.algorithms.StepResult step results} of a sorting
  * algorithm are displayed on screen.
@@ -13,6 +15,8 @@ package aero.sort.vizualizer.ui.visualizations;
 public interface IVisualizer {
     /**
      * Render all {@link aero.sort.vizualizer.algorithms.StepResult step results}.
+     *
+     * @param stepToken the shared step token to comply with
      */
-    void render();
+    void render(SharedStepToken stepToken);
 }

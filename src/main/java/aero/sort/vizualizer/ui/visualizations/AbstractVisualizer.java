@@ -8,6 +8,8 @@ import aero.sort.vizualizer.algorithms.StepResult;
 import aero.sort.vizualizer.data.options.VisualizationOptions;
 import aero.sort.vizualizer.data.options.styles.IStyle;
 import aero.sort.vizualizer.data.registry.DataRegistry;
+import aero.sort.vizualizer.data.shared.SharedStepToken;
+import aero.sort.vizualizer.data.shared.StepInstruction;
 import aero.sort.vizualizer.utilities.Async;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,7 +18,7 @@ import java.awt.*;
 import java.util.LinkedList;
 
 public abstract class AbstractVisualizer implements IVisualizer {
-
+    private static final long PAUSE_TIME = 5L;
     protected final JPanel renderPanel;
     protected final IStyle style;
     protected final LinkedList<StepResult> steps;
@@ -28,16 +30,24 @@ public abstract class AbstractVisualizer implements IVisualizer {
     }
 
     @Override
-    public final void render() {
+    public final void render(SharedStepToken stepToken) {
         while (!steps.isEmpty()) {
             var options = DataRegistry.fetch(VisualizationOptions.class);
             if (!options.showSteps()) {
                 removeAllStepsButLast();
             }
 
+            while (stepToken.getStepInstruction() == StepInstruction.PAUSE) {
+                Async.sleep(PAUSE_TIME);
+            }
+            
             var render = renderInternal(steps.poll());
             setRenderPanel(render);
             Async.sleep(options.stepDuration());
+
+            if (stepToken.getStepInstruction() == StepInstruction.STEP) {
+                stepToken.setStepInstruction(StepInstruction.PAUSE);
+            }
         }
     }
 

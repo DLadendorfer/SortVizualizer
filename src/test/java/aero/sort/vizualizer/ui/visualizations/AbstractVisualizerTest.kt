@@ -9,6 +9,8 @@ import aero.sort.vizualizer.algorithms.StepResult
 import aero.sort.vizualizer.data.options.MarkType
 import aero.sort.vizualizer.data.options.VisualizationOptions
 import aero.sort.vizualizer.data.registry.DataRegistry
+import aero.sort.vizualizer.data.shared.SharedStepToken
+import aero.sort.vizualizer.data.shared.StepInstruction
 import aero.sort.vizualizer.ui.constants.Theme
 import aero.sort.vizualizer.utilities.Async
 import org.junit.jupiter.api.Test
@@ -49,6 +51,6 @@ internal abstract class AbstractVisualizerTest {
         DataRegistry.registerOptionsSupplier(VisualizationOptions::class.java) { options }
 
         val visualizer = getVisualizer(list)
-        assertDoesNotThrow { visualizer.render() }
+        assertDoesNotThrow { visualizer.render(SharedStepToken(StepInstruction.CONTINUE)) }
     }
 }

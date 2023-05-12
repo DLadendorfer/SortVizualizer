@@ -11,10 +11,14 @@ import aero.sort.vizualizer.controller.management.FrameController;
 import aero.sort.vizualizer.data.options.Duplicates;
 import aero.sort.vizualizer.data.options.SortSetOptions;
 import aero.sort.vizualizer.data.registry.DataRegistry;
+import aero.sort.vizualizer.data.shared.SharedStepToken;
+import aero.sort.vizualizer.data.shared.StepInstruction;
 import aero.sort.vizualizer.ui.components.desktop.SortingFrame;
 import aero.sort.vizualizer.utilities.Async;
 import aero.sort.vizualizer.utilities.CollectionFactory;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.util.List;
@@ -30,14 +34,18 @@ import static java.util.function.Predicate.not;
  * @author Daniel Ladendorfer
  */
 public class SortController implements IController {
+    private static final Logger logger = LoggerFactory.getLogger(SortController.class);
     // holds all async sort futures (so they can be cancelled)
     private final Set<Future<?>> futures = Collections.synchronizedSet(new HashSet<>());
     private final Random random = new Random();
+    private final SharedStepToken sharedStepToken = new SharedStepToken(StepInstruction.CONTINUE);
 
     /**
      * Invoke the sorting process of all frames.
      */
     public void sort() {
+        logger.info("Starting the sorting procedure.");
+        sharedStepToken.setStepInstruction(StepInstruction.CONTINUE);
         stopAndRemoveFutures();
         invokeSort();
     }
@@ -46,8 +54,25 @@ public class SortController implements IController {
      * Stops the sorting process of all frames.
      */
     public void stop() {
+        logger.info("Stopping the sorting procedure.");
         stopAndRemoveFutures();
     }
+
+    public void pause() {
+        logger.info("Pausing the sorting procedure.");
+        sharedStepToken.setStepInstruction(StepInstruction.PAUSE);
+    }
+
+    public void resume() {
+        logger.info("Resuming the sorting procedure.");
+        sharedStepToken.setStepInstruction(StepInstruction.CONTINUE);
+    }
+
+    public void step() {
+        logger.info("Stepping the sorting procedure.");
+        sharedStepToken.setStepInstruction(StepInstruction.STEP);
+    }
+
 
     private void stopAndRemoveFutures() {
         removeDoneFutures();
@@ -83,7 +108,7 @@ public class SortController implements IController {
             for (var frame : allFrames) {
                 if (frame instanceof SortingFrame sortingFrame) {
                     var listToUse = options.identical() ? ints : createList();
-                    futures.add(Async.submit(() -> sortingFrame.sort(listToUse.toArray(new Integer[0]))));
+                    futures.add(Async.submit(() -> sortingFrame.sort(sharedStepToken, listToUse.toArray(new Integer[0]))));
                 }
             }
         });
