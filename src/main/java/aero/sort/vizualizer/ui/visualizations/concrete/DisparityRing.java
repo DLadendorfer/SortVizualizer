@@ -46,14 +46,18 @@ public class DisparityRing extends AbstractVisualizer {
                 super.paintComponent(g);
 
                 if (g instanceof Graphics2D g2) {
-                    double baseline = Math.sqrt(Math.pow(getPanelDimension().width, 2) + Math.pow(getPanelDimension().height, 2));
+                    double baseline = Math.sqrt(
+                            Math.pow(getPanelDimension().width, 2) + Math.pow(getPanelDimension().height, 2));
                     int length = (int) ((baseline - 10) / 2);
 
                     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
                     for (int index = 0; index < step.ints().length; index++) {
-                        var context = new StyleContext(g2, step.ints().length, index, step.ints()[index], maxValue, minValue);
-                        drawArc(context, length - (length / context.max() * Math.abs((context.value() - context.index()))), step);
+                        var context = new StyleContext(g2, step.ints().length, index, step.ints()[index], maxValue,
+                                minValue);
+                        drawArc(context,
+                                length - (length / context.max() * Math.abs((context.value() - context.index()))),
+                                step);
                     }
                 }
             }

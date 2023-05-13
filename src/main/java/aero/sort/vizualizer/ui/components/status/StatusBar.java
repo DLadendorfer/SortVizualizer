@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Status bar of the application.
@@ -24,6 +23,7 @@ import java.awt.*;
 public class StatusBar extends JPanel {
     private static final Logger logger = LoggerFactory.getLogger(StatusBar.class);
     private final @NotNull JPanel logPanel;
+    private static final @NotNull JProgressBar progressBar = new JProgressBar();
 
 
     public StatusBar() {
@@ -33,15 +33,15 @@ public class StatusBar extends JPanel {
 
 
     private @NotNull JPanel createLogPanel() {
-        var panel = new JPanel(new GridBagLayout());
+        var panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         var logLevelLabel = new JLabel();
         var messageLabel = new JLabel();
-        var constraints = createGridBagConstraints();
 
         createAndRegisterLogAppender(logLevelLabel, messageLabel);
         panel.setBackground(Theme.UI_ACCENT_2);
-        panel.add(logLevelLabel, constraints);
-        panel.add(messageLabel, constraints);
+        panel.add(logLevelLabel);
+        panel.add(messageLabel);
 
         return panel;
     }
@@ -63,15 +63,26 @@ public class StatusBar extends JPanel {
     }
 
     private void createPanel() {
-        setLayout(new GridBagLayout());
+        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setBackground(Theme.UI_ACCENT_2);
-        add(logPanel, createGridBagConstraints());
+        add(logPanel);
+        add(Box.createHorizontalGlue());
+        add(progressBar);
     }
 
-    private @NotNull GridBagConstraints createGridBagConstraints() {
-        var constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.weightx = 1;
-        return constraints;
+    /**
+     * Update the progress bar.
+     *
+     * @param value the progress
+     * @param max   the maximum progress
+     */
+    public static void updateProgress(int value, int max) {
+        progressBar.setVisible(value < max);
+        progressBar.setStringPainted(true);
+        progressBar.setForeground(Theme.UI_ACCENT);
+        progressBar.setBorderPainted(false);
+        progressBar.setValue(value);
+        progressBar.setMaximum(max);
+        progressBar.setMinimum(0);
     }
 }

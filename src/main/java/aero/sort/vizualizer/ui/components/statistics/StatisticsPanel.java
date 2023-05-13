@@ -21,6 +21,7 @@ import java.util.Arrays;
  */
 public class StatisticsPanel extends JPanel {
 
+    private static final float FONT_SIZE = 11.0f;
     private final transient SortOptions options;
     private final transient ISortingAlgorithm algorithm;
 
@@ -86,7 +87,7 @@ public class StatisticsPanel extends JPanel {
               .get());
 
         var font = new JLabel().getFont()
-                               .deriveFont(10f);
+                               .deriveFont(FONT_SIZE);
         Arrays.stream(getComponents())
               .forEach(c -> c.setFont(font));
     }

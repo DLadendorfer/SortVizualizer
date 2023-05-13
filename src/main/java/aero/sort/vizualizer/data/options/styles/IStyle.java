@@ -12,9 +12,8 @@ import java.awt.*;
  * A style is responsible to provide the color of a specific element in the sort set,
  * based on the current style context.
  *
- * @see StyleContext
- *
  * @author Daniel Ladendorfer
+ * @see StyleContext
  */
 public interface IStyle {
 

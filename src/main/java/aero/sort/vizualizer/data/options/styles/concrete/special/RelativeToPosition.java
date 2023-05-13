@@ -51,6 +51,8 @@ public class RelativeToPosition implements IStyle {
 
         Color from = getSecondaryColor();
         Color to = getPrimaryColor();
-        return new Color((int) (from.getRed() * p + to.getRed() * (1 - p)), (int) (from.getGreen() * p + to.getGreen() * (1 - p)), (int) (from.getBlue() * p + to.getBlue() * (1 - p)));
+        return new Color((int) (from.getRed() * p + to.getRed() * (1 - p)),
+                (int) (from.getGreen() * p + to.getGreen() * (1 - p)),
+                (int) (from.getBlue() * p + to.getBlue() * (1 - p)));
     }
 }

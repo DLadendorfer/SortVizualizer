@@ -41,6 +41,8 @@ public abstract class AbstractGradientStyle implements IStyle {
         double p = (double) context.value() / context.max();
         Color from = getPrimaryColor();
         Color to = getSecondaryColor();
-        return new Color((int) (from.getRed() * p + to.getRed() * (1 - p)), (int) (from.getGreen() * p + to.getGreen() * (1 - p)), (int) (from.getBlue() * p + to.getBlue() * (1 - p)));
+        return new Color((int) (from.getRed() * p + to.getRed() * (1 - p)),
+                (int) (from.getGreen() * p + to.getGreen() * (1 - p)),
+                (int) (from.getBlue() * p + to.getBlue() * (1 - p)));
     }
 }

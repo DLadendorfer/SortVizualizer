@@ -29,9 +29,9 @@ public class UIBindings {
         UIManager.put("Slider.thumbBorderColor", Theme.UI_ACCENT);
         UIManager.put("Slider.selectedTrackColor", Theme.UI_ACCENT);
         UIManager.put("RadioButton.darcula.selectionEnabledColor", Theme.UI_ACCENT);
-        UIManager.put("RadioButton.darcula.selectionEnabledColor", Theme.UI_ACCENT);
         UIManager.put("InternalFrameTitlePane.darcula.selected.backgroundColor", Theme.UI_ACCENT_2);
         UIManager.put("InternalFrameTitlePane.darcula.backgroundColor", Theme.UI_ACCENT_2);
+        UIManager.put("ProgressBar.selectionForeground", Theme.UI_ACCENT_2);
     }
 
     private UIBindings() {

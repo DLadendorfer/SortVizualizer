@@ -108,7 +108,8 @@ public class SortController implements IController {
             for (var frame : allFrames) {
                 if (frame instanceof SortingFrame sortingFrame) {
                     var listToUse = options.identical() ? ints : createList();
-                    futures.add(Async.submit(() -> sortingFrame.sort(sharedStepToken, listToUse.toArray(new Integer[0]))));
+                    futures.add(
+                            Async.submit(() -> sortingFrame.sort(sharedStepToken, listToUse.toArray(new Integer[0]))));
                 }
             }
         });

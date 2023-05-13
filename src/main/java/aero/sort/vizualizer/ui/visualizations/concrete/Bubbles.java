@@ -48,11 +48,13 @@ public class Bubbles extends AbstractVisualizer {
                 super.paintComponent(g);
 
                 if (g instanceof Graphics2D g2) {
-                    int squareWidth = Math.max(getPanelDimension().height, getPanelDimension().width) / step.ints().length - CIRCLE_OFFSET;
+                    int squareWidth = Math.max(getPanelDimension().height,
+                            getPanelDimension().width) / step.ints().length - CIRCLE_OFFSET;
                     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
                     for (int index = 0; index < step.ints().length; index++) {
-                        var context = new StyleContext(g2, step.ints().length, index, step.ints()[index], maxValue, minValue);
+                        var context = new StyleContext(g2, step.ints().length, index, step.ints()[index], maxValue,
+                                minValue);
                         drawCircle(context, squareWidth, step);
                     }
                 }

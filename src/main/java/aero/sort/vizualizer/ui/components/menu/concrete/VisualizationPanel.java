@@ -44,7 +44,8 @@ public class VisualizationPanel extends AbstractMenuPanel<VisualizationOptions> 
     @Override
     protected @NotNull VisualizationOptions getData() {
         var markerOptions = new VisualizationOptions.Marker(getMarkerType(), markerColor.getColor());
-        return new VisualizationOptions(showShuffle.isSelected(), showSteps.isSelected(), stepTime.getValue(), markerOptions);
+        return new VisualizationOptions(showShuffle.isSelected(), showSteps.isSelected(), stepTime.getValue(),
+                markerOptions);
     }
 
     @Override

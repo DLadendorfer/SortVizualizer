@@ -40,7 +40,8 @@ public final class PreLaunchValidator {
             validate(args);
             logger.debug("Arguments valid");
         } catch (ApplicationStartException e) {
-            logger.error("Unable to start the application. Aborting with exit-code: {}", APPLICATION_START_NOT_POSSIBLE_EXIT_CODE);
+            logger.error("Unable to start the application. Aborting with exit-code: {}",
+                    APPLICATION_START_NOT_POSSIBLE_EXIT_CODE);
             Rethrower.wrapAndRethrow("Cannot start app: %d".formatted(APPLICATION_START_NOT_POSSIBLE_EXIT_CODE), e);
         }
     }

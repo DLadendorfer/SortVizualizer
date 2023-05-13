@@ -70,6 +70,7 @@ public final class UiFactory {
 
     /**
      * Creates a {@link JCheckBox} without a label and sets the select property to the given value.
+     *
      * @param selected the selected value
      * @return the created checkbox
      */

@@ -5,7 +5,6 @@
 package aero.sort.vizualizer.data.options.styles.concrete.plain
 
 import aero.sort.vizualizer.data.options.styles.StyleContext
-import aero.sort.vizualizer.data.options.styles.concrete.plain.CustomPlain
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource

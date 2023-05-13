@@ -4,7 +4,6 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.data.options.styles.concrete.plain
 
-import aero.sort.vizualizer.data.options.styles.concrete.plain.AbstractPlainStyle
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.awt.Color

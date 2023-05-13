@@ -54,7 +54,8 @@ public class Bars extends AbstractVisualizer {
                     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
                     for (int index = 0; index < step.ints().length; index++) {
-                        var context = new StyleContext(g2, step.ints().length, index, step.ints()[index], maxValue, minValue);
+                        var context = new StyleContext(g2, step.ints().length, index, step.ints()[index], maxValue,
+                                minValue);
                         drawBar(context, heightRatio, barWidth, step);
                     }
                 }

@@ -58,7 +58,9 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
 
     public SortingFrame(@NotNull SortOptions options) {
         this.options = options;
-        this.logger = LoggerFactory.getLogger("%s:%s:%s:%s".formatted(options.algorithm(), options.visualization(), options.style(), UUID.randomUUID()));
+        this.logger = LoggerFactory.getLogger(
+                "%s:%s:%s:%s".formatted(options.algorithm(), options.visualization(), options.style(),
+                        UUID.randomUUID()));
         this.renderPanel = Ui.using(new JPanel())
                              .execute(panel -> panel.setBackground(Theme.BACKGROUND))
                              .get();

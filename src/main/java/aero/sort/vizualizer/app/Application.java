@@ -53,7 +53,7 @@ public class Application {
 
     @Approval(releaseWorthy = false, comment = "Default frame options may change")
     private static void createDefaultSortFrame() {
-        var options = new SortOptions(Algorithm.INSERTION, Visualization.DISPARITY_CIRCLE, Style.RAINBOW, false);
+        var options = new SortOptions(Algorithm.INSERTION, Visualization.DISPARITY_RING, Style.RAINBOW, true);
 
         Controllers.fetch(FrameController.class)
                    .createInternalFrame(options);

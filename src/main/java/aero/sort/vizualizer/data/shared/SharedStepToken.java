@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * <p/>
  * The state is stored as an {@link AtomicReference} to {@link StepInstruction}, meaning that each and every
  * thread can access and set the instruction in a thread-safe manner.
- * 
+ *
  * @author Daniel Ladendorfer
  */
 public class SharedStepToken {

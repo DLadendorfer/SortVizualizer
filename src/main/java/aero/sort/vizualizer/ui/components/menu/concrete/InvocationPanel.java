@@ -33,7 +33,7 @@ public class InvocationPanel extends JPanel {
         var resume = UiFactory.createButton("Resume", () -> Controllers.fetch(SortController.class)
                                                                        .resume());
         var pause = UiFactory.createButton("Pause", () -> Controllers.fetch(SortController.class)
-                                                                       .pause());
+                                                                     .pause());
         var stop = UiFactory.createButton("Stop", () -> Controllers.fetch(SortController.class)
                                                                    .stop());
         sort.setSelected(true);
