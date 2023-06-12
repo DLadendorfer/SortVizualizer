@@ -18,7 +18,8 @@ public enum Visualization {
     DISPARITY_CIRCLE("Disparity Circle"),
     DISPARITY_RING("Disparity Ring"),
     BUBBLES("Bubbles"),
-    SQUARES("Squares");
+    SQUARES("Squares"),
+    FRIES("Fries");
 
     private final String displayText;
 

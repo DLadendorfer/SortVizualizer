@@ -13,6 +13,7 @@ import aero.sort.vizualizer.data.shared.StepInstruction;
 import aero.sort.vizualizer.ui.components.status.StatusBar;
 import aero.sort.vizualizer.utilities.Async;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +32,7 @@ public abstract class AbstractVisualizer implements IVisualizer {
     }
 
     @Override
-    public final void render(SharedStepToken stepToken) {
+    public final void render(@NotNull SharedStepToken stepToken) {
         int totalSteps = steps.size();
         StatusBar.updateProgress(0, totalSteps);
         while (!steps.isEmpty()) {
@@ -75,7 +76,7 @@ public abstract class AbstractVisualizer implements IVisualizer {
      * @param step the step to render
      * @return the new panel to display
      */
-    protected abstract JPanel renderInternal(StepResult step);
+    protected abstract @Nullable JPanel renderInternal(StepResult step);
 
     protected @NotNull Dimension getPanelDimension() {
         return new Dimension(renderPanel.getWidth(), renderPanel.getHeight());

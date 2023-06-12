@@ -65,6 +65,7 @@ public class MenuPanel extends JPanel {
         var visualizationPanel = new VisualizationPanel(constraints);
         var sortSetPanel = new SortSetPanel(constraints);
         var debugPanel = new DebugPanel(constraints);
+        debugPanel.setVisible(false);
 
         // add panels at the correct position
         panel.add(addSorterPanel, constraints.width(1)

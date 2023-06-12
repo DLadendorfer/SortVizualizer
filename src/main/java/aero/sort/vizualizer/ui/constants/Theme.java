@@ -25,6 +25,7 @@ public class Theme {
     public static final Color DARK_GREEN = new Color(0x378022);
     public static final Color PURPLE = new Color(0xC678DD);
     public static final Color CYAN = new Color(0x56B6C2);
+    public static final Color FRY = new Color(0xF38D15);
     public static final Color WHITE = new Color(0xDCDFE4);
     public static final Color BLACK = new Color(0x282C34);
     public static final Color GRAY = new Color(0x5A6374);

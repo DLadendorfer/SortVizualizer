@@ -166,6 +166,7 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
         };
         IVisualizer visualizer = switch (options.visualization()) {
             case BARS -> new Bars(renderPanel, style, steps);
+            case FRIES -> new Fries(renderPanel, style, steps);
             case PYRAMID -> new Pyramid(renderPanel, style, steps);
             case SCATTER_PLOT -> new ScatterPlot(renderPanel, style, steps);
             case CIRCLE -> new Circle(renderPanel, style, steps);

@@ -77,7 +77,7 @@ public class StatusBar extends JPanel {
      * @param max   the maximum progress
      */
     public static void updateProgress(int value, int max) {
-        progressBar.setVisible(value < max);
+        progressBar.setVisible(false); //(value < max);
         progressBar.setStringPainted(true);
         progressBar.setForeground(Theme.UI_ACCENT);
         progressBar.setBorderPainted(false);

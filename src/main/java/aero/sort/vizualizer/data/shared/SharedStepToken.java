@@ -4,6 +4,8 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.data.shared;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -17,7 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class SharedStepToken {
 
-    final AtomicReference<StepInstruction> stepInstruction;
+    final @NotNull AtomicReference<StepInstruction> stepInstruction;
 
     public SharedStepToken(StepInstruction stepInstruction) {
         this.stepInstruction = new AtomicReference<>(stepInstruction);
