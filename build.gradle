@@ -4,6 +4,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.8.20'
 }
 
+// artifact info
 group = 'aero.sort'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
@@ -25,14 +26,8 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
     implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.20.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
-    implementation 'org.jetbrains:annotations:23.0.0'
-    implementation 'org.jetbrains:annotations:23.0.0'
-    implementation 'org.jetbrains:annotations:23.0.0'
-    implementation 'org.jetbrains:annotations:23.0.0'
-    implementation 'org.jetbrains:annotations:23.0.0'
-    implementation 'org.jetbrains:annotations:23.0.0'
-    implementation 'org.jetbrains:annotations:23.0.0'
-    implementation 'org.jetbrains:annotations:23.0.0'
+
+    // used nullable annotations
     implementation 'org.jetbrains:annotations:23.0.0'
 
     // testing
@@ -41,6 +36,8 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.2.0'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.2.0'
     testImplementation group: 'org.junit.platform', name: 'junit-platform-engine', version: '1.2.0'
+
+    // mocking framework -- Mockito
     testImplementation 'org.mockito:mockito-junit-jupiter:5.3.0'
     testImplementation 'org.mockito:mockito-core:5.3.0'
 }
@@ -48,13 +45,17 @@ dependencies {
 application {
     mainClass = 'aero.sort.vizualizer.VizualizerApplication'
     applicationDefaultJvmArgs = [
+            // add opens declarations
+            // necessary to override swing presets via reflection
+            // => reflection invocations occur in the darcula dependency
             '--add-opens=java.desktop/sun.swing=ALL-UNNAMED',
             '--add-opens=java.desktop/sun.awt=ALL-UNNAMED',
     ]
 }
 
 test {
-    jvmArgs '-Djava.awt.headless=true' // add line
+    // Github CI does not support JVMs in non-headless modes
+    jvmArgs '-Djava.awt.headless=true'
 }
 
 tasks.named('test') {
