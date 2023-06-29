@@ -23,6 +23,8 @@ public class UIBindings {
     private static boolean lafInitialized;
 
     static {
+        // global UI manager bindings
+        // this should automatically and statically be set once UIBindings::setupLookAndFeel is invoked
         UIManager.put("Button.darcula.selection.color1", Theme.UI_ACCENT_2);
         UIManager.put("Button.darcula.selection.color2", Theme.UI_ACCENT_2);
         UIManager.put("CheckBox.darcula.checkSignColor", Theme.UI_ACCENT);
