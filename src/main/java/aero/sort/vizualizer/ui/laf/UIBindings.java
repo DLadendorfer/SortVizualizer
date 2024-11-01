@@ -4,14 +4,13 @@
 // -------------------------------------------------------------------------------
 package aero.sort.vizualizer.ui.laf;
 
-import aero.sort.vizualizer.throwables.Rethrower;
 import aero.sort.vizualizer.ui.constants.Theme;
-import com.bulenkov.darcula.DarculaLaf;
+import com.github.weisj.darklaf.LafManager;
+import com.github.weisj.darklaf.theme.DarculaTheme;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicLookAndFeel;
 
 /**
  * Static utility class that setups all UI Manager mappings, LaF, etc.
@@ -48,13 +47,7 @@ public class UIBindings {
             return;
         }
 
-        try {
-            BasicLookAndFeel laf = new DarculaLaf();
-            logger.info("Setting up Look-and-Feel. Using '{}'", laf.getName());
-            UIManager.setLookAndFeel(new DarculaLaf());
-            lafInitialized = true;
-        } catch (UnsupportedLookAndFeelException e) {
-            Rethrower.wrapAndRethrow("Failed to setup LaF: %s".formatted(e.getMessage()), e);
-        }
+        logger.info("Setting up Look-and-Feel.");
+        LafManager.install(new DarculaTheme());
     }
 }
