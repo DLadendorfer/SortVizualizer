@@ -10,20 +10,21 @@ package aero.sort.vizualizer.data.options;
  * @author Daniel Ladendorfer
  */
 public enum Algorithm {
-    BUBBLE("Bubble-Sort"),
-    INSERTION("Insertion-Sort"),
-    SELECTION("Selection-Sort"),
-    MERGE("Merge-Sort"),
-    QUICK("Quick-Sort");
+  BUBBLE("Bubble-Sort"),
+  INSERTION("Insertion-Sort"),
+  SELECTION("Selection-Sort"),
+  SHELL("Shell-Sort"),
+  MERGE("Merge-Sort"),
+  QUICK("Quick-Sort");
 
-    private final String displayText;
+  private final String displayText;
 
-    Algorithm(String displayText) {
-        this.displayText = displayText;
-    }
+  Algorithm(String displayText) {
+    this.displayText = displayText;
+  }
 
-    @Override
-    public String toString() {
-        return displayText;
-    }
+  @Override
+  public String toString() {
+    return displayText;
+  }
 }
