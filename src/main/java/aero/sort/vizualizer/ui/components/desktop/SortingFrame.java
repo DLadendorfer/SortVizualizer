@@ -139,6 +139,7 @@ public class SortingFrame extends JInternalFrame implements ComponentListener {
             case SELECTION -> new SelectionSort();
             case QUICK -> new QuickSort();
             case MERGE -> new MergeSort();
+            case SHELL -> new ShellSort();
         };
     }
 
